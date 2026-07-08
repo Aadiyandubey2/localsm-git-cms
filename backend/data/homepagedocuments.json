@@ -11,24 +11,9 @@
     "missionDescription": "We build hyper-local platforms that redefine local commerce, uplift communities, and embody the promise of permanence through constant adaptation. We challenge our own ideas daily, dismantle what works to build what is better, and share our success with the millions of partners who depend on us.",
     "impactMetrics": [
       {
-        "category": "Environmental",
-        "value": "100%",
-        "description": "Electric vehicle-based deliveries across our entire fleet by 2030."
-      },
-      {
-        "category": "Climate",
-        "value": "2033",
-        "description": "Target date to achieve Net-Zero greenhouse gas emissions across our value chain."
-      },
-      {
-        "category": "Socioeconomic",
-        "value": "1.2M+",
-        "description": "Delivery partners and local merchants empowered with active livelihoods."
-      },
-      {
-        "category": "Ecology",
-        "value": "100%",
-        "description": "Plastic-neutral food and grocery delivery order fulfillment achieved."
+        "category": "Employement",
+        "value": "50+",
+        "description": "Employees on the team"
       }
     ],
     "cultureTeaserSubtitle": "Working at LocalSM",
@@ -38,6 +23,6 @@
     "isActive": true,
     "_id": "6addde43ef9adc21c2530b53",
     "createdAt": "2026-07-08T17:52:06.416Z",
-    "updatedAt": "2026-07-08T17:55:55.516Z"
+    "updatedAt": "2026-07-08T18:17:02.464Z"
   }
 ]
