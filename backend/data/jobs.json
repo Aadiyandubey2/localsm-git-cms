@@ -1,16 +1,5 @@
 [
   {
-    "title": "Principal Software Engineer — Quick Commerce Platform",
-    "department": "Engineering",
-    "location": "Bengaluru",
-    "type": "Full-time",
-    "description": "Build and scale the hyper-local routing and order matching engines that power Janhal’s 10-minute delivery ecosystem. Experience with high-throughput distributed systems is required.",
-    "isActive": true,
-    "_id": "950bdad66aed0871fab0cf56",
-    "createdAt": "2026-07-08T17:52:06.420Z",
-    "updatedAt": "2026-07-08T17:52:06.420Z"
-  },
-  {
     "title": "Senior Frontend Engineer — Merchant Suite",
     "department": "Engineering",
     "location": "Gurugram",
