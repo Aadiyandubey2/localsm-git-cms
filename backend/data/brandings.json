@@ -2,7 +2,7 @@
   {
     "siteName": "LocalSM Limited",
     "logo": "/images/localsm-logo.svg",
-    "favicon": "/images/localsm-logo.svg",
+    "favicon": "https://linelpdewzchmqufupzp.supabase.co/storage/v1/object/public/images/1e049db2-5195-4857-b84a-f216084ec8ee.png",
     "primaryColor": "#0055ff",
     "secondaryColor": "#f4f4f4",
     "accentColor": "#f4b000",
@@ -13,6 +13,6 @@
     "isActive": true,
     "_id": "915da37996f6dc974f003c11",
     "createdAt": "2026-07-08T17:52:06.413Z",
-    "updatedAt": "2026-07-08T17:52:06.413Z"
+    "updatedAt": "2026-07-08T18:06:57.728Z"
   }
 ]
