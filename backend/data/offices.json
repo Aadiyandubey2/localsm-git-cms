@@ -1,15 +1,5 @@
 [
   {
-    "city": "Gurugram (Headquarters)",
-    "address": "LocalSM Limited, 12th Floor, DLF Cyber City, Phase 3, Gurugram, Haryana - 122002",
-    "phone": "+91 124 499 9999",
-    "sortOrder": 0,
-    "isActive": true,
-    "_id": "f281be6961626bffa6ef3b8e",
-    "createdAt": "2026-07-08T17:52:06.429Z",
-    "updatedAt": "2026-07-08T17:52:06.429Z"
-  },
-  {
     "city": "Bengaluru Office",
     "address": "LocalSM Limited, 3rd Floor, Prestige Tech Park, Outer Ring Road, Kadubeesanahalli, Bengaluru, Karnataka - 560103",
     "phone": "+91 80 499 9999",
