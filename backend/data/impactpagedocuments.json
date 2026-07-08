@@ -4,28 +4,7 @@
     "heroDescription": "We believe that corporate growth is meaningless if it occurs at the expense of our environment or communities. We integrate ESG principles into our core operations.",
     "metricsTitle": "Key Progress Metrics",
     "metricsSubtitle": "Measuring our real-world impact in real-time.",
-    "metrics": [
-      {
-        "label": "EV Deliveries Completed",
-        "value": "42M+",
-        "subText": "Up from 12M in FY25"
-      },
-      {
-        "label": "Plastic Waste Recycled",
-        "value": "18,500 MT",
-        "subText": "100% of packaging footprint"
-      },
-      {
-        "label": "Partner Education Grants",
-        "value": "₹12.5 Cr",
-        "subText": "Awarded to 8,000+ children"
-      },
-      {
-        "label": "Merchant Digital Training",
-        "value": "250,000+",
-        "subText": "Small businesses upskilled"
-      }
-    ],
+    "metrics": [],
     "initiativesTitle": "Stewardship Initiatives",
     "initiativesSubtitle": "Hard targets we measure with scientific discipline.",
     "initiatives": [
@@ -52,6 +31,6 @@
     "isActive": true,
     "_id": "e29091fd222e81760a8d0c13",
     "createdAt": "2026-07-08T17:52:06.418Z",
-    "updatedAt": "2026-07-08T17:52:06.418Z"
+    "updatedAt": "2026-07-08T18:24:52.758Z"
   }
 ]
