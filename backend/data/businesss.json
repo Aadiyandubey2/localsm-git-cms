@@ -45,12 +45,12 @@
       }
     ],
     "ctaText": "Explore Platform",
-    "ctaLink": "#",
+    "ctaLink": "https://localsm.app",
     "isActive": true,
     "sortOrder": 2,
     "_id": "9f9cc63cfa4e670234d692a2",
     "createdAt": "2026-07-08T11:09:05.179Z",
-    "updatedAt": "2026-07-08T17:35:59.697Z",
+    "updatedAt": "2026-07-08T17:37:17.428Z",
     "slug": "local-branding-software"
   }
 ]
