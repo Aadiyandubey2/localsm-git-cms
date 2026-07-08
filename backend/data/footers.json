@@ -4,18 +4,6 @@
     "description": "To endure, evolve, and empower. Building the hyper-local commerce infrastructure of tomorrow.",
     "links": [
       {
-        "label": "LocalSM Delivery",
-        "href": "/"
-      },
-      {
-        "label": "Janhal",
-        "href": "/"
-      },
-      {
-        "label": "Local Branding Software",
-        "href": "/"
-      },
-      {
         "label": "Culture",
         "href": "/culture"
       },
@@ -57,6 +45,6 @@
     "isActive": true,
     "_id": "768c68edad1dd3c70e55e557",
     "createdAt": "2026-07-08T11:09:05.182Z",
-    "updatedAt": "2026-07-08T17:40:12.332Z"
+    "updatedAt": "2026-07-08T17:40:24.498Z"
   }
 ]
