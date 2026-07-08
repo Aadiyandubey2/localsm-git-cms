@@ -8,15 +8,5 @@
     "_id": "c0954ff92a850fa8e9988431",
     "createdAt": "2026-07-08T17:52:06.442Z",
     "updatedAt": "2026-07-08T18:04:48.543Z"
-  },
-  {
-    "name": "Meera Deshpande",
-    "role": "Independent Director",
-    "bio": "Distinguished Professor of Computer Science at IIT Bombay, specializing in distributed databases and machine learning.",
-    "sortOrder": 3,
-    "isActive": true,
-    "_id": "f6149a6963c20ffdcc917cf6",
-    "createdAt": "2026-07-08T17:52:06.445Z",
-    "updatedAt": "2026-07-08T17:52:06.445Z"
   }
 ]
