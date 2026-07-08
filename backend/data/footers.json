@@ -1,6 +1,6 @@
 [
   {
-    "logo": "/images/localsm-logo.svg",
+    "logo": "https://linelpdewzchmqufupzp.supabase.co/storage/v1/object/public/images/1e049db2-5195-4857-b84a-f216084ec8ee.png",
     "description": "To endure, evolve, and empower. Building the hyper-local commerce infrastructure of tomorrow.",
     "links": [
       {
@@ -53,10 +53,10 @@
       }
     ],
     "socialLinks": [],
-    "copyrightText": "© 2026 LocalSM Limited. All rights reserved.",
+    "copyrightText": "© 2026 Pnazo Private Limited. All rights reserved.",
     "isActive": true,
     "_id": "768c68edad1dd3c70e55e557",
     "createdAt": "2026-07-08T11:09:05.182Z",
-    "updatedAt": "2026-07-08T11:09:05.182Z"
+    "updatedAt": "2026-07-08T17:40:12.332Z"
   }
 ]
