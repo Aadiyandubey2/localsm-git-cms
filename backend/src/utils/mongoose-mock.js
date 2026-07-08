@@ -6,9 +6,13 @@ const DATA_DIR = path.join(__dirname, '../../data');
 
 const generateId = () => crypto.randomBytes(12).toString('hex');
 
-// Ensure data folder exists
-if (!fs.existsSync(DATA_DIR)) {
-  fs.mkdirSync(DATA_DIR, { recursive: true });
+// Ensure data folder exists (wrapped in try-catch for read-only environments like Vercel)
+try {
+  if (!fs.existsSync(DATA_DIR)) {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+  }
+} catch (e) {
+  console.warn('[LocalJSON] Warning: Could not create local data directory:', e.message);
 }
 
 class Schema {
