@@ -54,7 +54,7 @@
     "slug": "janhal"
   },
   {
-    "title": "Local Branding Software",
+    "title": "Local-Shopping Market",
     "description": "Our proprietary merchant suite. Empowering local store owners to manage digital storefronts, run localized micro-campaigns, and build customer loyalty with advanced marketing analytics.",
     "image": "/images/local-merchant.jpg",
     "points": [
@@ -77,7 +77,7 @@
     "sortOrder": 2,
     "_id": "9f9cc63cfa4e670234d692a2",
     "createdAt": "2026-07-08T11:09:05.179Z",
-    "updatedAt": "2026-07-08T11:09:05.179Z",
+    "updatedAt": "2026-07-08T17:35:17.178Z",
     "slug": "local-branding-software"
   }
 ]
