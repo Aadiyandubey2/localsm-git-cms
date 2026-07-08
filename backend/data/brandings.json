@@ -2,7 +2,7 @@
   {
     "siteName": "Pnazo",
     "logo": "https://linelpdewzchmqufupzp.supabase.co/storage/v1/object/public/images/1e049db2-5195-4857-b84a-f216084ec8ee.png",
-    "favicon": "/uploads/1783529497309-896745418.png",
+    "favicon": "https://linelpdewzchmqufupzp.supabase.co/storage/v1/object/public/images/1e049db2-5195-4857-b84a-f216084ec8ee.png",
     "primaryColor": "#0055ff",
     "secondaryColor": "#f4f4f4",
     "accentColor": "#f4b000",
@@ -10,6 +10,6 @@
     "isActive": true,
     "_id": "567b326a875eb895f3ea75e3",
     "createdAt": "2026-07-08T11:09:05.184Z",
-    "updatedAt": "2026-07-08T17:30:22.495Z"
+    "updatedAt": "2026-07-08T17:30:31.663Z"
   }
 ]
