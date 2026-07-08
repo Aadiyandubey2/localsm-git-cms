@@ -1,16 +1,5 @@
 [
   {
-    "title": "Director of Product — Hyper-local Logistics",
-    "department": "Product Management",
-    "location": "Gurugram",
-    "type": "Full-time",
-    "description": "Own the product vision and roadmap for LocalSM Delivery’s core dispatch, allocation, and delivery partner experience. Drive efficiency gains across our 500,000+ courier fleet.",
-    "isActive": true,
-    "_id": "8cfc968d5339b6d8302f5fe4",
-    "createdAt": "2026-07-08T17:52:06.422Z",
-    "updatedAt": "2026-07-08T17:52:06.422Z"
-  },
-  {
     "title": "Lead Product Designer — Consumer Experience",
     "department": "Design",
     "location": "Bengaluru",
