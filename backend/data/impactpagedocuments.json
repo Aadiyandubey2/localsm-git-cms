@@ -7,30 +7,14 @@
     "metrics": [],
     "initiativesTitle": "Stewardship Initiatives",
     "initiativesSubtitle": "Hard targets we measure with scientific discipline.",
-    "initiatives": [
-      {
-        "iconType": "Leaf",
-        "title": "Net-Zero Pathway (2033)",
-        "description": "We are committed to achieving net-zero greenhouse gas emissions across our entire value chain by 2033."
-      },
-      {
-        "iconType": "Shield",
-        "title": "100% EV Deliveries (2030)",
-        "description": "By 2030, all food and grocery deliveries across LocalSM Delivery and Janhal will be executed via electric vehicles."
-      },
-      {
-        "iconType": "Heart",
-        "title": "Plastic Neutrality",
-        "description": "We have achieved 100% plastic neutrality across our delivery order packaging."
-      }
-    ],
+    "initiatives": [],
     "socialTitle": "Socioeconomic Empowerment",
-    "socialDescription": "Our growth is intrinsically linked to the health of our communities. We support over 1.2M delivery partners and merchants across the country with insurance, financial tools, and digital upskilling.",
+    "socialDescription": "Our growth is intrinsically linked to the health of our communities. ",
     "socialImage": "/images/delivery-rider.jpg",
     "socialImageAlt": "LocalSM Delivery Partner",
     "isActive": true,
     "_id": "e29091fd222e81760a8d0c13",
     "createdAt": "2026-07-08T17:52:06.418Z",
-    "updatedAt": "2026-07-08T18:24:52.758Z"
+    "updatedAt": "2026-07-08T18:25:13.724Z"
   }
 ]
