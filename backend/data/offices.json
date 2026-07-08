@@ -1,15 +1,5 @@
 [
   {
-    "city": "Bengaluru Office",
-    "address": "LocalSM Limited, 3rd Floor, Prestige Tech Park, Outer Ring Road, Kadubeesanahalli, Bengaluru, Karnataka - 560103",
-    "phone": "+91 80 499 9999",
-    "sortOrder": 1,
-    "isActive": true,
-    "_id": "63e42f5591c96fe5798d850c",
-    "createdAt": "2026-07-08T17:52:06.430Z",
-    "updatedAt": "2026-07-08T17:52:06.430Z"
-  },
-  {
     "city": "Mumbai Office",
     "address": "LocalSM Limited, Level 4, Naman Centre, G Block, Bandra Kurla Complex, Bandra East, Mumbai, Maharashtra - 400051",
     "phone": "+91 22 499 9999",
