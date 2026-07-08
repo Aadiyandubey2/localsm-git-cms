@@ -1,6 +1,3 @@
-const app = require('../src/app');
-const connectDB = require('../src/config/db');
-
 module.exports = async (req, res) => {
   // Block write operations in read-only Vercel environment (except login and contact forms)
   if (process.env.VERCEL && !process.env.GITHUB_TOKEN && ['POST', 'PATCH', 'PUT', 'DELETE'].includes(req.method)) {
@@ -15,10 +12,16 @@ module.exports = async (req, res) => {
   }
 
   try {
+    const connectDB = require('../src/config/db');
+    const app = require('../src/app');
     await connectDB();
     return app(req, res);
   } catch (error) {
-    console.error('Failed to connect to database in Vercel function:', error);
-    res.status(500).json({ success: false, message: 'Database connection failed: ' + error.message });
+    console.error('Failed to execute Vercel function:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Serverless function error: ' + error.message, 
+      stack: error.stack 
+    });
   }
 };

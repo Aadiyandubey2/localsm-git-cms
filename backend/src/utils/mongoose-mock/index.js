@@ -2,10 +2,21 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 
-const projectRoot = process.env.VERCEL 
-  ? path.join(process.cwd(), 'backend') 
-  : path.join(__dirname, '../../../');
-const DATA_DIR = path.join(projectRoot, 'data');
+const getDatabaseDir = () => {
+  if (process.env.VERCEL) {
+    return path.join(process.cwd(), 'backend', 'data');
+  }
+  const pathFromCwd = path.join(process.cwd(), 'data');
+  if (fs.existsSync(pathFromCwd)) {
+    return pathFromCwd;
+  }
+  const pathFromCwdBackend = path.join(process.cwd(), 'backend', 'data');
+  if (fs.existsSync(pathFromCwdBackend)) {
+    return pathFromCwdBackend;
+  }
+  return path.join(__dirname, '../../../data');
+};
+const DATA_DIR = getDatabaseDir();
 
 const generateId = () => crypto.randomBytes(12).toString('hex');
 
