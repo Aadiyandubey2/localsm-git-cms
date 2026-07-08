@@ -102,7 +102,9 @@ export default function FounderLetter() {
             </span>
           </div>
           <h1 className="text-4xl md:text-6xl font-light tracking-tight leading-tight">
-            {founder.letterTitle || `A note from our Founder, ${founder.name}.`}
+            {founder.letterTitle && founder.letterTitle.includes('Kabir Sharma') && founder.name !== 'Kabir Sharma'
+              ? `A note from our Founder, ${founder.name}.`
+              : (founder.letterTitle || `A note from our Founder, ${founder.name}.`)}
           </h1>
           <div className="flex justify-between items-center text-xs font-mono text-black/40 pt-4">
             <span>DATE: {founder.letterDate || '6 FEBRUARY 2026'}</span>
@@ -112,7 +114,14 @@ export default function FounderLetter() {
 
         {/* Letter Body */}
         <div className="space-y-8 text-base md:text-lg text-black/80 font-light leading-relaxed">
-          {founder.introduction ? (
+          {founder.message ? (
+            <FounderMessageContent
+              message={founder.message}
+              businesses={businesses}
+              founderName={founder.name}
+              founderTitle={founder.title || 'Founder & CEO'}
+            />
+          ) : founder.introduction ? (
             <>
               {founder.introduction.split('\n\n').map((p, idx) => (
                 <p key={idx} className={idx === 0 ? 'font-medium text-black' : ''}>
@@ -149,13 +158,6 @@ export default function FounderLetter() {
                 <p key={idx}>{p}</p>
               ))}
             </>
-          ) : founder.message ? (
-            <FounderMessageContent
-              message={founder.message}
-              businesses={businesses}
-              founderName={founder.name}
-              founderTitle={founder.title || 'Founder & CEO'}
-            />
           ) : null}
 
           <div className="pt-12 space-y-2">
