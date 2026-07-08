@@ -56,10 +56,10 @@
   {
     "title": "Local-Shopping Market",
     "description": "Our proprietary merchant suite. Empowering local store owners to manage digital storefronts, run localized micro-campaigns, and build customer loyalty with advanced marketing analytics.",
-    "image": "/images/local-merchant.jpg",
+    "image": "https://linelpdewzchmqufupzp.supabase.co/storage/v1/object/public/images/8a11422f-7db3-4efc-bdb3-c4457a5e5f84.png",
     "points": [
       {
-        "title": "Merchant SaaS",
+        "title": "Super-Commerce Platform",
         "description": "Digital storefronts and localized campaign management."
       },
       {
@@ -77,7 +77,7 @@
     "sortOrder": 2,
     "_id": "9f9cc63cfa4e670234d692a2",
     "createdAt": "2026-07-08T11:09:05.179Z",
-    "updatedAt": "2026-07-08T17:35:17.178Z",
+    "updatedAt": "2026-07-08T17:35:59.697Z",
     "slug": "local-branding-software"
   }
 ]
