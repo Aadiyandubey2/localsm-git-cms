@@ -19,6 +19,7 @@ export default function Footer() {
   const [footer, setFooter] = useState<FooterDocument>(fallbackFooter);
   const [branding, setBranding] = useState<BrandingDocument>(fallbackBranding);
   const [settings, setSettings] = useState<WebsiteSettingsDocument>(fallbackWebsiteSettings);
+  const [isLoading, setIsLoading] = useState(true);
   const currentYear = new Date().getFullYear();
 
   useEffect(() => {
@@ -59,6 +60,10 @@ export default function Footer() {
         }
       } catch (error) {
         console.error('Failed to load footer content:', error);
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
       }
     };
 
@@ -68,6 +73,40 @@ export default function Footer() {
       isMounted = false;
     };
   }, []);
+
+  if (isLoading) {
+    return (
+      <footer className="bg-black text-white py-16 px-6 md:px-12 border-t border-white/10">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 animate-pulse">
+          {/* Logo & Description */}
+          <div className="space-y-4">
+            <div className="h-9 w-9 rounded-full bg-white/10"></div>
+            <div className="h-4 w-3/4 rounded bg-white/10"></div>
+            <div className="h-3 w-1/2 rounded bg-white/10"></div>
+          </div>
+          {/* Group Companies */}
+          <div className="space-y-3">
+            <div className="h-4 w-24 rounded bg-white/10"></div>
+            <div className="h-3 w-32 rounded bg-white/10"></div>
+            <div className="h-3 w-28 rounded bg-white/10"></div>
+          </div>
+          {/* Corporate */}
+          <div className="space-y-3">
+            <div className="h-4 w-24 rounded bg-white/10"></div>
+            <div className="h-3 w-20 rounded bg-white/10"></div>
+            <div className="h-3 w-24 rounded bg-white/10"></div>
+            <div className="h-3 w-28 rounded bg-white/10"></div>
+          </div>
+          {/* Address */}
+          <div className="space-y-3">
+            <div className="h-4 w-24 rounded bg-white/10"></div>
+            <div className="h-3 w-full rounded bg-white/10"></div>
+            <div className="h-3 w-2/3 rounded bg-white/10"></div>
+          </div>
+        </div>
+      </footer>
+    );
+  }
 
   const logoSrc = footer.logo || branding.logo || fallbackBranding.logo || '/images/localsm-logo.svg';
   const siteName = branding.siteName || fallbackBranding.siteName;

@@ -14,6 +14,7 @@ import { FounderMessageContent } from '../utils/founderMessage';
 export default function FounderLetter() {
   const [founder, setFounder] = useState<FounderDocument>(fallbackFounder);
   const [businesses, setBusinesses] = useState<BusinessDocument[]>(fallbackBusinesses);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     let isMounted = true;
@@ -38,6 +39,10 @@ export default function FounderLetter() {
         }
       } catch (error) {
         console.error('Failed to load founder letter content:', error);
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
       }
     };
 
@@ -47,6 +52,34 @@ export default function FounderLetter() {
       isMounted = false;
     };
   }, []);
+
+  if (isLoading) {
+    return (
+      <div className="bg-[#f4f4f4] min-h-screen text-black font-sans pt-32 pb-20 selection:bg-[#0055ff]/10 selection:text-black">
+        <div className="max-w-4xl mx-auto px-6 md:px-12 space-y-12 animate-pulse">
+          {/* Back link */}
+          <div className="h-4 w-32 rounded bg-black/10"></div>
+          {/* Header */}
+          <div className="space-y-6 border-b border-black/10 pb-8">
+            <div className="h-4 w-36 rounded bg-black/10"></div>
+            <div className="h-12 w-3/4 rounded bg-black/10"></div>
+            <div className="flex justify-between items-center pt-4">
+              <div className="h-3 w-28 rounded bg-black/10"></div>
+              <div className="h-3 w-28 rounded bg-black/10"></div>
+            </div>
+          </div>
+          {/* Body Lines */}
+          <div className="space-y-6">
+            <div className="h-4 w-full rounded bg-black/10"></div>
+            <div className="h-4 w-11/12 rounded bg-black/10"></div>
+            <div className="h-4 w-full rounded bg-black/10"></div>
+            <div className="h-4 w-5/6 rounded bg-black/10"></div>
+            <div className="h-4 w-full rounded bg-black/10"></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-[#f4f4f4] min-h-screen text-black font-sans pt-32 pb-20 selection:bg-[#0055ff]/10 selection:text-black">

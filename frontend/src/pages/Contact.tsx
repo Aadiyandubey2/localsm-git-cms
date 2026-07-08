@@ -49,6 +49,7 @@ export default function Contact() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const [settings, setSettings] = useState<WebsiteSettingsDocument>(fallbackWebsiteSettings);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     let isMounted = true;
@@ -62,10 +63,17 @@ export default function Contact() {
         }
 
         if (settingsDocument) {
-          setSettings({ ...fallbackWebsiteSettings, ...settingsDocument });
+          setSettings({
+            ...fallbackWebsiteSettings,
+            ...settingsDocument,
+          });
         }
       } catch (error) {
         console.error('Failed to load contact content:', error);
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
       }
     };
 
@@ -75,6 +83,34 @@ export default function Contact() {
       isMounted = false;
     };
   }, []);
+
+  if (isLoading) {
+    return (
+      <div className="bg-[#f4f4f4] min-h-screen text-black font-sans pt-32 pb-20 selection:bg-[#0055ff]/10 selection:text-black">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-2 gap-16 animate-pulse">
+          <div className="space-y-10">
+            <div className="space-y-4">
+              <div className="h-4 w-36 rounded bg-black/10"></div>
+              <div className="h-12 w-3/4 rounded bg-black/10"></div>
+            </div>
+            <div className="space-y-4">
+              <div className="h-6 w-48 rounded bg-black/10"></div>
+              <div className="h-4 w-full rounded bg-black/10"></div>
+              <div className="h-4 w-5/6 rounded bg-black/10"></div>
+            </div>
+          </div>
+          <div className="bg-white border border-black/10 p-10 space-y-6">
+            <div className="h-8 w-48 rounded bg-black/10"></div>
+            <div className="space-y-4">
+              <div className="h-10 w-full rounded bg-black/10"></div>
+              <div className="h-10 w-full rounded bg-black/10"></div>
+              <div className="h-28 w-full rounded bg-black/10"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const offices = [
     {

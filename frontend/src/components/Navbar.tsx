@@ -9,6 +9,7 @@ export default function Navbar() {
   const [navigation, setNavigation] = useState<NavigationDocument>(fallbackNavigation);
   const [branding, setBranding] = useState<BrandingDocument>(fallbackBranding);
   const [loadError, setLoadError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const location = useLocation();
 
   useEffect(() => {
@@ -57,6 +58,10 @@ export default function Navbar() {
         setLoadError(true);
       }
       console.error('Failed to load navigation content:', error);
+    } finally {
+      if (isMounted) {
+        setIsLoading(false);
+      }
     }
   };
 
@@ -66,6 +71,29 @@ export default function Navbar() {
     isMounted = false;
   };
   }, []);
+
+  if (isLoading) {
+    return (
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#f4f4f4]/95 backdrop-blur-md border-b border-black/10 py-4">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
+          {/* Logo & Name Skeleton */}
+          <div className="flex items-center gap-2 animate-pulse">
+            <div className="h-9 w-9 rounded-full bg-black/10"></div>
+            <div className="h-5 w-24 rounded bg-black/10"></div>
+          </div>
+          {/* Nav Links Skeleton */}
+          <div className="hidden md:flex items-center space-x-10 animate-pulse">
+            <div className="h-4 w-14 rounded bg-black/10"></div>
+            <div className="h-4 w-16 rounded bg-black/10"></div>
+            <div className="h-4 w-16 rounded bg-black/10"></div>
+            <div className="h-4 w-16 rounded bg-black/10"></div>
+            <div className="h-4 w-14 rounded bg-black/10"></div>
+          </div>
+          <div className="md:hidden h-6 w-6 rounded bg-black/10 animate-pulse"></div>
+        </div>
+      </nav>
+    );
+  }
 
   const navLinks = navigation.menuItems.length > 0 ? navigation.menuItems : fallbackNavigation.menuItems;
   const logoSrc = branding.logo || navigation.logo || fallbackBranding.logo || '/images/localsm-logo.svg';

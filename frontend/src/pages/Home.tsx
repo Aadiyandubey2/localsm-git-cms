@@ -19,6 +19,7 @@ export default function Home() {
   const [hero, setHero] = useState<HeroDocument>(fallbackHero);
   const [founder, setFounder] = useState<FounderDocument>(fallbackFounder);
   const [businesses, setBusinesses] = useState<BusinessDocument[]>(fallbackBusinesses);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     let isMounted = true;
@@ -48,6 +49,10 @@ export default function Home() {
         }
       } catch (error) {
         console.error('Failed to load home content:', error);
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
       }
     };
 
@@ -57,6 +62,81 @@ export default function Home() {
       isMounted = false;
     };
   }, []);
+
+  if (isLoading) {
+    return (
+      <div className="bg-[#f4f4f4] min-h-screen text-black font-sans pt-32 pb-20 selection:bg-[#0055ff]/10 selection:text-black">
+        {/* HERO SECTION SKELETON */}
+        <section className="relative min-h-[90vh] flex flex-col justify-center pb-20 px-6 md:px-12 border-b border-black/10">
+          <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center animate-pulse">
+            <div className="lg:col-span-8 space-y-8">
+              <div className="h-4 w-36 rounded bg-black/10"></div>
+              <div className="space-y-3">
+                <div className="h-16 w-full rounded bg-black/10"></div>
+                <div className="h-16 w-5/6 rounded bg-black/10"></div>
+              </div>
+              <div className="space-y-2">
+                <div className="h-4 w-full rounded bg-black/10"></div>
+                <div className="h-4 w-5/6 rounded bg-black/10"></div>
+                <div className="h-4 w-2/3 rounded bg-black/10"></div>
+              </div>
+            </div>
+            <div className="lg:col-span-4 aspect-[4/5] bg-black/10 border border-black/10 rounded"></div>
+          </div>
+        </section>
+
+        {/* FOUNDER NOTE SECTION SKELETON */}
+        <section className="section-spacing px-6 md:px-12 border-b border-black/10">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 animate-pulse">
+            <div className="lg:col-span-4 space-y-6">
+              <div className="h-4 w-24 rounded bg-black/10"></div>
+              <div className="aspect-[3/4] max-w-[320px] bg-black/10 border border-black/10 rounded"></div>
+            </div>
+            <div className="lg:col-span-8 flex flex-col justify-between">
+              <div className="space-y-6 mt-8 lg:mt-12">
+                <div className="h-4 w-28 rounded bg-black/10"></div>
+                <div className="space-y-2">
+                  <div className="h-8 w-full rounded bg-black/10"></div>
+                  <div className="h-8 w-11/12 rounded bg-black/10"></div>
+                </div>
+                <div className="space-y-2">
+                  <div className="h-4 w-full rounded bg-black/10"></div>
+                  <div className="h-4 w-5/6 rounded bg-black/10"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* BUSINESSES SECTION SKELETON */}
+        <section className="section-spacing px-6 md:px-12 border-b border-black/10">
+          <div className="max-w-7xl mx-auto space-y-16 animate-pulse">
+            <div className="space-y-4">
+              <div className="h-4 w-28 rounded bg-black/10"></div>
+              <div className="h-8 w-2/3 rounded bg-black/10"></div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="border border-black/10 flex flex-col h-full bg-[#f4f4f4]">
+                  <div className="aspect-[16/10] bg-black/10 border-b border-black/10"></div>
+                  <div className="p-8 space-y-6 flex-grow">
+                    <div className="flex justify-between items-center">
+                      <div className="h-6 w-32 rounded bg-black/10"></div>
+                      <div className="h-5 w-20 rounded bg-black/10"></div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="h-4 w-full rounded bg-black/10"></div>
+                      <div className="h-4 w-5/6 rounded bg-black/10"></div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-[#f4f4f4] min-h-screen text-black font-sans selection:bg-[#0055ff]/10 selection:text-black">
