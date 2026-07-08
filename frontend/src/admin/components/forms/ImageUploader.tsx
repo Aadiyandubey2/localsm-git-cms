@@ -151,10 +151,10 @@ export default function ImageUploader({ label, value, onChange, hint }: ImageUpl
         className="hidden"
         onChange={async (event) => {
           const file = event.target.files?.[0];
+          event.currentTarget.value = '';
           if (file) {
             await handleUpload(file);
           }
-          event.currentTarget.value = '';
         }}
       />
 
