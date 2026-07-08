@@ -100,12 +100,15 @@ const gitHubRequest = async (method, relativePath, body = null) => {
   }
 
   const encodedPath = relativePath.split('/').map(encodeURIComponent).join('/');
-  const url = `https://api.github.com/repos/${repo}/contents/${encodedPath}?ref=${branch}`;
+  // Add a cache-busting timestamp parameter to force retrieving the live database state
+  const url = `https://api.github.com/repos/${repo}/contents/${encodedPath}?ref=${branch}&t=${Date.now()}`;
   
   const headers = {
     'Authorization': `token ${token}`,
     'Accept': 'application/vnd.github.v3+json',
-    'User-Agent': 'LocalSM-CMS-Mock-Mongoose'
+    'User-Agent': 'LocalSM-CMS-Mock-Mongoose',
+    'Cache-Control': 'no-cache',
+    'Pragma': 'no-cache'
   };
 
   const options = {

@@ -28,6 +28,11 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan(env.nodeEnv === 'production' ? 'combined' : 'dev'));
 
+app.use((req, res, next) => {
+	res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+	next();
+});
+
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 app.use('/api', apiRoutes);
 app.use('/', apiRoutes);
