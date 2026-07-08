@@ -17,7 +17,7 @@
             }
         },
         {
-            "source": "/((?!api|uploads|assets|images|favicon.svg|vite.svg).*)",
+            "source": "/((?!api/|uploads/|assets/|images/|favicon.svg|vite.svg).*)",
             "destination": {
                 "service": "frontend",
                 "path": "/index.html"
