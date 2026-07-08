@@ -27,33 +27,6 @@
     "slug": "localsm-delivery"
   },
   {
-    "title": "Janhal",
-    "description": "Our ultra-fast commerce arm. Delivering groceries, fresh produce, electronics, and daily essentials to households within 10 minutes, powered by a dense network of hyper-local dark stores.",
-    "image": "/images/office-interior.jpg",
-    "points": [
-      {
-        "title": "Quick Commerce",
-        "description": "Ultra-fast fulfillment for household essentials."
-      },
-      {
-        "title": "10-Minute Delivery",
-        "description": "Dense dark-store network for rapid dispatch."
-      },
-      {
-        "title": "Fresh & Daily Needs",
-        "description": "Groceries, produce, electronics, and more."
-      }
-    ],
-    "ctaText": "Explore Platform",
-    "ctaLink": "#",
-    "isActive": true,
-    "sortOrder": 1,
-    "_id": "30ca9d71145c55647474b126",
-    "createdAt": "2026-07-08T11:09:05.178Z",
-    "updatedAt": "2026-07-08T11:09:05.178Z",
-    "slug": "janhal"
-  },
-  {
     "title": "Local-Shopping Market",
     "description": "Our proprietary merchant suite. Empowering local store owners to manage digital storefronts, run localized micro-campaigns, and build customer loyalty with advanced marketing analytics.",
     "image": "https://linelpdewzchmqufupzp.supabase.co/storage/v1/object/public/images/8a11422f-7db3-4efc-bdb3-c4457a5e5f84.png",
