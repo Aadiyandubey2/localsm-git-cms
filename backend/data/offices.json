@@ -1,12 +1,12 @@
 [
   {
-    "city": "New Office Location",
-    "address": "",
+    "city": "Jabalpur",
+    "address": "Patel Nagar, Maharajpur, Jabalpur",
     "phone": "",
     "isActive": true,
     "sortOrder": 0,
     "_id": "4e9c46c69536f7137a366165",
     "createdAt": "2026-07-08T18:08:53.385Z",
-    "updatedAt": "2026-07-08T18:08:53.386Z"
+    "updatedAt": "2026-07-08T18:09:18.721Z"
   }
 ]
