@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">LocalSM logo</title>
+  <path d="M185 395c55 16 129 12 175-12" fill="none" stroke="#1f2028" stroke-width="12" stroke-linecap="round"/>
+  <path d="M192 382c-7 0-15-2-20-8-5-5-7-12-5-20l43-176c3-11 12-20 24-20h145c13 0 24 10 25 23l18 160c2 17-13 32-30 28l-33-7c-44 27-110 37-167 20z" fill="#fff" stroke="#1f2028" stroke-width="16" stroke-linejoin="round"/>
+  <path d="M377 158c-32 21-68 34-112 39-23 3-45 4-70 3" fill="none" stroke="#f4b000" stroke-width="10" stroke-linecap="round"/>
+  <path d="M190 166c78-1 139-8 184-26" fill="none" stroke="#1f2028" stroke-width="12" stroke-linecap="round"/>
+  <path d="M229 166c18-58 51-88 101-92" fill="none" stroke="#1f2028" stroke-width="10" stroke-linecap="round"/>
+  <path d="M278 166c16-50 43-84 92-104" fill="none" stroke="#1f2028" stroke-width="10" stroke-linecap="round"/>
+  <path d="M384 147c16-2 27 1 29 12 13 67 10 129-17 184" fill="none" stroke="#1f2028" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M238 265c-7 38 13 66 46 65 26-1 43-22 43-51 0-30-20-52-51-55" fill="none" stroke="#1f2028" stroke-width="16" stroke-linecap="round"/>
+  <path d="M106 203h55M85 238h79M119 274h38" fill="none" stroke="#f4b000" stroke-width="12" stroke-linecap="round"/>
+  <path d="M405 369c24-22 50-31 82-27" fill="none" stroke="#1f2028" stroke-width="14" stroke-linecap="round"/>
+  <ellipse cx="286" cy="416" rx="74" ry="7" fill="#d9d9d9"/>
+</svg>

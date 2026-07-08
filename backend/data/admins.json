@@ -1,0 +1,13 @@
+[
+  {
+    "name": "LocalSM Admin",
+    "email": "admin@localsm.com",
+    "password": "$2b$10$kK2SNgtOHa.3bwBH3LYKkueBjLTPeY0y5.30T9FBKg3VVxUEXwbRW",
+    "role": "superadmin",
+    "avatar": "",
+    "isActive": true,
+    "_id": "a4bb1ca59422b1c3ab08066f",
+    "createdAt": "2026-07-08T11:09:05.173Z",
+    "updatedAt": "2026-07-08T11:09:05.173Z"
+  }
+]

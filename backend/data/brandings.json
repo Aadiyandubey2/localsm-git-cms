@@ -1,0 +1,15 @@
+[
+  {
+    "siteName": "LocalSM Limited",
+    "logo": "/images/localsm-logo.svg",
+    "favicon": "/images/localsm-logo.svg",
+    "primaryColor": "#0055ff",
+    "secondaryColor": "#f4f4f4",
+    "accentColor": "#f4b000",
+    "fontFamily": "Berkshire Swash",
+    "isActive": true,
+    "_id": "567b326a875eb895f3ea75e3",
+    "createdAt": "2026-07-08T11:09:05.184Z",
+    "updatedAt": "2026-07-08T11:10:08.937Z"
+  }
+]

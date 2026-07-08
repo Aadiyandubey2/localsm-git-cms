@@ -1,0 +1,83 @@
+[
+  {
+    "title": "LocalSM Delivery",
+    "description": "Our flagship logistics and food delivery network. Connecting millions of customers with over 500,000 restaurant and merchant partners across 800+ cities with unparalleled efficiency.",
+    "image": "/images/delivery-rider.jpg",
+    "points": [
+      {
+        "title": "Food & More",
+        "description": "Flagship logistics and food delivery network."
+      },
+      {
+        "title": "500,000+ Partners",
+        "description": "Restaurants and merchant partners across 800+ cities."
+      },
+      {
+        "title": "Hyper-local Reach",
+        "description": "Built for broad coverage and operational efficiency."
+      }
+    ],
+    "ctaText": "Explore Platform",
+    "ctaLink": "#",
+    "isActive": true,
+    "sortOrder": 0,
+    "_id": "c6414dc124e691bef6132721",
+    "createdAt": "2026-07-08T11:09:05.177Z",
+    "updatedAt": "2026-07-08T11:09:05.177Z",
+    "slug": "localsm-delivery"
+  },
+  {
+    "title": "Janhal",
+    "description": "Our ultra-fast commerce arm. Delivering groceries, fresh produce, electronics, and daily essentials to households within 10 minutes, powered by a dense network of hyper-local dark stores.",
+    "image": "/images/office-interior.jpg",
+    "points": [
+      {
+        "title": "Quick Commerce",
+        "description": "Ultra-fast fulfillment for household essentials."
+      },
+      {
+        "title": "10-Minute Delivery",
+        "description": "Dense dark-store network for rapid dispatch."
+      },
+      {
+        "title": "Fresh & Daily Needs",
+        "description": "Groceries, produce, electronics, and more."
+      }
+    ],
+    "ctaText": "Explore Platform",
+    "ctaLink": "#",
+    "isActive": true,
+    "sortOrder": 1,
+    "_id": "30ca9d71145c55647474b126",
+    "createdAt": "2026-07-08T11:09:05.178Z",
+    "updatedAt": "2026-07-08T11:09:05.178Z",
+    "slug": "janhal"
+  },
+  {
+    "title": "Local Branding Software",
+    "description": "Our proprietary merchant suite. Empowering local store owners to manage digital storefronts, run localized micro-campaigns, and build customer loyalty with advanced marketing analytics.",
+    "image": "/images/local-merchant.jpg",
+    "points": [
+      {
+        "title": "Merchant SaaS",
+        "description": "Digital storefronts and localized campaign management."
+      },
+      {
+        "title": "Advanced Analytics",
+        "description": "Data-rich tools for better customer insight."
+      },
+      {
+        "title": "Local Business Enablement",
+        "description": "Built to help small merchants compete digitally."
+      }
+    ],
+    "ctaText": "Explore Platform",
+    "ctaLink": "#",
+    "isActive": true,
+    "sortOrder": 2,
+    "_id": "9f9cc63cfa4e670234d692a2",
+    "createdAt": "2026-07-08T11:09:05.179Z",
+    "updatedAt": "2026-07-08T11:09:05.179Z",
+    "slug": "local-branding-software"
+  }
+]

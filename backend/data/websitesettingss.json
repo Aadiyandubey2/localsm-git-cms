@@ -1,0 +1,26 @@
+[
+  {
+    "siteName": "LocalSM Limited",
+    "tagline": "To endure, evolve, and empower.",
+    "description": "Building the hyper-local commerce infrastructure of tomorrow.",
+    "email": "corporate@localsm.com",
+    "phone": "+91 124 499 9999",
+    "address": "12th Floor, DLF Cyber City, Phase 3, Gurugram, Haryana - 122002, India",
+    "socialLinks": [],
+    "seo": {
+      "title": "LocalSM Limited",
+      "description": "Building the hyper-local commerce infrastructure of tomorrow.",
+      "keywords": [
+        "LocalSM",
+        "hyper-local commerce",
+        "delivery",
+        "quick commerce",
+        "merchant software"
+      ]
+    },
+    "isActive": true,
+    "_id": "bfafb7bc6438b25ec51d124b",
+    "createdAt": "2026-07-08T11:09:05.185Z",
+    "updatedAt": "2026-07-08T11:09:05.185Z"
+  }
+]

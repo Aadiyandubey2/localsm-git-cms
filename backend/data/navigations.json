@@ -1,0 +1,37 @@
+[
+  {
+    "logo": "/images/localsm-logo.svg",
+    "menuItems": [
+      {
+        "label": "Home",
+        "href": "/"
+      },
+      {
+        "label": "Culture",
+        "href": "/culture"
+      },
+      {
+        "label": "Careers",
+        "href": "/careers"
+      },
+      {
+        "label": "Investors",
+        "href": "/investors"
+      },
+      {
+        "label": "Impact",
+        "href": "/impact"
+      },
+      {
+        "label": "Contact",
+        "href": "/contact"
+      }
+    ],
+    "ctaLabel": "",
+    "ctaHref": "",
+    "isActive": true,
+    "_id": "1ef5091eae181307a057af6d",
+    "createdAt": "2026-07-08T11:09:05.181Z",
+    "updatedAt": "2026-07-08T11:09:05.181Z"
+  }
+]
