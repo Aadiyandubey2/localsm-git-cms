@@ -1,14 +1,5 @@
 [
   {
-    "category": "Promoters & Promoter Group",
-    "percentage": "31.4%",
-    "sortOrder": 0,
-    "isActive": true,
-    "_id": "fb3fa57702ccbcc9e0d5b927",
-    "createdAt": "2026-07-08T17:52:06.438Z",
-    "updatedAt": "2026-07-08T17:52:06.438Z"
-  },
-  {
     "category": "Foreign Institutional Investors (FII)",
     "percentage": "38.2%",
     "sortOrder": 1,
