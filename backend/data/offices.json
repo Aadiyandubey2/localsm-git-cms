@@ -1,12 +1,1 @@
-[
-  {
-    "city": "Mumbai Office",
-    "address": "LocalSM Limited, Level 4, Naman Centre, G Block, Bandra Kurla Complex, Bandra East, Mumbai, Maharashtra - 400051",
-    "phone": "+91 22 499 9999",
-    "sortOrder": 2,
-    "isActive": true,
-    "_id": "b0635fd8c00009a2da502dbd",
-    "createdAt": "2026-07-08T17:52:06.431Z",
-    "updatedAt": "2026-07-08T17:52:06.431Z"
-  }
-]
+[]
