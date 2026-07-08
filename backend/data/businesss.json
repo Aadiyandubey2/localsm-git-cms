@@ -1,6 +1,6 @@
 [
   {
-    "title": "LocalSM Delivery",
+    "title": "Local-Delivery Partner's App",
     "description": "Our flagship logistics and food delivery network. Connecting millions of customers with over 500,000 restaurant and merchant partners across 800+ cities with unparalleled efficiency.",
     "image": "/images/delivery-rider.jpg",
     "points": [
@@ -23,7 +23,7 @@
     "sortOrder": 0,
     "_id": "c6414dc124e691bef6132721",
     "createdAt": "2026-07-08T11:09:05.177Z",
-    "updatedAt": "2026-07-08T11:09:05.177Z",
+    "updatedAt": "2026-07-08T16:58:43.934Z",
     "slug": "localsm-delivery"
   },
   {
