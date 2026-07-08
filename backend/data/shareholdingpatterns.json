@@ -7,14 +7,5 @@
     "_id": "55ce26f8ace21bdbf33e29a1",
     "createdAt": "2026-07-08T17:52:06.440Z",
     "updatedAt": "2026-07-08T17:52:06.440Z"
-  },
-  {
-    "category": "Public & Retail Shareholders",
-    "percentage": "11.8%",
-    "sortOrder": 3,
-    "isActive": true,
-    "_id": "3c474622c6223206e8cf21f2",
-    "createdAt": "2026-07-08T17:52:06.441Z",
-    "updatedAt": "2026-07-08T17:52:06.441Z"
   }
 ]
