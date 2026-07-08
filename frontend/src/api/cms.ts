@@ -358,7 +358,11 @@ export const fallbackWebsiteSettings: WebsiteSettingsDocument = {
 
 export const getCollection = async <T>(path: string): Promise<T[]> => {
 	const response = await apiClient.get<ApiListResponse<T>>(path);
-	return response.data?.data ?? [];
+	const data = response.data?.data;
+	if (data && !Array.isArray(data)) {
+		return [data] as unknown as T[];
+	}
+	return (data ?? []) as T[];
 };
 
 export const getActiveDocument = async <T extends { isActive?: boolean }>(path: string): Promise<T | null> => {
