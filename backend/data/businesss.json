@@ -1,11 +1,11 @@
 [
   {
-    "title": "LocalSM Delivery",
+    "title": "Local-Delivery Partner's App",
     "description": "Our flagship logistics and food delivery network. Connecting millions of customers with over 500,000 restaurant and merchant partners across 800+ cities with unparalleled efficiency.",
     "image": "/images/delivery-rider.jpg",
     "points": [
       {
-        "title": "Food & More",
+        "title": "Delivery App for delivery app",
         "description": "Flagship logistics and food delivery network."
       },
       {
@@ -17,49 +17,22 @@
         "description": "Built for broad coverage and operational efficiency."
       }
     ],
-    "ctaText": "Explore Platform",
-    "ctaLink": "#",
+    "ctaText": "Explore Delivery App",
+    "ctaLink": "https://localsm.app/delivery",
     "isActive": true,
-    "sortOrder": 0,
-    "_id": "3eaf975da9f95a6133c8ce66",
-    "createdAt": "2026-07-08T17:52:06.407Z",
-    "updatedAt": "2026-07-08T17:52:06.407Z",
+    "sortOrder": 1,
+    "_id": "c6414dc124e691bef6132721",
+    "createdAt": "2026-07-08T11:09:05.177Z",
+    "updatedAt": "2026-07-08T17:38:01.166Z",
     "slug": "localsm-delivery"
   },
   {
-    "title": "Janhal",
-    "description": "Our ultra-fast commerce arm. Delivering groceries, fresh produce, electronics, and daily essentials to households within 10 minutes, powered by a dense network of hyper-local dark stores.",
-    "image": "/images/office-interior.jpg",
-    "points": [
-      {
-        "title": "Quick Commerce",
-        "description": "Ultra-fast fulfillment for household essentials."
-      },
-      {
-        "title": "10-Minute Delivery",
-        "description": "Dense dark-store network for rapid dispatch."
-      },
-      {
-        "title": "Fresh & Daily Needs",
-        "description": "Groceries, produce, electronics, and more."
-      }
-    ],
-    "ctaText": "Explore Platform",
-    "ctaLink": "#",
-    "isActive": true,
-    "sortOrder": 1,
-    "_id": "ceb7c449217870c59aa890a2",
-    "createdAt": "2026-07-08T17:52:06.408Z",
-    "updatedAt": "2026-07-08T17:52:06.408Z",
-    "slug": "janhal"
-  },
-  {
-    "title": "Local Branding Software",
+    "title": "Local-Shopping Market",
     "description": "Our proprietary merchant suite. Empowering local store owners to manage digital storefronts, run localized micro-campaigns, and build customer loyalty with advanced marketing analytics.",
-    "image": "/images/local-merchant.jpg",
+    "image": "https://linelpdewzchmqufupzp.supabase.co/storage/v1/object/public/images/8a11422f-7db3-4efc-bdb3-c4457a5e5f84.png",
     "points": [
       {
-        "title": "Merchant SaaS",
+        "title": "Super-Commerce Platform",
         "description": "Digital storefronts and localized campaign management."
       },
       {
@@ -72,12 +45,12 @@
       }
     ],
     "ctaText": "Explore Platform",
-    "ctaLink": "#",
+    "ctaLink": "https://localsm.app",
     "isActive": true,
     "sortOrder": 2,
-    "_id": "598f36d0814787f16d0db724",
-    "createdAt": "2026-07-08T17:52:06.409Z",
-    "updatedAt": "2026-07-08T17:52:06.409Z",
+    "_id": "9f9cc63cfa4e670234d692a2",
+    "createdAt": "2026-07-08T11:09:05.179Z",
+    "updatedAt": "2026-07-08T17:37:17.428Z",
     "slug": "local-branding-software"
   }
 ]
