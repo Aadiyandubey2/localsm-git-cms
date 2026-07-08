@@ -5,7 +5,7 @@
     "image": "/images/delivery-rider.jpg",
     "points": [
       {
-        "title": "Food & More",
+        "title": "Delivery App for delivery app",
         "description": "Flagship logistics and food delivery network."
       },
       {
@@ -17,13 +17,13 @@
         "description": "Built for broad coverage and operational efficiency."
       }
     ],
-    "ctaText": "Explore Platform",
-    "ctaLink": "#",
+    "ctaText": "Explore Delivery App",
+    "ctaLink": "https://localsm.app/delivery",
     "isActive": true,
     "sortOrder": 1,
     "_id": "c6414dc124e691bef6132721",
     "createdAt": "2026-07-08T11:09:05.177Z",
-    "updatedAt": "2026-07-08T17:35:01.881Z",
+    "updatedAt": "2026-07-08T17:38:01.166Z",
     "slug": "localsm-delivery"
   },
   {
