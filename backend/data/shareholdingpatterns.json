@@ -1,14 +1,5 @@
 [
   {
-    "category": "Foreign Institutional Investors (FII)",
-    "percentage": "38.2%",
-    "sortOrder": 1,
-    "isActive": true,
-    "_id": "784973783835486ef2a040b2",
-    "createdAt": "2026-07-08T17:52:06.439Z",
-    "updatedAt": "2026-07-08T17:52:06.439Z"
-  },
-  {
     "category": "Mutual Funds & Domestic Institutions (DII)",
     "percentage": "18.6%",
     "sortOrder": 2,
