@@ -1,9 +1,13 @@
 const path = require('path');
 const Module = require('module');
+
+// Force Vercel static tracer to bundle the mock mongoose
+const mockMongoose = require('../src/utils/mongoose-mock');
+
 const originalRequire = Module.prototype.require;
 Module.prototype.require = function (id) {
   if (id === 'mongoose') {
-    return originalRequire.call(this, path.join(__dirname, '../src/utils/mongoose-mock'));
+    return mockMongoose;
   }
   return originalRequire.apply(this, arguments);
 };
