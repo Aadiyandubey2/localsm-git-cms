@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('../utils/mongoose-mock');
 const WebsiteSettings = require('../models/WebsiteSettings');
 
 const createError = (statusCode, message) => {

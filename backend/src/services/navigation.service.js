@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('../utils/mongoose-mock');
 const Navigation = require('../models/Navigation');
 
 const createError = (statusCode, message) => {

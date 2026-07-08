@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-const mongoose = require('mongoose');
+const mongoose = require('../utils/mongoose-mock');
 const Admin = require('../models/Admin');
 const generateToken = require('../utils/generateToken');
 

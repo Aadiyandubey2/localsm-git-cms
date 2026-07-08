@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('../utils/mongoose-mock');
 const Founder = require('../models/Founder');
 
 const createError = (statusCode, message) => {
