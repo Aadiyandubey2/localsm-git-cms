@@ -199,14 +199,16 @@ function createModelClass(modelName, schema) {
         return;
       } catch (e) {
         console.error(`[GitHubDB] Failed to write ${gitHubPath} to GitHub:`, e.message);
+        if (process.env.VERCEL) {
+          throw new Error(`GitHub CMS Sync Error: ${e.message}`);
+        }
         console.log('[GitHubDB] Falling back to local file write.');
       }
     }
 
     // Local write fallback
     if (process.env.VERCEL) {
-      console.warn(`[LocalJSON] Write operation ignored in read-only Vercel environment: ${modelName}`);
-      return;
+      throw new Error(`Git-based CMS Configuration Error: GITHUB_TOKEN and GITHUB_REPO environment variables must be set in Vercel to save changes in production.`);
     }
     fs.writeFileSync(filePath, jsonString, 'utf8');
   };
