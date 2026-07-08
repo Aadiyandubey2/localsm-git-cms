@@ -1,47 +1,129 @@
 import React, { useState, useEffect } from 'react';
 import { TrendingUp, FileText, Download, ChevronRight } from 'lucide-react';
+import {
+  getActiveDocument,
+  getCollection,
+  type InvestorsPageDocument,
+  type BoardMemberDocument,
+  type FinancialReportDocument,
+  type ShareholdingPatternDocument,
+} from '../api/cms';
 
 export default function Investors() {
   const [stockPrice, setStockPrice] = useState(248.50);
   const [priceChange, setPriceChange] = useState(1.85);
   const [priceChangePercent, setPriceChangePercent] = useState(0.75);
 
+  const [investorsPage, setInvestorsPage] = useState<InvestorsPageDocument | null>(null);
+  const [boardMembers, setBoardMembers] = useState<BoardMemberDocument[]>([]);
+  const [reports, setReports] = useState<FinancialReportDocument[]>([]);
+  const [shareholdings, setShareholdings] = useState<ShareholdingPatternDocument[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadInvestorsData = async () => {
+      try {
+        const [pageDoc, boardList, reportList, shareList] = await Promise.all([
+          getActiveDocument<InvestorsPageDocument>('/investors-page'),
+          getCollection<BoardMemberDocument>('/board-members'),
+          getCollection<FinancialReportDocument>('/financial-reports'),
+          getCollection<ShareholdingPatternDocument>('/shareholding-patterns'),
+        ]);
+
+        if (!isMounted) return;
+
+        if (pageDoc) setInvestorsPage(pageDoc);
+        if (boardList) setBoardMembers(boardList.filter((b) => b.isActive !== false));
+        if (reportList) setReports(reportList.filter((r) => r.isActive !== false));
+        if (shareList) setShareholdings(shareList.filter((s) => s.isActive !== false));
+      } catch (error) {
+        console.error('Failed to load investor relations content:', error);
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    loadInvestorsData();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const basePrice = investorsPage?.stockBasePrice || 246.65;
+
   // Simulate slight stock price fluctuation for high-end feel
   useEffect(() => {
+    if (isLoading || !basePrice) return;
+
+    setStockPrice(basePrice + 1.85);
+
     const interval = setInterval(() => {
       const delta = (Math.random() - 0.48) * 0.4; // slight upward bias
       setStockPrice((prev) => {
         const next = prev + delta;
-        const change = next - 246.65; // base price
+        const change = next - basePrice;
         setPriceChange(change);
-        setPriceChangePercent((change / 246.65) * 100);
+        setPriceChangePercent((change / basePrice) * 100);
         return Number(next.toFixed(2));
       });
     }, 4000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [isLoading, basePrice]);
 
-  const boardMembers = [
-    { name: 'Kabir Sharma', role: 'Founder, Managing Director & CEO', bio: 'Founded LocalSM in 2018. Under his leadership, the company has scaled to become India’s premier hyper-local commerce network.' },
-    { name: 'Dr. Ananya Sen', role: 'Lead Independent Director', bio: 'Former Deputy Governor of the Reserve Bank of India with 35+ years of experience in economic policy and financial regulation.' },
-    { name: 'Rajesh Khanna', role: 'Non-Executive Director', bio: 'Managing Partner at Cyber Ventures, with extensive experience in scaling consumer internet platforms across Asia.' },
-    { name: 'Meera Deshpande', role: 'Independent Director', bio: 'Distinguished Professor of Computer Science at IIT Bombay, specializing in distributed databases and machine learning.' },
-  ];
+  if (isLoading) {
+    return (
+      <div className="bg-[#f4f4f4] min-h-screen text-black font-sans pt-32 pb-20 selection:bg-[#0055ff]/10 selection:text-black">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 space-y-16 animate-pulse">
+          <div className="space-y-4">
+            <div className="h-4 w-32 rounded bg-black/10"></div>
+            <div className="h-12 w-3/4 rounded bg-black/10"></div>
+            <div className="h-6 w-1/2 rounded bg-black/10"></div>
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div className="lg:col-span-5 space-y-4">
+              <div className="h-4 w-36 rounded bg-black/10"></div>
+              <div className="h-12 w-48 rounded bg-black/10"></div>
+              <div className="h-3 w-64 rounded bg-black/10"></div>
+            </div>
+            <div className="lg:col-span-7 h-48 bg-black/5 border border-black/5 rounded"></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
-  const financialResults = [
-    { period: 'Q3 FY26 (Ended Dec 31, 2025)', revenue: '₹4,820 Cr', growth: '+32% YoY', profit: '₹285 Cr', status: 'Published' },
-    { period: 'Q2 FY26 (Ended Sep 30, 2025)', revenue: '₹4,410 Cr', growth: '+28% YoY', profit: '₹210 Cr', status: 'Published' },
-    { period: 'Q1 FY26 (Ended Jun 30, 2025)', revenue: '₹4,180 Cr', growth: '+25% YoY', profit: '₹180 Cr', status: 'Published' },
-    { period: 'FY25 Annual Report', revenue: '₹15,860 Cr', growth: '+30% YoY', profit: '₹620 Cr', status: 'Published' },
-  ];
+  const reportsToRender = reports.length > 0
+    ? [...reports].sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
+    : [
+        { period: 'Q3 FY26 (Ended Dec 31, 2025)', revenue: '₹4,820 Cr', growth: '+32% YoY', profit: '₹285 Cr' },
+        { period: 'Q2 FY26 (Ended Sep 30, 2025)', revenue: '₹4,410 Cr', growth: '+28% YoY', profit: '₹210 Cr' },
+        { period: 'Q1 FY26 (Ended Jun 30, 2025)', revenue: '₹4,180 Cr', growth: '+25% YoY', profit: '₹180 Cr' },
+        { period: 'FY25 Annual Report', revenue: '₹15,860 Cr', growth: '+30% YoY', profit: '₹620 Cr' }
+      ];
 
-  const shareholding = [
-    { category: 'Promoters & Promoter Group', percentage: '31.4%' },
-    { category: 'Foreign Institutional Investors (FII)', percentage: '38.2%' },
-    { category: 'Mutual Funds & Domestic Institutions (DII)', percentage: '18.6%' },
-    { category: 'Public & Retail Shareholders', percentage: '11.8%' },
-  ];
+  const shareholdingsToRender = shareholdings.length > 0
+    ? [...shareholdings].sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
+    : [
+        { category: 'Promoters & Promoter Group', percentage: '31.4%' },
+        { category: 'Foreign Institutional Investors (FII)', percentage: '38.2%' },
+        { category: 'Mutual Funds & Domestic Institutions (DII)', percentage: '18.6%' },
+        { category: 'Public & Retail Shareholders', percentage: '11.8%' }
+      ];
+
+  const boardToRender = boardMembers.length > 0
+    ? [...boardMembers].sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
+    : [
+        { name: 'Kabir Sharma', role: 'Founder, Managing Director & CEO', bio: 'Founded LocalSM in 2018. Under his leadership, the company has scaled to become India’s premier hyper-local commerce network.' },
+        { name: 'Dr. Ananya Sen', role: 'Lead Independent Director', bio: 'Former Deputy Governor of the Reserve Bank of India with 35+ years of experience in economic policy and financial regulation.' },
+        { name: 'Rajesh Khanna', role: 'Non-Executive Director', bio: 'Managing Partner at Cyber Ventures, with extensive experience in scaling consumer internet platforms across Asia.' },
+        { name: 'Meera Deshpande', role: 'Independent Director', bio: 'Distinguished Professor of Computer Science at IIT Bombay, specializing in distributed databases and machine learning.' }
+      ];
 
   return (
     <div className="bg-[#f4f4f4] min-h-screen text-black font-sans pt-32 pb-20 selection:bg-[#0055ff]/10 selection:text-black">
@@ -54,10 +136,10 @@ export default function Investors() {
             </span>
           </div>
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-light tracking-tight leading-[1.05] max-w-5xl">
-            Long-term value through discipline.
+            {investorsPage?.heroTitle || 'Long-term value through discipline.'}
           </h1>
           <p className="text-xl md:text-2xl text-black/60 font-light max-w-3xl leading-relaxed">
-            LocalSM Limited (NSE: LOCALS / BSE: 544444) is committed to building a sustainable, profitable, and highly resilient hyper-local commerce ecosystem. We prioritize long-term cash flow generation and governance over short-term optimization.
+            {investorsPage?.heroDescription || `LocalSM Limited (NSE: ${investorsPage?.stockSymbol || 'LOCALS'} / BSE: 544444) is committed to building a sustainable, profitable, and highly resilient hyper-local commerce ecosystem. We prioritize long-term cash flow generation and governance over short-term optimization.`}
           </p>
         </div>
       </section>
@@ -79,25 +161,25 @@ export default function Investors() {
                     +{priceChange.toFixed(2)} (+{priceChangePercent.toFixed(2)}%)
                   </div>
                 </div>
-                <p className="text-xs text-black/40 font-mono">LOCALS // ISIN: INE000001010 // Delayed by 5 mins</p>
+                <p className="text-xs text-black/40 font-mono">{investorsPage?.stockSymbol || 'LOCALS'} // ISIN: {investorsPage?.stockIsin || 'INE000001010'} // Delayed by 5 mins</p>
               </div>
 
               <div className="grid grid-cols-2 gap-6 pt-4 border-t border-black/5">
                 <div>
                   <p className="text-xs text-black/40 font-mono uppercase">Market Cap</p>
-                  <p className="text-lg font-medium">₹78,450 Cr</p>
+                  <p className="text-lg font-medium">{investorsPage?.marketCap || '₹78,450 Cr'}</p>
                 </div>
                 <div>
                   <p className="text-xs text-black/40 font-mono uppercase">P/E Ratio</p>
-                  <p className="text-lg font-medium">68.4</p>
+                  <p className="text-lg font-medium">{investorsPage?.peRatio || '68.4'}</p>
                 </div>
                 <div>
                   <p className="text-xs text-black/40 font-mono uppercase">52-Week High</p>
-                  <p className="text-lg font-medium">₹268.00</p>
+                  <p className="text-lg font-medium">{investorsPage?.fiftyTwoWeekHigh || '₹268.00'}</p>
                 </div>
                 <div>
                   <p className="text-xs text-black/40 font-mono uppercase">52-Week Low</p>
-                  <p className="text-lg font-medium">₹134.50</p>
+                  <p className="text-lg font-medium">{investorsPage?.fiftyTwoWeekLow || '₹134.50'}</p>
                 </div>
               </div>
             </div>
@@ -107,7 +189,7 @@ export default function Investors() {
               <div className="border border-black/10 p-8 bg-[#f4f4f4] space-y-6">
                 <div className="flex justify-between items-center">
                   <span className="text-xs font-mono text-black/40 uppercase tracking-widest">Historical Performance (1 Year)</span>
-                  <span className="text-xs font-mono text-green-600">+84.5% YTD</span>
+                  <span className="text-xs font-mono text-green-600">{investorsPage?.ytdPerformance || '+84.5%'} YTD</span>
                 </div>
                 {/* SVG Trendline */}
                 <div className="h-48 w-full bg-black/[0.02] border border-black/5 relative flex items-end">
@@ -136,8 +218,8 @@ export default function Investors() {
                       </linearGradient>
                     </defs>
                   </svg>
-                  <div className="absolute left-4 bottom-4 text-[10px] font-mono text-black/40">Feb 2025</div>
-                  <div className="absolute right-4 bottom-4 text-[10px] font-mono text-black/40">Feb 2026</div>
+                  <div className="absolute left-4 bottom-4 text-[10px] font-mono text-black/40">{investorsPage?.chartStartDate || 'Feb 2025'}</div>
+                  <div className="absolute right-4 bottom-4 text-[10px] font-mono text-black/40">{investorsPage?.chartEndDate || 'Feb 2026'}</div>
                 </div>
               </div>
             </div>
@@ -169,7 +251,7 @@ export default function Investors() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-black/5">
-                {financialResults.map((res, idx) => (
+                {reportsToRender.map((res, idx) => (
                   <tr key={idx} className="text-sm font-light hover:bg-black/[0.01] transition-colors">
                     <td className="py-5 px-4 font-medium">{res.period}</td>
                     <td className="py-5 px-4">{res.revenue}</td>
@@ -207,9 +289,9 @@ export default function Investors() {
           </div>
           <div className="lg:col-span-7">
             <div className="border border-black/10 p-8 bg-[#f4f4f4] space-y-6">
-              <span className="text-xs font-mono text-black/40 uppercase tracking-widest">Shareholding Pattern (As of Dec 31, 2025)</span>
+              <span className="text-xs font-mono text-black/40 uppercase tracking-widest">Shareholding Pattern</span>
               <div className="space-y-4">
-                {shareholding.map((item, idx) => (
+                {shareholdingsToRender.map((item, idx) => (
                   <div key={idx} className="space-y-2">
                     <div className="flex justify-between text-sm font-light">
                       <span>{item.category}</span>
@@ -242,7 +324,7 @@ export default function Investors() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            {boardMembers.map((member, idx) => (
+            {boardToRender.map((member, idx) => (
               <div key={idx} className="border-t border-black/10 pt-6 space-y-4">
                 <div className="space-y-1">
                   <h3 className="text-xl font-medium tracking-tight">{member.name}</h3>

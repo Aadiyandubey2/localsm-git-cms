@@ -1,14 +1,14 @@
 [
   {
-    "title": "Pnazo isn’t just a name. It’s a mission statement.",
-    "subtitle": "Pnazo",
+    "title": "LocalSM isn’t just a name. It’s a mission statement.",
+    "subtitle": "Corporate Announcement",
     "description": "We are building enduring infrastructure to connect, empower, and scale local merchants, logistics, and communities. From quick-commerce to local branding, our platforms redefine hyper-local life.",
     "image": "/images/hero-building.jpg",
     "ctaText": "",
     "ctaLink": "",
     "isActive": true,
-    "_id": "03cfe54a8c9808491c31c46a",
-    "createdAt": "2026-07-08T11:09:05.175Z",
-    "updatedAt": "2026-07-08T16:24:48.807Z"
+    "_id": "8326a1134720dfb9e1d64c41",
+    "createdAt": "2026-07-08T17:52:06.405Z",
+    "updatedAt": "2026-07-08T17:52:06.405Z"
   }
 ]

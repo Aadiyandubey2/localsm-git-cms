@@ -119,7 +119,14 @@ export default function Navbar() {
         <Link to="/" className="group flex items-center gap-2 focus:outline-none">
           <img src={logoSrc} alt={siteName} className="h-9 w-9 object-contain" />
           <span className="localsm-wordmark text-xl tracking-tight text-black flex items-center">
-            {siteName.startsWith('Local') ? (
+            {branding.wordmarkText ? (
+              <>
+                {branding.wordmarkText.substring(0, branding.wordmarkHighlightIndex ?? 5)}
+                <span style={{ color: branding.wordmarkHighlightColor || '#f4b000' }}>
+                  {branding.wordmarkText.substring(branding.wordmarkHighlightIndex ?? 5)}
+                </span>
+              </>
+            ) : siteName.startsWith('Local') ? (
               <>
                 Local<span className="text-[#f4b000]">SM</span>
               </>

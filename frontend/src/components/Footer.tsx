@@ -140,7 +140,14 @@ export default function Footer() {
             <Link to="/" className="flex items-center gap-2 text-xl tracking-tight text-black">
               <img src={logoSrc} alt={siteName} className="h-9 w-9 object-contain" />
               <span className="localsm-wordmark">
-                {siteName.startsWith('Local') ? (
+                {branding.wordmarkText ? (
+                  <>
+                    {branding.wordmarkText.substring(0, branding.wordmarkHighlightIndex ?? 5)}
+                    <span style={{ color: branding.wordmarkHighlightColor || '#f4b000' }}>
+                      {branding.wordmarkText.substring(branding.wordmarkHighlightIndex ?? 5)}
+                    </span>
+                  </>
+                ) : siteName.startsWith('Local') ? (
                   <>
                     Local<span className="text-[#f4b000]">SM</span>
                   </>
@@ -203,7 +210,7 @@ export default function Footer() {
               ))}
             </p>
             <p className="text-sm text-black/60 font-light">
-              <span className="text-black/40">CIN:</span> L74999HR2026PLC099999<br />
+              <span className="text-black/40">CIN:</span> {settings.cin || 'L74999HR2026PLC099999'}<br />
               <span className="text-black/40">Email:</span>{' '}
               <a href={`mailto:${settings.email || 'corporate@localsm.com'}`} className="hover:text-[#0055ff] transition-colors">
                 {settings.email || 'corporate@localsm.com'}

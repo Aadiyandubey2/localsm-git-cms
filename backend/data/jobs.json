@@ -1,0 +1,68 @@
+[
+  {
+    "title": "Principal Software Engineer — Quick Commerce Platform",
+    "department": "Engineering",
+    "location": "Bengaluru",
+    "type": "Full-time",
+    "description": "Build and scale the hyper-local routing and order matching engines that power Janhal’s 10-minute delivery ecosystem. Experience with high-throughput distributed systems is required.",
+    "isActive": true,
+    "_id": "950bdad66aed0871fab0cf56",
+    "createdAt": "2026-07-08T17:52:06.420Z",
+    "updatedAt": "2026-07-08T17:52:06.420Z"
+  },
+  {
+    "title": "Senior Frontend Engineer — Merchant Suite",
+    "department": "Engineering",
+    "location": "Gurugram",
+    "type": "Full-time",
+    "description": "Lead the development of our next-generation Local Branding Software. You will build highly responsive, data-rich dashboards that empower local merchants to manage their digital presence.",
+    "isActive": true,
+    "_id": "304e6e996a5665dd630b26b0",
+    "createdAt": "2026-07-08T17:52:06.420Z",
+    "updatedAt": "2026-07-08T17:52:06.420Z"
+  },
+  {
+    "title": "Director of Product — Hyper-local Logistics",
+    "department": "Product Management",
+    "location": "Gurugram",
+    "type": "Full-time",
+    "description": "Own the product vision and roadmap for LocalSM Delivery’s core dispatch, allocation, and delivery partner experience. Drive efficiency gains across our 500,000+ courier fleet.",
+    "isActive": true,
+    "_id": "8cfc968d5339b6d8302f5fe4",
+    "createdAt": "2026-07-08T17:52:06.422Z",
+    "updatedAt": "2026-07-08T17:52:06.422Z"
+  },
+  {
+    "title": "Head of Dark Store Operations",
+    "department": "Operations",
+    "location": "Mumbai",
+    "type": "Full-time",
+    "description": "Oversee operational performance, inventory accuracy, and picking efficiency across our network of 150+ Janhal dark stores in the Western region.",
+    "isActive": true,
+    "_id": "12fdbb4747a708e518e0b2b9",
+    "createdAt": "2026-07-08T17:52:06.424Z",
+    "updatedAt": "2026-07-08T17:52:06.424Z"
+  },
+  {
+    "title": "Lead Product Designer — Consumer Experience",
+    "department": "Design",
+    "location": "Bengaluru",
+    "type": "Full-time",
+    "description": "Craft intuitive, simple, and delightful consumer ordering journeys for LocalSM Delivery and Janhal. Strong visual design and interaction prototyping skills are essential.",
+    "isActive": true,
+    "_id": "4deaa21dac827b6cb1b4a53c",
+    "createdAt": "2026-07-08T17:52:06.426Z",
+    "updatedAt": "2026-07-08T17:52:06.426Z"
+  },
+  {
+    "title": "Growth Marketing Lead — Merchant Acquisition",
+    "department": "Marketing",
+    "location": "Remote",
+    "type": "Full-time",
+    "description": "Design and execute multi-channel growth campaigns to acquire and onboard local merchants onto our software platforms. Experience in B2B SaaS marketing is required.",
+    "isActive": true,
+    "_id": "981fd615647324ef9797c5c3",
+    "createdAt": "2026-07-08T17:52:06.427Z",
+    "updatedAt": "2026-07-08T17:52:06.427Z"
+  }
+]

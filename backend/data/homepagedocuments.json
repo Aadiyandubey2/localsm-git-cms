@@ -1,0 +1,43 @@
+[
+  {
+    "heroImageCaption": "LocalSM Corporate Headquarters",
+    "heroImageCode": "HQ-01 // GURUGRAM",
+    "founderTeaser": "In my latest letter to shareholders and partners, I outline why we are bringing our delivery, quick-commerce, and merchant software arms under a single unified corporate identity: LocalSM. This isn't a rebranding of our customer-facing apps; it is an alignment of our long-term mission to build institutions that endure.",
+    "founderLetterDate": "February 6, 2026",
+    "businessSectionSubtitle": "Under the LocalSM umbrella, we operate three market-leading hyper-local platforms.",
+    "visionTitle": "Enduring institutions built on local empowerment.",
+    "visionDescription": "LocalSM envisions a future where local commerce, hyper-local connectivity, and sustainable growth form the foundation of enduring community success. We build systems that stand the test of time, adapting to changing consumer behaviors while keeping the local merchant at the core of the economy.",
+    "missionTitle": "To endure, evolve, and empower.",
+    "missionDescription": "We build hyper-local platforms that redefine local commerce, uplift communities, and embody the promise of permanence through constant adaptation. We challenge our own ideas daily, dismantle what works to build what is better, and share our success with the millions of partners who depend on us.",
+    "impactMetrics": [
+      {
+        "category": "Environmental",
+        "value": "100%",
+        "description": "Electric vehicle-based deliveries across our entire fleet by 2030."
+      },
+      {
+        "category": "Climate",
+        "value": "2033",
+        "description": "Target date to achieve Net-Zero greenhouse gas emissions across our value chain."
+      },
+      {
+        "category": "Socioeconomic",
+        "value": "1.2M+",
+        "description": "Delivery partners and local merchants empowered with active livelihoods."
+      },
+      {
+        "category": "Ecology",
+        "value": "100%",
+        "description": "Plastic-neutral food and grocery delivery order fulfillment achieved."
+      }
+    ],
+    "cultureTeaserSubtitle": "Working at LocalSM",
+    "cultureTeaserTitle": "This place is designed to make you feel uncomfortable.",
+    "cultureTeaserDescription": "We don’t settle. We don’t rest on legacy success. We operate with extreme transparency, high ownership, and a relentless pace. If you thrive on comfort, this is not the place for you. If you thrive on building enduring things that matter, we should talk.",
+    "cultureTeaserImage": "/images/office-interior.jpg",
+    "isActive": true,
+    "_id": "6addde43ef9adc21c2530b53",
+    "createdAt": "2026-07-08T17:52:06.416Z",
+    "updatedAt": "2026-07-08T17:52:06.416Z"
+  }
+]

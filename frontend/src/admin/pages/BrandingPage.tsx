@@ -11,7 +11,11 @@ import { useUnsavedChanges } from '../hooks/useUnsavedChanges';
 import { brandingApi, getActiveDoc } from '../services/api';
 import type { BrandingDoc } from '../types/cms';
 
-const emptyBranding: Omit<BrandingDoc, '_id'> = {
+const emptyBranding: Omit<BrandingDoc, '_id'> & {
+  wordmarkText?: string;
+  wordmarkHighlightIndex?: number;
+  wordmarkHighlightColor?: string;
+} = {
   siteName: '',
   logo: '',
   favicon: '',
@@ -19,6 +23,9 @@ const emptyBranding: Omit<BrandingDoc, '_id'> = {
   secondaryColor: '#f4f4f4',
   accentColor: '#f4b000',
   fontFamily: '',
+  wordmarkText: '',
+  wordmarkHighlightIndex: 5,
+  wordmarkHighlightColor: '#f4b000',
   isActive: true,
 };
 
@@ -47,6 +54,9 @@ export default function BrandingPage() {
             secondaryColor: active.secondaryColor || '#f4f4f4',
             accentColor: active.accentColor || '#f4b000',
             fontFamily: active.fontFamily || '',
+            wordmarkText: (active as any).wordmarkText || '',
+            wordmarkHighlightIndex: (active as any).wordmarkHighlightIndex ?? 5,
+            wordmarkHighlightColor: (active as any).wordmarkHighlightColor || '#f4b000',
             isActive: active.isActive !== false,
           };
           setDocId(active._id);
@@ -103,6 +113,9 @@ export default function BrandingPage() {
             <ImageUploader label="Logo" value={form.logo || ''} onChange={(v) => update('logo', v)} />
             <ImageUploader label="Favicon" value={form.favicon || ''} onChange={(v) => update('favicon', v)} />
             <TextInput label="Font Family" value={form.fontFamily || ''} onChange={(v) => update('fontFamily', v)} placeholder="Berkshire Swash" />
+            <TextInput label="Wordmark Text" value={form.wordmarkText || ''} onChange={(v) => update('wordmarkText', v)} placeholder="LocalSM" />
+            <TextInput label="Wordmark Highlight Index" value={String(form.wordmarkHighlightIndex ?? '')} onChange={(v) => update('wordmarkHighlightIndex', v ? parseInt(v, 10) : undefined)} type="number" />
+            <TextInput label="Wordmark Highlight Color" value={form.wordmarkHighlightColor || ''} onChange={(v) => update('wordmarkHighlightColor', v)} placeholder="#f4b000" />
             <ToggleSwitch label="Branding active" checked={form.isActive !== false} onChange={(v) => update('isActive', v)} />
           </div>
         </SectionCard>

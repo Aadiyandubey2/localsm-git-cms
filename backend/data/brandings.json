@@ -1,15 +1,18 @@
 [
   {
-    "siteName": "Pnazo",
-    "logo": "https://linelpdewzchmqufupzp.supabase.co/storage/v1/object/public/images/1e049db2-5195-4857-b84a-f216084ec8ee.png",
-    "favicon": "https://linelpdewzchmqufupzp.supabase.co/storage/v1/object/public/images/1e049db2-5195-4857-b84a-f216084ec8ee.png",
+    "siteName": "LocalSM Limited",
+    "logo": "/images/localsm-logo.svg",
+    "favicon": "/images/localsm-logo.svg",
     "primaryColor": "#0055ff",
     "secondaryColor": "#f4f4f4",
     "accentColor": "#f4b000",
     "fontFamily": "Berkshire Swash",
+    "wordmarkText": "LocalSM",
+    "wordmarkHighlightIndex": 5,
+    "wordmarkHighlightColor": "#f4b000",
     "isActive": true,
-    "_id": "567b326a875eb895f3ea75e3",
-    "createdAt": "2026-07-08T11:09:05.184Z",
-    "updatedAt": "2026-07-08T17:30:31.663Z"
+    "_id": "915da37996f6dc974f003c11",
+    "createdAt": "2026-07-08T17:52:06.413Z",
+    "updatedAt": "2026-07-08T17:52:06.413Z"
   }
 ]

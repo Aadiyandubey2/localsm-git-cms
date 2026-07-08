@@ -1,0 +1,57 @@
+[
+  {
+    "heroTitle": "Responsible growth at scale.",
+    "heroDescription": "We believe that corporate growth is meaningless if it occurs at the expense of our environment or communities. We integrate ESG principles into our core operations.",
+    "metricsTitle": "Key Progress Metrics",
+    "metricsSubtitle": "Measuring our real-world impact in real-time.",
+    "metrics": [
+      {
+        "label": "EV Deliveries Completed",
+        "value": "42M+",
+        "subText": "Up from 12M in FY25"
+      },
+      {
+        "label": "Plastic Waste Recycled",
+        "value": "18,500 MT",
+        "subText": "100% of packaging footprint"
+      },
+      {
+        "label": "Partner Education Grants",
+        "value": "₹12.5 Cr",
+        "subText": "Awarded to 8,000+ children"
+      },
+      {
+        "label": "Merchant Digital Training",
+        "value": "250,000+",
+        "subText": "Small businesses upskilled"
+      }
+    ],
+    "initiativesTitle": "Stewardship Initiatives",
+    "initiativesSubtitle": "Hard targets we measure with scientific discipline.",
+    "initiatives": [
+      {
+        "iconType": "Leaf",
+        "title": "Net-Zero Pathway (2033)",
+        "description": "We are committed to achieving net-zero greenhouse gas emissions across our entire value chain by 2033."
+      },
+      {
+        "iconType": "Shield",
+        "title": "100% EV Deliveries (2030)",
+        "description": "By 2030, all food and grocery deliveries across LocalSM Delivery and Janhal will be executed via electric vehicles."
+      },
+      {
+        "iconType": "Heart",
+        "title": "Plastic Neutrality",
+        "description": "We have achieved 100% plastic neutrality across our delivery order packaging."
+      }
+    ],
+    "socialTitle": "Socioeconomic Empowerment",
+    "socialDescription": "Our growth is intrinsically linked to the health of our communities. We support over 1.2M delivery partners and merchants across the country with insurance, financial tools, and digital upskilling.",
+    "socialImage": "/images/delivery-rider.jpg",
+    "socialImageAlt": "LocalSM Delivery Partner",
+    "isActive": true,
+    "_id": "e29091fd222e81760a8d0c13",
+    "createdAt": "2026-07-08T17:52:06.418Z",
+    "updatedAt": "2026-07-08T17:52:06.418Z"
+  }
+]

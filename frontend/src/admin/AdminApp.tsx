@@ -23,6 +23,18 @@ const BrandingPage = lazy(() => import('./pages/BrandingPage'));
 const MediaLibraryPage = lazy(() => import('./pages/MediaLibraryPage'));
 const SeoPage = lazy(() => import('./pages/SeoPage'));
 
+const HomepagePage = lazy(() => import('./pages/HomepagePage'));
+const CulturePagePage = lazy(() => import('./pages/CulturePagePage'));
+const ImpactPagePage = lazy(() => import('./pages/ImpactPagePage'));
+const CareersPagePage = lazy(() => import('./pages/CareersPagePage'));
+const JobsPage = lazy(() => import('./pages/JobsPage'));
+const ContactPagePage = lazy(() => import('./pages/ContactPagePage'));
+const OfficesPage = lazy(() => import('./pages/OfficesPage'));
+const InvestorsPagePage = lazy(() => import('./pages/InvestorsPagePage'));
+const FinancialReportsPage = lazy(() => import('./pages/FinancialReportsPage'));
+const ShareholdingPatternsPage = lazy(() => import('./pages/ShareholdingPatternsPage'));
+const BoardMembersPage = lazy(() => import('./pages/BoardMembersPage'));
+
 function LazyPage({ children }: { children: React.ReactNode }) {
   return <Suspense fallback={<div className="admin-root p-6"><LoadingSkeleton rows={4} /></div>}>{children}</Suspense>;
 }
@@ -50,10 +62,21 @@ export default function AdminApp() {
           }
         >
           <Route index element={<LazyPage><DashboardPage /></LazyPage>} />
+          <Route path="homepage" element={<LazyPage><HomepagePage /></LazyPage>} />
           <Route path="hero" element={<LazyPage><HeroPage /></LazyPage>} />
           <Route path="founder" element={<LazyPage><FounderPage /></LazyPage>} />
           <Route path="businesses" element={<LazyPage><BusinessesPage /></LazyPage>} />
           <Route path="services" element={<LazyPage><ServicesPage /></LazyPage>} />
+          <Route path="culture-page" element={<LazyPage><CulturePagePage /></LazyPage>} />
+          <Route path="careers-page" element={<LazyPage><CareersPagePage /></LazyPage>} />
+          <Route path="jobs" element={<LazyPage><JobsPage /></LazyPage>} />
+          <Route path="impact-page" element={<LazyPage><ImpactPagePage /></LazyPage>} />
+          <Route path="contact-page" element={<LazyPage><ContactPagePage /></LazyPage>} />
+          <Route path="offices" element={<LazyPage><OfficesPage /></LazyPage>} />
+          <Route path="investors-page" element={<LazyPage><InvestorsPagePage /></LazyPage>} />
+          <Route path="financial-reports" element={<LazyPage><FinancialReportsPage /></LazyPage>} />
+          <Route path="shareholding-patterns" element={<LazyPage><ShareholdingPatternsPage /></LazyPage>} />
+          <Route path="board-members" element={<LazyPage><BoardMembersPage /></LazyPage>} />
           <Route path="navigation" element={<LazyPage><NavigationPage /></LazyPage>} />
           <Route path="footer" element={<LazyPage><FooterPage /></LazyPage>} />
           <Route path="contact" element={<LazyPage><ContactPage /></LazyPage>} />

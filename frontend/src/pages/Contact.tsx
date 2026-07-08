@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Phone, MapPin, Check } from 'lucide-react';
+import { Phone, MapPin, Check, X } from 'lucide-react';
 import {
   fallbackWebsiteSettings,
   getActiveDocument,
+  getCollection,
   submitContact,
   type WebsiteSettingsDocument,
+  type ContactPageDocument,
+  type OfficeDocument,
 } from '../api/cms';
 
 const fallbackOffices = [
@@ -25,7 +28,7 @@ const fallbackOffices = [
   },
 ];
 
-const departmentalContacts = [
+const fallbackDepartmentalContacts = [
   {
     label: 'Media & Public Relations',
     email: 'press@localsm.com',
@@ -49,6 +52,9 @@ export default function Contact() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const [settings, setSettings] = useState<WebsiteSettingsDocument>(fallbackWebsiteSettings);
+
+  const [contactPage, setContactPage] = useState<ContactPageDocument | null>(null);
+  const [offices, setOffices] = useState<OfficeDocument[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -56,17 +62,24 @@ export default function Contact() {
 
     const loadContactContent = async () => {
       try {
-        const settingsDocument = await getActiveDocument<WebsiteSettingsDocument>('/website-settings');
+        const [settingsDoc, pageDoc, officesList] = await Promise.all([
+          getActiveDocument<WebsiteSettingsDocument>('/website-settings'),
+          getActiveDocument<ContactPageDocument>('/contact-page'),
+          getCollection<OfficeDocument>('/offices'),
+        ]);
 
         if (!isMounted) {
           return;
         }
 
-        if (settingsDocument) {
-          setSettings({
-            ...fallbackWebsiteSettings,
-            ...settingsDocument,
-          });
+        if (settingsDoc) {
+          setSettings(settingsDoc);
+        }
+        if (pageDoc) {
+          setContactPage(pageDoc);
+        }
+        if (officesList) {
+          setOffices(officesList.filter((o) => o.isActive !== false));
         }
       } catch (error) {
         console.error('Failed to load contact content:', error);
@@ -112,17 +125,13 @@ export default function Contact() {
     );
   }
 
-  const offices = [
-    {
-      city: 'Gurugram (Headquarters)',
-      address: settings.address
-        ? `${settings.siteName || 'LocalSM Limited'}, ${settings.address}`
-        : fallbackOffices[0].address,
-      phone: settings.phone || fallbackOffices[0].phone,
-    },
-    fallbackOffices[1],
-    fallbackOffices[2],
-  ];
+  const officesToRender = offices.length > 0
+    ? [...offices].sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
+    : fallbackOffices;
+
+  const departmentalContacts = contactPage?.departmentalContacts?.length
+    ? contactPage.departmentalContacts
+    : fallbackDepartmentalContacts;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -163,10 +172,10 @@ export default function Contact() {
             </span>
           </div>
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-light tracking-tight leading-[1.05] max-w-5xl">
-            Get in touch.
+            {contactPage?.heroTitle || 'Get in touch.'}
           </h1>
           <p className="text-xl md:text-2xl text-black/60 font-light max-w-3xl leading-relaxed">
-            Have a question about our operations, partnerships, investor relations, or media inquiries? Reach out to the appropriate team below, and we will get back to you as soon as possible.
+            {contactPage?.heroDescription || 'Have a question about our operations, partnerships, investor relations, or media inquiries? Reach out to the appropriate team below, and we will get back to you as soon as possible.'}
           </p>
         </div>
       </section>
@@ -216,8 +225,12 @@ export default function Contact() {
           <div className="lg:col-span-7">
             <div className="border border-black/10 p-8 md:p-10 bg-[#f4f4f4] space-y-6">
               <div className="space-y-2">
-                <h3 className="text-2xl font-light tracking-tight">Send a Message</h3>
-                <p className="text-xs text-black/50 font-mono uppercase">All fields are required</p>
+                <h3 className="text-2xl font-light tracking-tight">
+                  {contactPage?.formTitle || 'Send a Message'}
+                </h3>
+                <p className="text-xs text-black/50 font-mono uppercase">
+                  {contactPage?.formInstructions || 'All fields are required'}
+                </p>
               </div>
 
               {showSuccess ? (
@@ -310,25 +323,27 @@ export default function Contact() {
         <div className="max-w-7xl mx-auto space-y-16">
           <div className="space-y-4">
             <h2 className="text-xs uppercase tracking-[0.25em] font-semibold text-black/40">
-              Our Offices
+              {contactPage?.officeSectionTitle || 'Our Offices'}
             </h2>
             <p className="text-3xl md:text-4xl font-light tracking-tight max-w-2xl">
-              Where we build the future of hyper-local commerce.
+              {contactPage?.officeSectionSubtitle || 'Where we build the future of hyper-local commerce.'}
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {offices.map((office) => (
-              <div key={office.city} className="border-t border-black/10 pt-6 space-y-4">
+            {officesToRender.map((office, idx) => (
+              <div key={idx} className="border-t border-black/10 pt-6 space-y-4">
                 <h3 className="text-xl font-medium tracking-tight flex items-center gap-2">
                   <MapPin size={18} className="text-[#0055ff]" strokeWidth={1.5} /> {office.city}
                 </h3>
                 <p className="text-sm text-black/60 font-light leading-relaxed">
                   {office.address}
                 </p>
-                <p className="text-xs font-mono text-black/40">
-                  <Phone size={12} className="inline mr-1" /> {office.phone}
-                </p>
+                {office.phone ? (
+                  <p className="text-xs font-mono text-black/40">
+                    <Phone size={12} className="inline mr-1" /> {office.phone}
+                  </p>
+                ) : null}
               </div>
             ))}
           </div>

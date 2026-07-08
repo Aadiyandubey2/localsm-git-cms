@@ -1,6 +1,6 @@
 [
   {
-    "title": "Local-Delivery Partner's App",
+    "title": "LocalSM Delivery",
     "description": "Our flagship logistics and food delivery network. Connecting millions of customers with over 500,000 restaurant and merchant partners across 800+ cities with unparalleled efficiency.",
     "image": "/images/delivery-rider.jpg",
     "points": [
@@ -20,10 +20,10 @@
     "ctaText": "Explore Platform",
     "ctaLink": "#",
     "isActive": true,
-    "sortOrder": 1,
-    "_id": "c6414dc124e691bef6132721",
-    "createdAt": "2026-07-08T11:09:05.177Z",
-    "updatedAt": "2026-07-08T17:35:01.881Z",
+    "sortOrder": 0,
+    "_id": "3eaf975da9f95a6133c8ce66",
+    "createdAt": "2026-07-08T17:52:06.407Z",
+    "updatedAt": "2026-07-08T17:52:06.407Z",
     "slug": "localsm-delivery"
   },
   {
@@ -48,13 +48,13 @@
     "ctaLink": "#",
     "isActive": true,
     "sortOrder": 1,
-    "_id": "30ca9d71145c55647474b126",
-    "createdAt": "2026-07-08T11:09:05.178Z",
-    "updatedAt": "2026-07-08T11:09:05.178Z",
+    "_id": "ceb7c449217870c59aa890a2",
+    "createdAt": "2026-07-08T17:52:06.408Z",
+    "updatedAt": "2026-07-08T17:52:06.408Z",
     "slug": "janhal"
   },
   {
-    "title": "Local-Shopping Market",
+    "title": "Local Branding Software",
     "description": "Our proprietary merchant suite. Empowering local store owners to manage digital storefronts, run localized micro-campaigns, and build customer loyalty with advanced marketing analytics.",
     "image": "/images/local-merchant.jpg",
     "points": [
@@ -75,9 +75,9 @@
     "ctaLink": "#",
     "isActive": true,
     "sortOrder": 2,
-    "_id": "9f9cc63cfa4e670234d692a2",
-    "createdAt": "2026-07-08T11:09:05.179Z",
-    "updatedAt": "2026-07-08T17:35:17.178Z",
+    "_id": "598f36d0814787f16d0db724",
+    "createdAt": "2026-07-08T17:52:06.409Z",
+    "updatedAt": "2026-07-08T17:52:06.409Z",
     "slug": "local-branding-software"
   }
 ]

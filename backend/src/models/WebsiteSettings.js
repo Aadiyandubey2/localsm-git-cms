@@ -32,6 +32,11 @@ const websiteSettingsSchema = new mongoose.Schema(
 			default: '',
 			trim: true,
 		},
+		cin: {
+			type: String,
+			default: 'L74999HR2026PLC099999',
+			trim: true,
+		},
 		socialLinks: {
 			type: Array,
 			default: [],

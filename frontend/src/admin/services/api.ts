@@ -13,6 +13,17 @@ import type {
   NavigationDoc,
   UploadResponse,
   WebsiteSettingsDoc,
+  HomepageDoc,
+  CulturePageDoc,
+  ImpactPageDoc,
+  CareersPageDoc,
+  JobDoc,
+  ContactPageDoc,
+  OfficeDoc,
+  InvestorsPageDoc,
+  FinancialReportDoc,
+  ShareholdingPatternDoc,
+  BoardMemberDoc,
 } from '../types/cms';
 
 const API_BASE_URL =
@@ -203,4 +214,105 @@ export const collectImageUrls = (values: unknown): string[] => {
 
   walk(values);
   return Array.from(urls);
+};
+
+export const homepageApi = {
+  get: () => adminApi.get<ApiSingleResponse<HomepageDoc>>('/homepage').then(unwrapSingle),
+  update: (id: string, payload: Partial<HomepageDoc>) =>
+    adminApi.patch<ApiSingleResponse<HomepageDoc>>(`/homepage/${id}`, payload).then(unwrapSingle),
+};
+
+export const culturePageApi = {
+  get: () => adminApi.get<ApiSingleResponse<CulturePageDoc>>('/culture-page').then(unwrapSingle),
+  update: (id: string, payload: Partial<CulturePageDoc>) =>
+    adminApi.patch<ApiSingleResponse<CulturePageDoc>>(`/culture-page/${id}`, payload).then(unwrapSingle),
+};
+
+export const impactPageApi = {
+  get: () => adminApi.get<ApiSingleResponse<ImpactPageDoc>>('/impact-page').then(unwrapSingle),
+  update: (id: string, payload: Partial<ImpactPageDoc>) =>
+    adminApi.patch<ApiSingleResponse<ImpactPageDoc>>(`/impact-page/${id}`, payload).then(unwrapSingle),
+};
+
+export const careersPageApi = {
+  get: () => adminApi.get<ApiSingleResponse<CareersPageDoc>>('/careers-page').then(unwrapSingle),
+  update: (id: string, payload: Partial<CareersPageDoc>) =>
+    adminApi.patch<ApiSingleResponse<CareersPageDoc>>(`/careers-page/${id}`, payload).then(unwrapSingle),
+};
+
+export const jobsApi = {
+  list: () => adminApi.get<ApiListResponse<JobDoc>>('/jobs').then(unwrapList),
+  create: (payload: Partial<JobDoc>) =>
+    adminApi.post<ApiSingleResponse<JobDoc>>('/jobs', payload).then(unwrapSingle),
+  update: (id: string, payload: Partial<JobDoc>) =>
+    adminApi.patch<ApiSingleResponse<JobDoc>>(`/jobs/${id}`, payload).then(unwrapSingle),
+  remove: (id: string) => adminApi.delete(`/jobs/${id}`),
+};
+
+export const contactPageApi = {
+  get: () => adminApi.get<ApiSingleResponse<ContactPageDoc>>('/contact-page').then(unwrapSingle),
+  update: (id: string, payload: Partial<ContactPageDoc>) =>
+    adminApi.patch<ApiSingleResponse<ContactPageDoc>>(`/contact-page/${id}`, payload).then(unwrapSingle),
+};
+
+export const officesApi = {
+  list: () => adminApi.get<ApiListResponse<OfficeDoc>>('/offices').then(unwrapList),
+  create: (payload: Partial<OfficeDoc>) =>
+    adminApi.post<ApiSingleResponse<OfficeDoc>>('/offices', payload).then(unwrapSingle),
+  update: (id: string, payload: Partial<OfficeDoc>) =>
+    adminApi.patch<ApiSingleResponse<OfficeDoc>>(`/offices/${id}`, payload).then(unwrapSingle),
+  remove: (id: string) => adminApi.delete(`/offices/${id}`),
+  reorder: async (items: OfficeDoc[]) => {
+    await Promise.all(
+      items.map((item, index) => officesApi.update(item._id, { sortOrder: index }))
+    );
+  },
+};
+
+export const investorsPageApi = {
+  get: () => adminApi.get<ApiSingleResponse<InvestorsPageDoc>>('/investors-page').then(unwrapSingle),
+  update: (id: string, payload: Partial<InvestorsPageDoc>) =>
+    adminApi.patch<ApiSingleResponse<InvestorsPageDoc>>(`/investors-page/${id}`, payload).then(unwrapSingle),
+};
+
+export const financialReportsApi = {
+  list: () => adminApi.get<ApiListResponse<FinancialReportDoc>>('/financial-reports').then(unwrapList),
+  create: (payload: Partial<FinancialReportDoc>) =>
+    adminApi.post<ApiSingleResponse<FinancialReportDoc>>('/financial-reports', payload).then(unwrapSingle),
+  update: (id: string, payload: Partial<FinancialReportDoc>) =>
+    adminApi.patch<ApiSingleResponse<FinancialReportDoc>>(`/financial-reports/${id}`, payload).then(unwrapSingle),
+  remove: (id: string) => adminApi.delete(`/financial-reports/${id}`),
+  reorder: async (items: FinancialReportDoc[]) => {
+    await Promise.all(
+      items.map((item, index) => financialReportsApi.update(item._id, { sortOrder: index }))
+    );
+  },
+};
+
+export const shareholdingPatternsApi = {
+  list: () => adminApi.get<ApiListResponse<ShareholdingPatternDoc>>('/shareholding-patterns').then(unwrapList),
+  create: (payload: Partial<ShareholdingPatternDoc>) =>
+    adminApi.post<ApiSingleResponse<ShareholdingPatternDoc>>('/shareholding-patterns', payload).then(unwrapSingle),
+  update: (id: string, payload: Partial<ShareholdingPatternDoc>) =>
+    adminApi.patch<ApiSingleResponse<ShareholdingPatternDoc>>(`/shareholding-patterns/${id}`, payload).then(unwrapSingle),
+  remove: (id: string) => adminApi.delete(`/shareholding-patterns/${id}`),
+  reorder: async (items: ShareholdingPatternDoc[]) => {
+    await Promise.all(
+      items.map((item, index) => shareholdingPatternsApi.update(item._id, { sortOrder: index }))
+    );
+  },
+};
+
+export const boardMembersApi = {
+  list: () => adminApi.get<ApiListResponse<BoardMemberDoc>>('/board-members').then(unwrapList),
+  create: (payload: Partial<BoardMemberDoc>) =>
+    adminApi.post<ApiSingleResponse<BoardMemberDoc>>('/board-members', payload).then(unwrapSingle),
+  update: (id: string, payload: Partial<BoardMemberDoc>) =>
+    adminApi.patch<ApiSingleResponse<BoardMemberDoc>>(`/board-members/${id}`, payload).then(unwrapSingle),
+  remove: (id: string) => adminApi.delete(`/board-members/${id}`),
+  reorder: async (items: BoardMemberDoc[]) => {
+    await Promise.all(
+      items.map((item, index) => boardMembersApi.update(item._id, { sortOrder: index }))
+    );
+  },
 };

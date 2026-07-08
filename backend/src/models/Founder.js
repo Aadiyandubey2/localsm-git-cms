@@ -30,6 +30,45 @@ const founderSchema = new mongoose.Schema(
 			default: '',
 			trim: true,
 		},
+		letterDate: {
+			type: String,
+			default: '6 FEBRUARY 2026',
+		},
+		readTime: {
+			type: String,
+			default: '6 MINS',
+		},
+		letterTitle: {
+			type: String,
+			default: '',
+		},
+		introduction: {
+			type: String,
+			default: '',
+		},
+		calloutQuote: {
+			type: String,
+			default: '',
+		},
+		middleText: {
+			type: String,
+			default: '',
+		},
+		pillars: [
+			{
+				numberLabel: String,
+				title: String,
+				description: String,
+			}
+		],
+		conclusion: {
+			type: String,
+			default: '',
+		},
+		signOffLabel: {
+			type: String,
+			default: 'Sincerely,',
+		},
 		isActive: {
 			type: Boolean,
 			default: true,

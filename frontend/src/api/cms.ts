@@ -34,6 +34,12 @@ export type HeroDocument = {
 	isActive?: boolean;
 };
 
+export type FounderPillar = {
+	numberLabel: string;
+	title: string;
+	description: string;
+};
+
 export type FounderDocument = {
 	name: string;
 	title?: string;
@@ -41,6 +47,15 @@ export type FounderDocument = {
 	signatureImage?: string;
 	portraitImage?: string;
 	quote?: string;
+	letterDate?: string;
+	readTime?: string;
+	letterTitle?: string;
+	introduction?: string;
+	calloutQuote?: string;
+	middleText?: string;
+	pillars?: FounderPillar[];
+	conclusion?: string;
+	signOffLabel?: string;
 	isActive?: boolean;
 };
 
@@ -87,6 +102,9 @@ export type BrandingDocument = {
 	secondaryColor?: string;
 	accentColor?: string;
 	fontFamily?: string;
+	wordmarkText?: string;
+	wordmarkHighlightIndex?: number;
+	wordmarkHighlightColor?: string;
 	isActive?: boolean;
 };
 
@@ -97,6 +115,7 @@ export type WebsiteSettingsDocument = {
 	email?: string;
 	phone?: string;
 	address?: string;
+	cin?: string;
 	socialLinks?: SocialLink[];
 	seo?: {
 		title?: string;
@@ -112,6 +131,133 @@ export type ContactSubmission = {
 	phone?: string;
 	subject?: string;
 	message: string;
+};
+
+export type HomepageDocument = {
+	heroImageCaption?: string;
+	heroImageCode?: string;
+	founderTeaser?: string;
+	founderLetterDate?: string;
+	businessSectionSubtitle?: string;
+	visionTitle?: string;
+	visionDescription?: string;
+	missionTitle?: string;
+	missionDescription?: string;
+	impactMetrics?: Array<{ category: string; value: string; description: string }>;
+	cultureTeaserSubtitle?: string;
+	cultureTeaserTitle?: string;
+	cultureTeaserDescription?: string;
+	cultureTeaserImage?: string;
+	isActive?: boolean;
+};
+
+export type CulturePageDocument = {
+	heroTitle?: string;
+	heroDescription?: string;
+	philosophyImage?: string;
+	philosophyImageAlt?: string;
+	philosophyQuote?: string;
+	philosophyBody?: string[];
+	valuesTitle?: string;
+	valuesSubtitle?: string;
+	valuesList?: Array<{ num: string; title: string; description: string }>;
+	ctaTitle?: string;
+	ctaDescription?: string;
+	ctaButtonText?: string;
+	isActive?: boolean;
+};
+
+export type ImpactPageDocument = {
+	heroTitle?: string;
+	heroDescription?: string;
+	metricsTitle?: string;
+	metricsSubtitle?: string;
+	metrics?: Array<{ label: string; value: string; subText: string }>;
+	initiativesTitle?: string;
+	initiativesSubtitle?: string;
+	initiatives?: Array<{ iconType: string; title: string; description: string }>;
+	socialTitle?: string;
+	socialDescription?: string;
+	socialImage?: string;
+	socialImageAlt?: string;
+	isActive?: boolean;
+};
+
+export type CareersPageDocument = {
+	heroTitle?: string;
+	heroDescription?: string;
+	philosophyTitle?: string;
+	philosophySubtitle?: string;
+	principles?: Array<{ label: string; title: string; description: string }>;
+	isActive?: boolean;
+};
+
+export type JobDocument = {
+	title: string;
+	department: string;
+	location: string;
+	type: string;
+	description?: string;
+	isActive?: boolean;
+};
+
+export type ContactPageDocument = {
+	heroTitle?: string;
+	heroDescription?: string;
+	departmentalContacts?: Array<{ label: string; email: string; description: string }>;
+	formTitle?: string;
+	formInstructions?: string;
+	officeSectionTitle?: string;
+	officeSectionSubtitle?: string;
+	isActive?: boolean;
+};
+
+export type OfficeDocument = {
+	city: string;
+	address: string;
+	phone?: string;
+	sortOrder?: number;
+	isActive?: boolean;
+};
+
+export type InvestorsPageDocument = {
+	heroTitle?: string;
+	heroDescription?: string;
+	stockSymbol?: string;
+	stockIsin?: string;
+	stockBasePrice?: number;
+	marketCap?: string;
+	peRatio?: string;
+	fiftyTwoWeekHigh?: string;
+	fiftyTwoWeekLow?: string;
+	ytdPerformance?: string;
+	chartStartDate?: string;
+	chartEndDate?: string;
+	isActive?: boolean;
+};
+
+export type FinancialReportDocument = {
+	period: string;
+	revenue: string;
+	growth: string;
+	profit: string;
+	sortOrder?: number;
+	isActive?: boolean;
+};
+
+export type ShareholdingPatternDocument = {
+	category: string;
+	percentage: string;
+	sortOrder?: number;
+	isActive?: boolean;
+};
+
+export type BoardMemberDocument = {
+	name: string;
+	role: string;
+	bio?: string;
+	sortOrder?: number;
+	isActive?: boolean;
 };
 
 export const fallbackNavigation: NavigationDocument = {

@@ -1,0 +1,46 @@
+[
+  {
+    "period": "Q3 FY26 (Ended Dec 31, 2025)",
+    "revenue": "₹4,820 Cr",
+    "growth": "+32% YoY",
+    "profit": "₹285 Cr",
+    "sortOrder": 0,
+    "isActive": true,
+    "_id": "0fdf67b0ffe51e62392f9b0d",
+    "createdAt": "2026-07-08T17:52:06.433Z",
+    "updatedAt": "2026-07-08T17:52:06.433Z"
+  },
+  {
+    "period": "Q2 FY26 (Ended Sep 30, 2025)",
+    "revenue": "₹4,410 Cr",
+    "growth": "+28% YoY",
+    "profit": "₹210 Cr",
+    "sortOrder": 1,
+    "isActive": true,
+    "_id": "0f14bec9c55ea1fe381a9773",
+    "createdAt": "2026-07-08T17:52:06.434Z",
+    "updatedAt": "2026-07-08T17:52:06.434Z"
+  },
+  {
+    "period": "Q1 FY26 (Ended Jun 30, 2025)",
+    "revenue": "₹4,180 Cr",
+    "growth": "+25% YoY",
+    "profit": "₹180 Cr",
+    "sortOrder": 2,
+    "isActive": true,
+    "_id": "7addea1e524fad4b3d41f4fa",
+    "createdAt": "2026-07-08T17:52:06.435Z",
+    "updatedAt": "2026-07-08T17:52:06.435Z"
+  },
+  {
+    "period": "FY25 Annual Report",
+    "revenue": "₹15,860 Cr",
+    "growth": "+30% YoY",
+    "profit": "₹620 Cr",
+    "sortOrder": 3,
+    "isActive": true,
+    "_id": "90bd9dc1cfa57e5e04acd2cc",
+    "createdAt": "2026-07-08T17:52:06.436Z",
+    "updatedAt": "2026-07-08T17:52:06.436Z"
+  }
+]

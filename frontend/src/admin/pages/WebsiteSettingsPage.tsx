@@ -13,13 +13,14 @@ import { useUnsavedChanges } from '../hooks/useUnsavedChanges';
 import { getActiveDoc, websiteSettingsApi } from '../services/api';
 import type { SocialLink, WebsiteSettingsDoc } from '../types/cms';
 
-const emptySettings: Omit<WebsiteSettingsDoc, '_id'> = {
+const emptySettings: Omit<WebsiteSettingsDoc, '_id'> & { cin?: string } = {
   siteName: '',
   tagline: '',
   description: '',
   email: '',
   phone: '',
   address: '',
+  cin: '',
   socialLinks: [],
   seo: { title: '', description: '', keywords: [] },
   isActive: true,
@@ -54,6 +55,7 @@ export default function WebsiteSettingsPage() {
             email: active.email || '',
             phone: active.phone || '',
             address: active.address || '',
+            cin: (active as any).cin || '',
             socialLinks: active.socialLinks || [],
             seo: {
               title: active.seo?.title || '',
@@ -148,6 +150,9 @@ export default function WebsiteSettingsPage() {
             </div>
             <TextInput label="Email" value={form.email || ''} onChange={(v) => update('email', v)} type="email" />
             <TextInput label="Phone" value={form.phone || ''} onChange={(v) => update('phone', v)} />
+            <div className="md:col-span-2">
+              <TextInput label="Corporate Identification Number (CIN)" value={form.cin || ''} onChange={(v) => update('cin', v)} />
+            </div>
             <div className="md:col-span-2">
               <TextArea label="Address" value={form.address || ''} onChange={(v) => update('address', v)} rows={3} />
             </div>

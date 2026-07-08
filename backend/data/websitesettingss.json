@@ -1,14 +1,15 @@
 [
   {
-    "siteName": "Pnazo Private Limited",
+    "siteName": "LocalSM Limited",
     "tagline": "To endure, evolve, and empower.",
     "description": "Building the hyper-local commerce infrastructure of tomorrow.",
-    "email": "founder@localsm.com",
-    "phone": "",
-    "address": "Jabalpur, Maharajpur",
+    "email": "corporate@localsm.com",
+    "phone": "+91 124 499 9999",
+    "address": "12th Floor, DLF Cyber City, Phase 3, Gurugram, Haryana - 122002, India",
+    "cin": "L74999HR2026PLC099999",
     "socialLinks": [],
     "seo": {
-      "title": "Pnazo Private Limited",
+      "title": "LocalSM Limited",
       "description": "Building the hyper-local commerce infrastructure of tomorrow.",
       "keywords": [
         "LocalSM",
@@ -19,8 +20,8 @@
       ]
     },
     "isActive": true,
-    "_id": "bfafb7bc6438b25ec51d124b",
-    "createdAt": "2026-07-08T11:09:05.185Z",
-    "updatedAt": "2026-07-08T17:34:02.100Z"
+    "_id": "b11b8bbdd72a1496ed1dcc8f",
+    "createdAt": "2026-07-08T17:52:06.414Z",
+    "updatedAt": "2026-07-08T17:52:06.414Z"
   }
 ]

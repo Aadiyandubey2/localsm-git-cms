@@ -1,0 +1,32 @@
+[
+  {
+    "city": "Gurugram (Headquarters)",
+    "address": "LocalSM Limited, 12th Floor, DLF Cyber City, Phase 3, Gurugram, Haryana - 122002",
+    "phone": "+91 124 499 9999",
+    "sortOrder": 0,
+    "isActive": true,
+    "_id": "f281be6961626bffa6ef3b8e",
+    "createdAt": "2026-07-08T17:52:06.429Z",
+    "updatedAt": "2026-07-08T17:52:06.429Z"
+  },
+  {
+    "city": "Bengaluru Office",
+    "address": "LocalSM Limited, 3rd Floor, Prestige Tech Park, Outer Ring Road, Kadubeesanahalli, Bengaluru, Karnataka - 560103",
+    "phone": "+91 80 499 9999",
+    "sortOrder": 1,
+    "isActive": true,
+    "_id": "63e42f5591c96fe5798d850c",
+    "createdAt": "2026-07-08T17:52:06.430Z",
+    "updatedAt": "2026-07-08T17:52:06.430Z"
+  },
+  {
+    "city": "Mumbai Office",
+    "address": "LocalSM Limited, Level 4, Naman Centre, G Block, Bandra Kurla Complex, Bandra East, Mumbai, Maharashtra - 400051",
+    "phone": "+91 22 499 9999",
+    "sortOrder": 2,
+    "isActive": true,
+    "_id": "b0635fd8c00009a2da502dbd",
+    "createdAt": "2026-07-08T17:52:06.431Z",
+    "updatedAt": "2026-07-08T17:52:06.431Z"
+  }
+]

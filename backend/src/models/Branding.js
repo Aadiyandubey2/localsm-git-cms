@@ -29,7 +29,19 @@ const brandingSchema = new mongoose.Schema(
 		},
 		fontFamily: {
 			type: String,
-			default: '',
+			default: 'Berkshire Swash',
+		},
+		wordmarkText: {
+			type: String,
+			default: 'LocalSM',
+		},
+		wordmarkHighlightIndex: {
+			type: Number,
+			default: 5,
+		},
+		wordmarkHighlightColor: {
+			type: String,
+			default: '#f4b000',
 		},
 		isActive: {
 			type: Boolean,

@@ -102,17 +102,54 @@ export default function FounderLetter() {
             </span>
           </div>
           <h1 className="text-4xl md:text-6xl font-light tracking-tight leading-tight">
-            A note from our Founder, {founder.name}.
+            {founder.letterTitle || `A note from our Founder, ${founder.name}.`}
           </h1>
           <div className="flex justify-between items-center text-xs font-mono text-black/40 pt-4">
-            <span>DATE: 6 FEBRUARY 2026</span>
-            <span>READ TIME: 6 MINS</span>
+            <span>DATE: {founder.letterDate || '6 FEBRUARY 2026'}</span>
+            <span>READ TIME: {founder.readTime || '6 MINS'}</span>
           </div>
         </div>
 
         {/* Letter Body */}
         <div className="space-y-8 text-base md:text-lg text-black/80 font-light leading-relaxed">
-          {founder.message ? (
+          {founder.introduction ? (
+            <>
+              {founder.introduction.split('\n\n').map((p, idx) => (
+                <p key={idx} className={idx === 0 ? 'font-medium text-black' : ''}>
+                  {p}
+                </p>
+              ))}
+
+              {founder.calloutQuote && (
+                <blockquote className="border-l-2 border-[#0055ff] pl-6 my-10 py-2 text-2xl md:text-3xl font-light tracking-tight text-black italic">
+                  “{founder.calloutQuote}”
+                </blockquote>
+              )}
+
+              {founder.middleText?.split('\n\n').map((p, idx) => (
+                <p key={idx}>{p}</p>
+              ))}
+
+              {founder.pillars && founder.pillars.length > 0 && (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-10">
+                  {founder.pillars.map((pillar, idx) => (
+                    <div key={idx} className="border border-black/10 p-6 bg-black/[0.01]">
+                      <h4 className="font-semibold text-sm uppercase tracking-wider text-[#0055ff] mb-2">
+                        {pillar.numberLabel}
+                      </h4>
+                      <p className="text-sm text-black/60 font-light leading-relaxed">
+                        <strong>{pillar.title}</strong> — {pillar.description}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {founder.conclusion?.split('\n\n').map((p, idx) => (
+                <p key={idx}>{p}</p>
+              ))}
+            </>
+          ) : founder.message ? (
             <FounderMessageContent
               message={founder.message}
               businesses={businesses}
@@ -122,7 +159,9 @@ export default function FounderLetter() {
           ) : null}
 
           <div className="pt-12 space-y-2">
-            <p className="font-mono text-xs uppercase tracking-widest text-black/40">Sincerely,</p>
+            <p className="font-mono text-xs uppercase tracking-widest text-black/40">
+              {founder.signOffLabel || 'Sincerely,'}
+            </p>
             <p className="font-semibold text-black text-xl">{founder.name}</p>
             <p className="text-sm text-black/50 font-mono">
               {founder.title || 'Founder & CEO'}, LocalSM Limited

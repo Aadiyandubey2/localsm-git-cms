@@ -1,0 +1,55 @@
+[
+  {
+    "heroTitle": "This place is designed to make you feel uncomfortable.",
+    "heroDescription": "We don’t settle. We don’t rest on legacy success. We operate with extreme transparency, high ownership, and a relentless pace. If you thrive on comfort, this is not the place for you.",
+    "philosophyImage": "/images/office-interior.jpg",
+    "philosophyImageAlt": "LocalSM Collaboration Space",
+    "philosophyQuote": "\"We don't manage people. We manage missions.\"",
+    "philosophyBody": [
+      "We believe that standard corporate hierarchies are designed to optimize for predictability, not impact. At LocalSM, we do not want predictability. We want excellence, high-agency, and radical ownership.",
+      "We speak the truth directly and immediately. We do not sugarcoat feedback because we believe that politeness at the expense of growth is a disservice to our colleagues and partners.",
+      "Our team is built on intellectual honesty—we celebrate being wrong because it means we are closer to finding the right solution. If you want a comfortable job, this is not it. If you want to build enduring infrastructure, welcome."
+    ],
+    "valuesTitle": "Our Core Values",
+    "valuesSubtitle": "These are the principles that guide our daily actions and long-term decisions.",
+    "valuesList": [
+      {
+        "num": "01",
+        "title": "Extreme Ownership",
+        "description": "We do not wait to be told what to do. If you see a problem, you own it until it is solved. We do not have room for spectators."
+      },
+      {
+        "num": "02",
+        "title": "Radical Candor",
+        "description": "We speak the truth directly and immediately. We do not sugarcoat feedback."
+      },
+      {
+        "num": "03",
+        "title": "First Principles Thinking",
+        "description": "We break problems down to their fundamental truths and build upward from there."
+      },
+      {
+        "num": "04",
+        "title": "Bias for Action",
+        "description": "Speed matters. A good decision made today is infinitely better than a perfect decision next week."
+      },
+      {
+        "num": "05",
+        "title": "Obsession with Partners",
+        "description": "Our merchants and delivery partners are our lifeblood. Every decision must make their lives better."
+      },
+      {
+        "num": "06",
+        "title": "Intellectual Honesty",
+        "description": "We dismantle our own successful models if we find a better way forward."
+      }
+    ],
+    "ctaTitle": "Are you ready to do the most challenging work of your life?",
+    "ctaDescription": "We are always looking for exceptional engineers, product thinkers, and operational leaders who want to build the future of hyper-local commerce.",
+    "ctaButtonText": "Explore Open Roles",
+    "isActive": true,
+    "_id": "f7d96355a79e677594b393dc",
+    "createdAt": "2026-07-08T17:52:06.417Z",
+    "updatedAt": "2026-07-08T17:52:06.417Z"
+  }
+]

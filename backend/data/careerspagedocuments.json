@@ -1,0 +1,29 @@
+[
+  {
+    "heroTitle": "Build things that outlast you.",
+    "heroDescription": "We do not offer jobs; we offer missions. We are looking for builders, thinkers, and operators who want to define hyper-local commerce.",
+    "philosophyTitle": "Our Hiring Philosophy",
+    "philosophySubtitle": "How we build high-agency, long-term teams.",
+    "principles": [
+      {
+        "label": "High Agency",
+        "title": "We value individuals who find a way",
+        "description": "We want people who get things done despite obstacles, run through walls, and refuse to accept standard constraints."
+      },
+      {
+        "label": "Intellectual Curiosity",
+        "title": "Deep first-principles understanding",
+        "description": "You must have a deep desire to understand how things work and build upwards from fundamental truths."
+      },
+      {
+        "label": "Resilience & Grit",
+        "title": "Building for the long-term",
+        "description": "Building enduring institutions is hard work. We value persistence and focus over short-term optimization."
+      }
+    ],
+    "isActive": true,
+    "_id": "45c3779ddf08b3a29c40e0e5",
+    "createdAt": "2026-07-08T17:52:06.419Z",
+    "updatedAt": "2026-07-08T17:52:06.419Z"
+  }
+]

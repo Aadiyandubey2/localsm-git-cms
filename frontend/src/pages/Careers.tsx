@@ -1,74 +1,84 @@
-import React, { useState } from 'react';
-import { Search, ChevronDown, Check, ArrowRight } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Search, ChevronDown, Check, ArrowRight, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { getActiveDocument, getCollection, type CareersPageDocument, type JobDocument } from '../api/cms';
 
 export default function Careers() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDept, setSelectedDept] = useState('All');
-  const [selectedLoc, setSelectedDeptLoc] = useState('All');
+  const [selectedLoc, setSelectedLoc] = useState('All');
   const [appliedJob, setAppliedJob] = useState<string | null>(null);
   const [applyForm, setApplyForm] = useState({ name: '', email: '', resume: '', coverLetter: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
-  const departments = ['All', 'Engineering', 'Product Management', 'Operations', 'Design', 'Marketing'];
-  const locations = ['All', 'Gurugram', 'Bengaluru', 'Mumbai', 'Remote'];
+  const [careersPage, setCareersPage] = useState<CareersPageDocument | null>(null);
+  const [jobs, setJobs] = useState<JobDocument[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const jobs = [
-    {
-      id: 'eng-01',
-      title: 'Principal Software Engineer — Quick Commerce Platform',
-      dept: 'Engineering',
-      loc: 'Bengaluru',
-      type: 'Full-time',
-      desc: 'Build and scale the hyper-local routing and order matching engines that power Janhal’s 10-minute delivery ecosystem. Experience with high-throughput distributed systems is required.',
-    },
-    {
-      id: 'eng-02',
-      title: 'Senior Frontend Engineer — Merchant Suite',
-      dept: 'Engineering',
-      loc: 'Gurugram',
-      type: 'Full-time',
-      desc: 'Lead the development of our next-generation Local Branding Software. You will build highly responsive, data-rich dashboards that empower local merchants to manage their digital presence.',
-    },
-    {
-      id: 'prod-01',
-      title: 'Director of Product — Hyper-local Logistics',
-      dept: 'Product Management',
-      loc: 'Gurugram',
-      type: 'Full-time',
-      desc: 'Own the product vision and roadmap for LocalSM Delivery’s core dispatch, allocation, and delivery partner experience. Drive efficiency gains across our 500,000+ courier fleet.',
-    },
-    {
-      id: 'ops-01',
-      title: 'Head of Dark Store Operations',
-      dept: 'Operations',
-      loc: 'Mumbai',
-      type: 'Full-time',
-      desc: 'Oversee operational performance, inventory accuracy, and picking efficiency across our network of 150+ Janhal dark stores in the Western region.',
-    },
-    {
-      id: 'des-01',
-      title: 'Lead Product Designer — Consumer Experience',
-      dept: 'Design',
-      loc: 'Bengaluru',
-      type: 'Full-time',
-      desc: 'Craft intuitive, simple, and delightful consumer ordering journeys for LocalSM Delivery and Janhal. Strong visual design and interaction prototyping skills are essential.',
-    },
-    {
-      id: 'mkt-01',
-      title: 'Growth Marketing Lead — Merchant Acquisition',
-      dept: 'Marketing',
-      loc: 'Remote',
-      type: 'Full-time',
-      desc: 'Design and execute multi-channel growth campaigns to acquire and onboard local merchants onto our Local Branding Software platform.',
-    },
-  ];
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadCareersData = async () => {
+      try {
+        const [pageDoc, jobsList] = await Promise.all([
+          getActiveDocument<CareersPageDocument>('/careers-page'),
+          getCollection<JobDocument>('/jobs'),
+        ]);
+
+        if (!isMounted) return;
+
+        if (pageDoc) setCareersPage(pageDoc);
+        if (jobsList) setJobs(jobsList.filter((j) => j.isActive !== false));
+      } catch (error) {
+        console.error('Failed to load careers content:', error);
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    loadCareersData();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="bg-[#f4f4f4] min-h-screen text-black font-sans pt-32 pb-20 selection:bg-[#0055ff]/10 selection:text-black">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 space-y-16 animate-pulse">
+          <div className="space-y-4">
+            <div className="h-4 w-32 rounded bg-black/10"></div>
+            <div className="h-12 w-3/4 rounded bg-black/10"></div>
+            <div className="h-6 w-1/2 rounded bg-black/10"></div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="border border-black/10 p-8 space-y-4 bg-[#f4f4f4]">
+                <div className="h-4 w-28 rounded bg-black/10"></div>
+                <div className="h-6 w-20 rounded bg-black/10"></div>
+                <div className="h-16 w-full rounded bg-black/10"></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Derive filter categories dynamically from active jobs
+  const departments = ['All', ...Array.from(new Set(jobs.map((job) => job.department)))];
+  const locations = ['All', ...Array.from(new Set(jobs.map((job) => job.location)))];
 
   const filteredJobs = jobs.filter((job) => {
-    const matchesSearch = job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          job.desc.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesDept = selectedDept === 'All' || job.dept === selectedDept;
-    const matchesLoc = selectedLoc === 'All' || job.loc === selectedLoc;
+    const matchesSearch =
+      job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (job.description || '').toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesDept = selectedDept === 'All' || job.department === selectedDept;
+    const matchesLoc = selectedLoc === 'All' || job.location === selectedLoc;
     return matchesSearch && matchesDept && matchesLoc;
   });
 
@@ -96,6 +106,26 @@ export default function Careers() {
     }, 1500);
   };
 
+  const principlesToRender = careersPage?.principles?.length
+    ? careersPage.principles
+    : [
+        {
+          label: 'High Agency',
+          title: 'We value individuals who find a way',
+          description: 'We value individuals who find a way to get things done despite obstacles, constraints, or lack of resources. If you wait for permission or clear instructions, you will struggle here.',
+        },
+        {
+          label: 'Intellectual Curiosity',
+          title: 'Deep first-principles understanding',
+          description: 'You must have a deep desire to understand how things work from first principles. We want people who ask "why" five times, challenge assumptions, and constantly seek better solutions.',
+        },
+        {
+          label: 'Resilience & Grit',
+          title: 'Building for the long-term',
+          description: 'Building enduring institutions is incredibly hard work. It involves setbacks, failures, and intense pressure. We look for candidates who have demonstrated grit and can bounce back stronger.',
+        },
+      ];
+
   return (
     <div className="bg-[#f4f4f4] min-h-screen text-black font-sans pt-32 pb-20 selection:bg-[#0055ff]/10 selection:text-black">
       {/* Hero Section */}
@@ -107,10 +137,10 @@ export default function Careers() {
             </span>
           </div>
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-light tracking-tight leading-[1.05] max-w-5xl">
-            Build things that outlast you.
+            {careersPage?.heroTitle || 'Build things that outlast you.'}
           </h1>
           <p className="text-xl md:text-2xl text-black/60 font-light max-w-3xl leading-relaxed">
-            We do not offer jobs; we offer missions. We are looking for builders, thinkers, and operators who thrive under responsibility and want to shape the hyper-local economy of tomorrow.
+            {careersPage?.heroDescription || 'We do not offer jobs; we offer missions. We are looking for builders, thinkers, and operators who thrive under responsibility and want to shape the hyper-local economy of tomorrow.'}
           </p>
         </div>
       </section>
@@ -120,37 +150,23 @@ export default function Careers() {
         <div className="max-w-7xl mx-auto space-y-16">
           <div className="space-y-4">
             <h2 className="text-xs uppercase tracking-[0.25em] font-semibold text-black/40">
-              Our Hiring Philosophy
+              {careersPage?.philosophyTitle || 'Our Hiring Philosophy'}
             </h2>
             <p className="text-3xl md:text-4xl font-light tracking-tight max-w-2xl">
-              What we look for in every candidate.
+              {careersPage?.philosophySubtitle || 'What we look for in every candidate.'}
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="border border-black/10 p-8 space-y-4 bg-[#f4f4f4]">
-              <span className="text-xs font-mono text-[#0055ff]">PRINCIPLE 01 /</span>
-              <h3 className="text-xl font-medium tracking-tight">High Agency</h3>
-              <p className="text-sm text-black/60 font-light leading-relaxed">
-                We value individuals who find a way to get things done despite obstacles, constraints, or lack of resources. If you wait for permission or clear instructions, you will struggle here.
-              </p>
-            </div>
-
-            <div className="border border-black/10 p-8 space-y-4 bg-[#f4f4f4]">
-              <span className="text-xs font-mono text-[#0055ff]">PRINCIPLE 02 /</span>
-              <h3 className="text-xl font-medium tracking-tight">Intellectual Curiosity</h3>
-              <p className="text-sm text-black/60 font-light leading-relaxed">
-                You must have a deep desire to understand how things work from first principles. We want people who ask "why" five times, challenge assumptions, and constantly seek better solutions.
-              </p>
-            </div>
-
-            <div className="border border-black/10 p-8 space-y-4 bg-[#f4f4f4]">
-              <span className="text-xs font-mono text-[#0055ff]">PRINCIPLE 03 /</span>
-              <h3 className="text-xl font-medium tracking-tight">Resilience & Grit</h3>
-              <p className="text-sm text-black/60 font-light leading-relaxed">
-                Building enduring institutions is incredibly hard work. It involves setbacks, failures, and intense pressure. We look for candidates who have demonstrated grit and can bounce back stronger.
-              </p>
-            </div>
+            {principlesToRender.map((p, idx) => (
+              <div key={idx} className="border border-black/10 p-8 space-y-4 bg-[#f4f4f4]">
+                <span className="text-xs font-mono text-[#0055ff]">PRINCIPLE {String(idx + 1).padStart(2, '0')} //</span>
+                <h3 className="text-xl font-medium tracking-tight">{p.label} — {p.title}</h3>
+                <p className="text-sm text-black/60 font-light leading-relaxed">
+                  {p.description}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -206,7 +222,7 @@ export default function Careers() {
             <div className="md:col-span-3 relative">
               <select
                 value={selectedLoc}
-                onChange={(e) => setSelectedDeptLoc(e.target.value)}
+                onChange={(e) => setSelectedLoc(e.target.value)}
                 className="w-full bg-[#f4f4f4] border border-black/10 py-3.5 px-4 text-sm font-light text-black appearance-none focus:outline-none focus:border-[#0055ff] transition-colors cursor-pointer"
               >
                 {locations.map((loc) => (
@@ -219,145 +235,138 @@ export default function Careers() {
             </div>
           </div>
 
-          {/* Jobs List */}
-          <div className="space-y-6">
+          {/* Directory Listings */}
+          <div className="divide-y divide-black/10">
             {filteredJobs.length > 0 ? (
               filteredJobs.map((job) => (
-                <div
-                  key={job.id}
-                  className="border border-black/10 p-8 bg-[#f4f4f4] hover:border-black/30 transition-all duration-300 flex flex-col md:flex-row justify-between items-start md:items-center gap-6"
-                >
-                  <div className="space-y-4 max-w-3xl">
-                    <div className="flex flex-wrap items-center gap-3">
-                      <span className="text-xs font-mono text-[#0055ff] font-semibold tracking-wider uppercase">
-                        {job.dept}
-                      </span>
-                      <span className="text-black/20 text-xs">•</span>
-                      <span className="text-xs font-mono text-black/50 tracking-wider uppercase">
-                        {job.loc}
-                      </span>
-                      <span className="text-black/20 text-xs">•</span>
-                      <span className="text-xs font-mono text-black/50 tracking-wider uppercase">
-                        {job.type}
-                      </span>
-                    </div>
-                    <h3 className="text-xl md:text-2xl font-light tracking-tight text-black">
+                <div key={job.title} className="py-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start group">
+                  <div className="lg:col-span-8 space-y-3">
+                    <h3 className="text-xl font-medium tracking-tight group-hover:text-[#0055ff] transition-colors duration-300">
                       {job.title}
                     </h3>
-                    <p className="text-sm text-black/60 font-light leading-relaxed">
-                      {job.desc}
+                    <p className="text-sm text-black/60 font-light leading-relaxed max-w-3xl">
+                      {job.description}
                     </p>
                   </div>
-                  <div>
-                    <button
-                      onClick={() => handleApplyClick(job.title)}
-                      className="whitespace-nowrap px-6 py-3 border border-black text-xs font-semibold uppercase tracking-wider hover:bg-black hover:text-[#f4f4f4] transition-all duration-300 cursor-pointer focus:outline-none"
-                    >
-                      Apply Now
-                    </button>
+                  <div className="lg:col-span-4 flex flex-col sm:flex-row sm:items-center lg:justify-end gap-6 pt-2 lg:pt-0">
+                    <div className="flex flex-wrap gap-2 text-xs font-mono text-black/40">
+                      <span className="px-2.5 py-1 border border-black/5 bg-[#f4f4f4]">
+                        {job.department.toUpperCase()}
+                      </span>
+                      <span className="px-2.5 py-1 border border-black/5 bg-[#f4f4f4]">
+                        {job.location.toUpperCase()}
+                      </span>
+                      <span className="px-2.5 py-1 border border-black/5 bg-[#f4f4f4]">
+                        {job.type.toUpperCase()}
+                      </span>
+                    </div>
+                    <div>
+                      <button
+                        onClick={() => handleApplyClick(job.title)}
+                        className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#0055ff] hover:text-black transition-colors focus:outline-none"
+                      >
+                        Apply Now <ArrowRight size={14} />
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))
             ) : (
-              <div className="border border-black/10 p-12 text-center text-black/50 font-light">
-                No open positions match your selected filters. Try broadening your search.
+              <div className="py-16 text-center text-black/40 font-light">
+                No open positions match your search filters.
               </div>
             )}
           </div>
         </div>
       </section>
 
-      {/* Apply Modal overlay */}
+      {/* Application Overlay Modal */}
       {appliedJob && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
-          <div className="bg-[#f4f4f4] border border-black/20 w-full max-w-2xl p-8 md:p-10 relative">
+        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-6 backdrop-blur-sm animate-fadeIn">
+          <div className="bg-white border border-black/10 w-full max-w-xl p-8 md:p-10 space-y-6 relative max-h-[90vh] overflow-y-auto">
             <button
               onClick={() => setAppliedJob(null)}
-              className="absolute right-6 top-6 text-black/50 hover:text-black focus:outline-none cursor-pointer"
+              className="absolute right-6 top-6 text-black/40 hover:text-black transition-colors focus:outline-none"
             >
-              ✕
+              <X size={20} />
             </button>
 
+            <div className="space-y-2">
+              <span className="text-xs uppercase tracking-widest text-[#0055ff] font-semibold">Application Form</span>
+              <h3 className="text-2xl font-light tracking-tight text-black">{appliedJob}</h3>
+            </div>
+
             {showSuccess ? (
-              <div className="py-12 flex flex-col items-center justify-center space-y-4 text-center">
-                <div className="h-12 w-12 rounded-full border border-green-600 flex items-center justify-center text-green-600">
-                  <Check size={24} />
+              <div className="bg-green-50 border border-green-200 text-green-800 p-6 flex items-start gap-3">
+                <Check className="text-green-600 shrink-0" size={20} />
+                <div className="space-y-1">
+                  <p className="font-semibold text-sm">Application Submitted Successfully!</p>
+                  <p className="text-xs text-green-700">Thank you for applying. Our talent team will review your profile and reach out shortly.</p>
                 </div>
-                <h3 className="text-2xl font-light">Application Submitted</h3>
-                <p className="text-sm text-black/60 font-light max-w-md">
-                  Thank you for applying for the <strong>{appliedJob}</strong> position. Our recruiting team will review your details and get back to you shortly.
-                </p>
               </div>
             ) : (
-              <div className="space-y-6">
-                <div className="space-y-2">
-                  <span className="text-xs font-mono text-[#0055ff] uppercase tracking-widest">Job Application</span>
-                  <h3 className="text-2xl font-light tracking-tight">{appliedJob}</h3>
+              <form onSubmit={handleSubmitApply} className="space-y-4">
+                <div className="space-y-1">
+                  <label className="text-xs font-mono text-black/50 uppercase">Full Name</label>
+                  <input
+                    type="text"
+                    name="name"
+                    required
+                    value={applyForm.name}
+                    onChange={handleInputChange}
+                    className="w-full bg-[#f4f4f4] border border-black/10 py-3 px-4 text-sm font-light text-black placeholder-black/30 focus:outline-none focus:border-[#0055ff] transition-colors"
+                    placeholder="John Doe"
+                  />
                 </div>
 
-                <form onSubmit={handleSubmitApply} className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-1.5">
-                      <label className="text-xs font-semibold uppercase tracking-wider text-black/50">Full Name</label>
-                      <input
-                        type="text"
-                        name="name"
-                        required
-                        value={applyForm.name}
-                        onChange={handleInputChange}
-                        className="w-full bg-[#f4f4f4] border border-black/10 p-3 text-sm font-light focus:outline-none focus:border-[#0055ff]"
-                      />
-                    </div>
-                    <div className="space-y-1.5">
-                      <label className="text-xs font-semibold uppercase tracking-wider text-black/50">Email Address</label>
-                      <input
-                        type="email"
-                        name="email"
-                        required
-                        value={applyForm.email}
-                        onChange={handleInputChange}
-                        className="w-full bg-[#f4f4f4] border border-black/10 p-3 text-sm font-light focus:outline-none focus:border-[#0055ff]"
-                      />
-                    </div>
-                  </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-mono text-black/50 uppercase">Email Address</label>
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    value={applyForm.email}
+                    onChange={handleInputChange}
+                    className="w-full bg-[#f4f4f4] border border-black/10 py-3 px-4 text-sm font-light text-black placeholder-black/30 focus:outline-none focus:border-[#0055ff] transition-colors"
+                    placeholder="john@example.com"
+                  />
+                </div>
 
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-semibold uppercase tracking-wider text-black/50">Resume Link (PDF / Google Drive)</label>
-                    <input
-                      type="url"
-                      name="resume"
-                      required
-                      placeholder="https://example.com/resume.pdf"
-                      value={applyForm.resume}
-                      onChange={handleInputChange}
-                      className="w-full bg-[#f4f4f4] border border-black/10 p-3 text-sm font-light focus:outline-none focus:border-[#0055ff]"
-                    />
-                  </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-mono text-black/50 uppercase">Resume URL</label>
+                  <input
+                    type="url"
+                    name="resume"
+                    required
+                    value={applyForm.resume}
+                    onChange={handleInputChange}
+                    className="w-full bg-[#f4f4f4] border border-black/10 py-3 px-4 text-sm font-light text-black placeholder-black/30 focus:outline-none focus:border-[#0055ff] transition-colors"
+                    placeholder="https://drive.google.com/file/d/..."
+                  />
+                </div>
 
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-semibold uppercase tracking-wider text-black/50">Why LocalSM? (Brief Cover Letter)</label>
-                    <textarea
-                      name="coverLetter"
-                      required
-                      rows={4}
-                      value={applyForm.coverLetter}
-                      onChange={handleInputChange}
-                      placeholder="Tell us why you are a high-agency builder..."
-                      className="w-full bg-[#f4f4f4] border border-black/10 p-3 text-sm font-light focus:outline-none focus:border-[#0055ff] resize-none"
-                    />
-                  </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-mono text-black/50 uppercase">Cover Letter / Note</label>
+                  <textarea
+                    name="coverLetter"
+                    rows={4}
+                    value={applyForm.coverLetter}
+                    onChange={handleInputChange}
+                    className="w-full bg-[#f4f4f4] border border-black/10 py-3 px-4 text-sm font-light text-black placeholder-black/30 focus:outline-none focus:border-[#0055ff] transition-colors resize-none"
+                    placeholder="Tell us why you are a great fit..."
+                  />
+                </div>
 
-                  <div className="pt-4">
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full py-4 bg-black text-[#f4f4f4] text-xs font-semibold uppercase tracking-wider hover:bg-[#0055ff] transition-all duration-300 disabled:bg-black/40 cursor-pointer"
-                    >
-                      {isSubmitting ? 'Submitting...' : 'Submit Application'}
-                    </button>
-                  </div>
-                </form>
-              </div>
+                <div className="pt-2">
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-black text-white py-3.5 text-xs font-semibold uppercase tracking-wider hover:bg-[#0055ff] disabled:bg-black/30 transition-colors duration-300 focus:outline-none"
+                  >
+                    {isSubmitting ? 'Submitting...' : 'Submit Application'}
+                  </button>
+                </div>
+              </form>
             )}
           </div>
         </div>

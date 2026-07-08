@@ -1,6 +1,6 @@
 [
   {
-    "logo": "https://linelpdewzchmqufupzp.supabase.co/storage/v1/object/public/images/1e049db2-5195-4857-b84a-f216084ec8ee.png",
+    "logo": "/images/localsm-logo.svg",
     "menuItems": [
       {
         "label": "Home",
@@ -30,8 +30,8 @@
     "ctaLabel": "",
     "ctaHref": "",
     "isActive": true,
-    "_id": "1ef5091eae181307a057af6d",
-    "createdAt": "2026-07-08T11:09:05.181Z",
-    "updatedAt": "2026-07-08T17:00:35.486Z"
+    "_id": "235a585952c7e02d3235644b",
+    "createdAt": "2026-07-08T17:52:06.412Z",
+    "updatedAt": "2026-07-08T17:52:06.412Z"
   }
 ]
