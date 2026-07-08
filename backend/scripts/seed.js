@@ -5,6 +5,9 @@ Module.prototype.require = function (id) {
   if (id === 'mongoose') {
     return originalRequire.call(this, path.join(__dirname, '../src/utils/mongoose-mock'));
   }
+  if (id === 'bcrypt') {
+    return originalRequire.call(this, 'bcryptjs');
+  }
   return originalRequire.apply(this, arguments);
 };
 

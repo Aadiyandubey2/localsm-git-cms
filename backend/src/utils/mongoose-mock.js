@@ -2,7 +2,10 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 
-const DATA_DIR = path.join(__dirname, '../../data');
+const projectRoot = process.env.VERCEL 
+  ? path.join(process.cwd(), 'backend') 
+  : path.join(__dirname, '../../');
+const DATA_DIR = path.join(projectRoot, 'data');
 
 const generateId = () => crypto.randomBytes(12).toString('hex');
 

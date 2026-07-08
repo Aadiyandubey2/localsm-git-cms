@@ -1,13 +1,17 @@
 const path = require('path');
 const Module = require('module');
 
-// Force Vercel static tracer to bundle the mock mongoose
+// Force Vercel static tracer to bundle the mock mongoose and bcryptjs
 const mockMongoose = require('../src/utils/mongoose-mock');
+const bcryptjs = require('bcryptjs');
 
 const originalRequire = Module.prototype.require;
 Module.prototype.require = function (id) {
   if (id === 'mongoose') {
     return mockMongoose;
+  }
+  if (id === 'bcrypt') {
+    return bcryptjs;
   }
   return originalRequire.apply(this, arguments);
 };
