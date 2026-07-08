@@ -30,6 +30,7 @@ app.use(morgan(env.nodeEnv === 'production' ? 'combined' : 'dev'));
 
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 app.use('/api', apiRoutes);
+app.use('/', apiRoutes);
 
 app.get('/health', (req, res) => {
 	res.status(200).json({
