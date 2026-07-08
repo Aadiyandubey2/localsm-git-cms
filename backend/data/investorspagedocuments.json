@@ -2,19 +2,19 @@
   {
     "heroTitle": "Long-term value through discipline.",
     "heroDescription": "LocalSM Limited (NSE: LOCALS / BSE: 544444) is committed to building a sustainable, profitable, and highly resilient hyper-local commerce ecosystem. We prioritize long-term cash flow generation and governance over short-term optimization.",
-    "stockSymbol": "LOCALS",
+    "stockSymbol": "",
     "stockIsin": "INE000001010",
-    "stockBasePrice": 246.65,
+    "stockBasePrice": null,
     "marketCap": "₹78,450 Cr",
-    "peRatio": "68.4",
-    "fiftyTwoWeekHigh": "₹268.00",
+    "peRatio": "",
+    "fiftyTwoWeekHigh": "",
     "fiftyTwoWeekLow": "₹134.50",
     "ytdPerformance": "+84.5%",
-    "chartStartDate": "Feb 2025",
+    "chartStartDate": "",
     "chartEndDate": "Feb 2026",
     "isActive": true,
     "_id": "7d372691d917e6a8813d5d06",
     "createdAt": "2026-07-08T17:52:06.433Z",
-    "updatedAt": "2026-07-08T17:52:06.433Z"
+    "updatedAt": "2026-07-08T18:05:53.964Z"
   }
 ]
