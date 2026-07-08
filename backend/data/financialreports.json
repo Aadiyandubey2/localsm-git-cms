@@ -1,1 +1,13 @@
-[]
+[
+  {
+    "period": "New Fiscal Quarter / Annual Report",
+    "revenue": "",
+    "growth": "",
+    "profit": "",
+    "isActive": true,
+    "sortOrder": 0,
+    "_id": "4cb4c117724ca237daa7c136",
+    "createdAt": "2026-07-08T18:21:50.809Z",
+    "updatedAt": "2026-07-08T18:21:50.809Z"
+  }
+]
