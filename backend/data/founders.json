@@ -1,6 +1,6 @@
 [
   {
-    "name": "Kabir Sharma",
+    "name": "Aadiyan Dubey",
     "title": "Founder & CEO",
     "signatureImage": "",
     "portraitImage": "/images/founder.jpg",
@@ -33,6 +33,7 @@
     "isActive": true,
     "_id": "d379e63e1cc96cb515678833",
     "createdAt": "2026-07-08T17:52:06.406Z",
-    "updatedAt": "2026-07-08T17:52:06.406Z"
+    "updatedAt": "2026-07-08T18:03:10.615Z",
+    "message": ""
   }
 ]
