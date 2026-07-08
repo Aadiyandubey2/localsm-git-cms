@@ -1,33 +1,46 @@
 {
-    "services": {
-        "frontend": {
-            "root": "frontend",
-            "framework": "vite"
-        },
-        "backend": {
-            "root": "backend",
-            "entrypoint": "src/server.js"
-        }
+  "version": 2,
+  "builds": [
+    {
+      "src": "backend/api/index.js",
+      "use": "@vercel/node"
     },
-    "rewrites": [
-        {
-            "source": "/api/:path*",
-            "destination": {
-                "service": "backend"
-            }
-        },
-        {
-            "source": "/((?!api/|uploads/|assets/|images/|favicon.svg|vite.svg).*)",
-            "destination": {
-                "service": "frontend",
-                "path": "/index.html"
-            }
-        },
-        {
-            "source": "/:path*",
-            "destination": {
-                "service": "frontend"
-            }
-        }
-    ]
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "backend/api/index.js"
+    },
+    {
+      "source": "/uploads/:path*",
+      "destination": "backend/uploads/:path*"
+    },
+    {
+      "source": "/assets/:path*",
+      "destination": "frontend/assets/:path*"
+    },
+    {
+      "source": "/images/:path*",
+      "destination": "frontend/images/:path*"
+    },
+    {
+      "source": "/favicon.svg",
+      "destination": "frontend/favicon.svg"
+    },
+    {
+      "source": "/vite.svg",
+      "destination": "frontend/vite.svg"
+    },
+    {
+      "source": "/((?!api/|uploads/|assets/|images/|favicon.svg|vite.svg).*)",
+      "destination": "frontend/index.html"
+    }
+  ]
 }
