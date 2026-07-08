@@ -5,17 +5,17 @@
     "departmentalContacts": [
       {
         "label": "Media & Public Relations",
-        "email": "press@localsm.com",
+        "email": "management@localsm.com",
         "description": "For press releases, brand assets, and official statements."
       },
       {
         "label": "Investor Relations",
-        "email": "investors@localsm.com",
+        "email": "management@localsm.com",
         "description": "For shareholding queries, financial results, and analyst meets."
       },
       {
         "label": "Merchant Partnerships",
-        "email": "merchants@localsm.com",
+        "email": "management@localsm.com",
         "description": "For store onboarding, software training, and billing support."
       }
     ],
@@ -26,6 +26,6 @@
     "isActive": true,
     "_id": "1ce2b1f8c98e7379f7b107b5",
     "createdAt": "2026-07-08T17:52:06.428Z",
-    "updatedAt": "2026-07-08T17:52:06.428Z"
+    "updatedAt": "2026-07-08T18:09:48.798Z"
   }
 ]
