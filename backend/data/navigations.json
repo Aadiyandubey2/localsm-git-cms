@@ -1,6 +1,6 @@
 [
   {
-    "logo": "/images/localsm-logo.svg",
+    "logo": "https://linelpdewzchmqufupzp.supabase.co/storage/v1/object/public/images/1e049db2-5195-4857-b84a-f216084ec8ee.png",
     "menuItems": [
       {
         "label": "Home",
@@ -32,6 +32,6 @@
     "isActive": true,
     "_id": "235a585952c7e02d3235644b",
     "createdAt": "2026-07-08T17:52:06.412Z",
-    "updatedAt": "2026-07-08T17:52:06.412Z"
+    "updatedAt": "2026-07-08T18:24:09.753Z"
   }
 ]
