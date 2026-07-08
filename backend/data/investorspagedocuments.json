@@ -1,7 +1,7 @@
 [
   {
-    "heroTitle": "sdvsdv",
-    "heroDescription": "kinasc",
+    "heroTitle": "",
+    "heroDescription": "",
     "stockSymbol": "0",
     "stockIsin": "0",
     "stockBasePrice": 0,
@@ -15,6 +15,6 @@
     "isActive": true,
     "_id": "7d372691d917e6a8813d5d06",
     "createdAt": "2026-07-08T17:52:06.433Z",
-    "updatedAt": "2026-07-08T18:19:50.034Z"
+    "updatedAt": "2026-07-08T18:21:01.350Z"
   }
 ]
