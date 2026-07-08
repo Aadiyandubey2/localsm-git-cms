@@ -10,16 +10,6 @@
     "updatedAt": "2026-07-08T18:04:48.543Z"
   },
   {
-    "name": "Rajesh Khanna",
-    "role": "Non-Executive Director",
-    "bio": "Managing Partner at Cyber Ventures, with extensive experience in scaling consumer internet platforms across Asia.",
-    "sortOrder": 2,
-    "isActive": true,
-    "_id": "7c148d2257b81941480f08f6",
-    "createdAt": "2026-07-08T17:52:06.444Z",
-    "updatedAt": "2026-07-08T17:52:06.444Z"
-  },
-  {
     "name": "Meera Deshpande",
     "role": "Independent Director",
     "bio": "Distinguished Professor of Computer Science at IIT Bombay, specializing in distributed databases and machine learning.",
