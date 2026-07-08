@@ -1,16 +1,3 @@
-const path = require('path');
-const Module = require('module');
-const originalRequire = Module.prototype.require;
-Module.prototype.require = function (id) {
-  if (id === 'mongoose') {
-    return originalRequire.call(this, path.join(__dirname, './utils/mongoose-mock'));
-  }
-  if (id === 'bcrypt') {
-    return originalRequire.call(this, 'bcryptjs');
-  }
-  return originalRequire.apply(this, arguments);
-};
-
 const app = require('./app');
 const env = require('./config/env');
 const connectDB = require('./config/db');

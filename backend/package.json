@@ -13,6 +13,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "bcrypt": "npm:bcryptjs@^2.4.3",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^2.10.0",
     "cookie-parser": "^1.4.7",
@@ -22,7 +23,7 @@
     "express-validator": "^7.3.2",
     "helmet": "^8.2.0",
     "jsonwebtoken": "^9.0.3",
-    "mongoose": "^9.7.3",
+    "mongoose": "file:./src/utils/mongoose-mock",
     "morgan": "^1.11.0",
     "multer": "^2.2.0",
     "streamifier": "^0.1.1"
