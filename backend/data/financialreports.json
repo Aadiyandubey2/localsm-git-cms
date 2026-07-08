@@ -1,16 +1,5 @@
 [
   {
-    "period": "Q3 FY26 (Ended Dec 31, 2025)",
-    "revenue": "₹4,820 Cr",
-    "growth": "+32% YoY",
-    "profit": "₹285 Cr",
-    "sortOrder": 0,
-    "isActive": true,
-    "_id": "0fdf67b0ffe51e62392f9b0d",
-    "createdAt": "2026-07-08T17:52:06.433Z",
-    "updatedAt": "2026-07-08T17:52:06.433Z"
-  },
-  {
     "period": "Q2 FY26 (Ended Sep 30, 2025)",
     "revenue": "₹4,410 Cr",
     "growth": "+28% YoY",
