@@ -102,30 +102,15 @@ export default function Investors() {
 
   const reportsToRender = reports.length > 0
     ? [...reports].sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
-    : [
-        { period: 'Q3 FY26 (Ended Dec 31, 2025)', revenue: '₹4,820 Cr', growth: '+32% YoY', profit: '₹285 Cr' },
-        { period: 'Q2 FY26 (Ended Sep 30, 2025)', revenue: '₹4,410 Cr', growth: '+28% YoY', profit: '₹210 Cr' },
-        { period: 'Q1 FY26 (Ended Jun 30, 2025)', revenue: '₹4,180 Cr', growth: '+25% YoY', profit: '₹180 Cr' },
-        { period: 'FY25 Annual Report', revenue: '₹15,860 Cr', growth: '+30% YoY', profit: '₹620 Cr' }
-      ];
+    : [];
 
   const shareholdingsToRender = shareholdings.length > 0
     ? [...shareholdings].sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
-    : [
-        { category: 'Promoters & Promoter Group', percentage: '31.4%' },
-        { category: 'Foreign Institutional Investors (FII)', percentage: '38.2%' },
-        { category: 'Mutual Funds & Domestic Institutions (DII)', percentage: '18.6%' },
-        { category: 'Public & Retail Shareholders', percentage: '11.8%' }
-      ];
+    : [];
 
   const boardToRender = boardMembers.length > 0
     ? [...boardMembers].sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
-    : [
-        { name: 'Kabir Sharma', role: 'Founder, Managing Director & CEO', bio: 'Founded LocalSM in 2018. Under his leadership, the company has scaled to become India’s premier hyper-local commerce network.' },
-        { name: 'Dr. Ananya Sen', role: 'Lead Independent Director', bio: 'Former Deputy Governor of the Reserve Bank of India with 35+ years of experience in economic policy and financial regulation.' },
-        { name: 'Rajesh Khanna', role: 'Non-Executive Director', bio: 'Managing Partner at Cyber Ventures, with extensive experience in scaling consumer internet platforms across Asia.' },
-        { name: 'Meera Deshpande', role: 'Independent Director', bio: 'Distinguished Professor of Computer Science at IIT Bombay, specializing in distributed databases and machine learning.' }
-      ];
+    : [];
 
   return (
     <div className="bg-[#f4f4f4] min-h-screen text-black font-sans pt-32 pb-20 selection:bg-[#0055ff]/10 selection:text-black">
@@ -234,116 +219,122 @@ export default function Investors() {
       )}
 
       {/* Financial Results Table */}
-      <section className="section-spacing px-6 md:px-12 border-b border-black/10">
-        <div className="max-w-7xl mx-auto space-y-12">
-          <div className="space-y-4">
-            <h2 className="text-xs uppercase tracking-[0.25em] font-semibold text-black/40">
-              Financial Performance
-            </h2>
-            <p className="text-3xl md:text-4xl font-light tracking-tight max-w-2xl">
-              Quarterly and annual financial results.
-            </p>
-          </div>
+      {reportsToRender.length > 0 && (
+        <section className="section-spacing px-6 md:px-12 border-b border-black/10">
+          <div className="max-w-7xl mx-auto space-y-12">
+            <div className="space-y-4">
+              <h2 className="text-xs uppercase tracking-[0.25em] font-semibold text-black/40">
+                Financial Performance
+              </h2>
+              <p className="text-3xl md:text-4xl font-light tracking-tight max-w-2xl">
+                Quarterly and annual financial results.
+              </p>
+            </div>
 
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse border-y border-black/10">
-              <thead>
-                <tr className="border-b border-black/10 text-xs font-mono text-black/40 uppercase tracking-wider">
-                  <th className="py-5 px-4 font-normal">Reporting Period</th>
-                  <th className="py-5 px-4 font-normal">Revenue</th>
-                  <th className="py-5 px-4 font-normal">YoY Growth</th>
-                  <th className="py-5 px-4 font-normal">Adjusted EBITDA</th>
-                  <th className="py-5 px-4 font-normal text-right">Downloads</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-black/5">
-                {reportsToRender.map((res, idx) => (
-                  <tr key={idx} className="text-sm font-light hover:bg-black/[0.01] transition-colors">
-                    <td className="py-5 px-4 font-medium">{res.period}</td>
-                    <td className="py-5 px-4">{res.revenue}</td>
-                    <td className="py-5 px-4 text-green-600">{res.growth}</td>
-                    <td className="py-5 px-4">{res.profit}</td>
-                    <td className="py-5 px-4 text-right">
-                      <button
-                        onClick={() => alert(`Downloading report for ${res.period}...`)}
-                        className="inline-flex items-center gap-1.5 text-xs font-mono text-[#0055ff] hover:underline cursor-pointer focus:outline-none"
-                      >
-                        <Download size={14} /> PDF
-                      </button>
-                    </td>
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse border-y border-black/10">
+                <thead>
+                  <tr className="border-b border-black/10 text-xs font-mono text-black/40 uppercase tracking-wider">
+                    <th className="py-5 px-4 font-normal">Reporting Period</th>
+                    <th className="py-5 px-4 font-normal">Revenue</th>
+                    <th className="py-5 px-4 font-normal">YoY Growth</th>
+                    <th className="py-5 px-4 font-normal">Adjusted EBITDA</th>
+                    <th className="py-5 px-4 font-normal text-right">Downloads</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="divide-y divide-black/5">
+                  {reportsToRender.map((res, idx) => (
+                    <tr key={idx} className="text-sm font-light hover:bg-black/[0.01] transition-colors">
+                      <td className="py-5 px-4 font-medium">{res.period}</td>
+                      <td className="py-5 px-4">{res.revenue}</td>
+                      <td className="py-5 px-4 text-green-600">{res.growth}</td>
+                      <td className="py-5 px-4">{res.profit}</td>
+                      <td className="py-5 px-4 text-right">
+                        <button
+                          onClick={() => alert(`Downloading report for ${res.period}...`)}
+                          className="inline-flex items-center gap-1.5 text-xs font-mono text-[#0055ff] hover:underline cursor-pointer focus:outline-none"
+                        >
+                          <Download size={14} /> PDF
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Shareholding Pattern */}
-      <section className="section-spacing px-6 md:px-12 border-b border-black/10 bg-black/[0.01]">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <div className="lg:col-span-5 space-y-6">
-            <h2 className="text-xs uppercase tracking-[0.25em] font-semibold text-black/40">
-              Ownership Structure
-            </h2>
-            <h3 className="text-3xl md:text-4xl font-light tracking-tight leading-tight">
-              A highly institutionalized shareholder registry.
-            </h3>
-            <p className="text-base text-black/60 font-light leading-relaxed">
-              We are backed by leading global and domestic institutional investors who share our long-term vision of building sustainable hyper-local infrastructure. Our promoter group remains fully committed, retaining a significant equity stake.
-            </p>
-          </div>
-          <div className="lg:col-span-7">
-            <div className="border border-black/10 p-8 bg-[#f4f4f4] space-y-6">
-              <span className="text-xs font-mono text-black/40 uppercase tracking-widest">Shareholding Pattern</span>
-              <div className="space-y-4">
-                {shareholdingsToRender.map((item, idx) => (
-                  <div key={idx} className="space-y-2">
-                    <div className="flex justify-between text-sm font-light">
-                      <span>{item.category}</span>
-                      <span className="font-mono font-medium">{item.percentage}</span>
+      {shareholdingsToRender.length > 0 && (
+        <section className="section-spacing px-6 md:px-12 border-b border-black/10 bg-black/[0.01]">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div className="lg:col-span-5 space-y-6">
+              <h2 className="text-xs uppercase tracking-[0.25em] font-semibold text-black/40">
+                Ownership Structure
+              </h2>
+              <h3 className="text-3xl md:text-4xl font-light tracking-tight leading-tight">
+                A highly institutionalized shareholder registry.
+              </h3>
+              <p className="text-base text-black/60 font-light leading-relaxed">
+                We are backed by leading global and domestic institutional investors who share our long-term vision of building sustainable hyper-local infrastructure. Our promoter group remains fully committed, retaining a significant equity stake.
+              </p>
+            </div>
+            <div className="lg:col-span-7">
+              <div className="border border-black/10 p-8 bg-[#f4f4f4] space-y-6">
+                <span className="text-xs font-mono text-black/40 uppercase tracking-widest">Shareholding Pattern</span>
+                <div className="space-y-4">
+                  {shareholdingsToRender.map((item, idx) => (
+                    <div key={idx} className="space-y-2">
+                      <div className="flex justify-between text-sm font-light">
+                        <span>{item.category}</span>
+                        <span className="font-mono font-medium">{item.percentage}</span>
+                      </div>
+                      <div className="h-2 w-full bg-black/5">
+                        <div
+                          className="h-full bg-[#0055ff]"
+                          style={{ width: item.percentage }}
+                        ></div>
+                      </div>
                     </div>
-                    <div className="h-2 w-full bg-black/5">
-                      <div
-                        className="h-full bg-[#0055ff]"
-                        style={{ width: item.percentage }}
-                      ></div>
-                    </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Corporate Governance / Board of Directors */}
-      <section className="section-spacing px-6 md:px-12">
-        <div className="max-w-7xl mx-auto space-y-16">
-          <div className="space-y-4">
-            <h2 className="text-xs uppercase tracking-[0.25em] font-semibold text-black/40">
-              Corporate Governance
-            </h2>
-            <p className="text-3xl md:text-4xl font-light tracking-tight max-w-2xl">
-              Board of Directors.
-            </p>
-          </div>
+      {boardToRender.length > 0 && (
+        <section className="section-spacing px-6 md:px-12">
+          <div className="max-w-7xl mx-auto space-y-16">
+            <div className="space-y-4">
+              <h2 className="text-xs uppercase tracking-[0.25em] font-semibold text-black/40">
+                Corporate Governance
+              </h2>
+              <p className="text-3xl md:text-4xl font-light tracking-tight max-w-2xl">
+                Board of Directors.
+              </p>
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            {boardToRender.map((member, idx) => (
-              <div key={idx} className="border-t border-black/10 pt-6 space-y-4">
-                <div className="space-y-1">
-                  <h3 className="text-xl font-medium tracking-tight">{member.name}</h3>
-                  <p className="text-xs font-mono text-[#0055ff] uppercase tracking-widest">{member.role}</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+              {boardToRender.map((member, idx) => (
+                <div key={idx} className="border-t border-black/10 pt-6 space-y-4">
+                  <div className="space-y-1">
+                    <h3 className="text-xl font-medium tracking-tight">{member.name}</h3>
+                    <p className="text-xs font-mono text-[#0055ff] uppercase tracking-widest">{member.role}</p>
+                  </div>
+                  <p className="text-sm text-black/60 font-light leading-relaxed">
+                    {member.bio}
+                  </p>
                 </div>
-                <p className="text-sm text-black/60 font-light leading-relaxed">
-                  {member.bio}
-                </p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </div>
   );
 }

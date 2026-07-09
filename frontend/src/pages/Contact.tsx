@@ -127,11 +127,13 @@ export default function Contact() {
 
   const officesToRender = offices.length > 0
     ? [...offices].sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
-    : fallbackOffices;
+    : [];
 
   const departmentalContacts = contactPage?.departmentalContacts?.length
     ? contactPage.departmentalContacts
-    : fallbackDepartmentalContacts;
+    : [];
+
+  const showContactsColumn = departmentalContacts.length > 0 || !!settings.email;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -184,45 +186,47 @@ export default function Contact() {
       <section className="section-spacing px-6 md:px-12 border-b border-black/10">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
           {/* General Inquiries */}
-          <div className="lg:col-span-5 space-y-10">
-            <div className="space-y-4">
-              <h2 className="text-xs uppercase tracking-[0.25em] font-semibold text-black/40">
-                Departmental Contacts
-              </h2>
-              <p className="text-2xl font-light tracking-tight text-black">
-                Direct channels for specific inquiries.
-              </p>
-            </div>
+          {showContactsColumn && (
+            <div className="lg:col-span-5 space-y-10">
+              <div className="space-y-4">
+                <h2 className="text-xs uppercase tracking-[0.25em] font-semibold text-black/40">
+                  Departmental Contacts
+                </h2>
+                <p className="text-2xl font-light tracking-tight text-black">
+                  Direct channels for specific inquiries.
+                </p>
+              </div>
 
-            <div className="space-y-6">
-              {departmentalContacts.map((contact) => (
-                <div key={contact.label} className="border-t border-black/10 pt-4 space-y-2">
-                  <span className="text-xs font-mono text-[#0055ff] uppercase">{contact.label}</span>
-                  <p className="text-sm font-medium">
-                    <a href={`mailto:${contact.email}`} className="hover:text-[#0055ff] transition-colors">
-                      {contact.email}
-                    </a>
-                  </p>
-                  <p className="text-xs text-black/50 font-light">{contact.description}</p>
-                </div>
-              ))}
+              <div className="space-y-6">
+                {departmentalContacts.map((contact) => (
+                  <div key={contact.label} className="border-t border-black/10 pt-4 space-y-2">
+                    <span className="text-xs font-mono text-[#0055ff] uppercase">{contact.label}</span>
+                    <p className="text-sm font-medium">
+                      <a href={`mailto:${contact.email}`} className="hover:text-[#0055ff] transition-colors">
+                        {contact.email}
+                      </a>
+                    </p>
+                    <p className="text-xs text-black/50 font-light">{contact.description}</p>
+                  </div>
+                ))}
 
-              {settings.email ? (
-                <div className="border-t border-black/10 pt-4 space-y-2">
-                  <span className="text-xs font-mono text-[#0055ff] uppercase">Corporate Office</span>
-                  <p className="text-sm font-medium">
-                    <a href={`mailto:${settings.email}`} className="hover:text-[#0055ff] transition-colors">
-                      {settings.email}
-                    </a>
-                  </p>
-                  <p className="text-xs text-black/50 font-light">For general corporate inquiries.</p>
-                </div>
-              ) : null}
+                {settings.email ? (
+                  <div className="border-t border-black/10 pt-4 space-y-2">
+                    <span className="text-xs font-mono text-[#0055ff] uppercase">Corporate Office</span>
+                    <p className="text-sm font-medium">
+                      <a href={`mailto:${settings.email}`} className="hover:text-[#0055ff] transition-colors">
+                        {settings.email}
+                      </a>
+                    </p>
+                    <p className="text-xs text-black/50 font-light">For general corporate inquiries.</p>
+                  </div>
+                ) : null}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Interactive Form */}
-          <div className="lg:col-span-7">
+          <div className={showContactsColumn ? "lg:col-span-7" : "lg:col-span-12"}>
             <div className="border border-black/10 p-8 md:p-10 bg-[#f4f4f4] space-y-6">
               <div className="space-y-2">
                 <h3 className="text-2xl font-light tracking-tight">
@@ -319,36 +323,38 @@ export default function Contact() {
       </section>
 
       {/* Office Locations */}
-      <section className="section-spacing px-6 md:px-12">
-        <div className="max-w-7xl mx-auto space-y-16">
-          <div className="space-y-4">
-            <h2 className="text-xs uppercase tracking-[0.25em] font-semibold text-black/40">
-              {contactPage?.officeSectionTitle || 'Our Offices'}
-            </h2>
-            <p className="text-3xl md:text-4xl font-light tracking-tight max-w-2xl">
-              {contactPage?.officeSectionSubtitle || 'Where we build the future of hyper-local commerce.'}
-            </p>
-          </div>
+      {officesToRender.length > 0 && (
+        <section className="section-spacing px-6 md:px-12">
+          <div className="max-w-7xl mx-auto space-y-16">
+            <div className="space-y-4">
+              <h2 className="text-xs uppercase tracking-[0.25em] font-semibold text-black/40">
+                {contactPage?.officeSectionTitle || 'Our Offices'}
+              </h2>
+              <p className="text-3xl md:text-4xl font-light tracking-tight max-w-2xl">
+                {contactPage?.officeSectionSubtitle || 'Where we build the future of hyper-local commerce.'}
+              </p>
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {officesToRender.map((office, idx) => (
-              <div key={idx} className="border-t border-black/10 pt-6 space-y-4">
-                <h3 className="text-xl font-medium tracking-tight flex items-center gap-2">
-                  <MapPin size={18} className="text-[#0055ff]" strokeWidth={1.5} /> {office.city}
-                </h3>
-                <p className="text-sm text-black/60 font-light leading-relaxed">
-                  {office.address}
-                </p>
-                {office.phone ? (
-                  <p className="text-xs font-mono text-black/40">
-                    <Phone size={12} className="inline mr-1" /> {office.phone}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+              {officesToRender.map((office, idx) => (
+                <div key={idx} className="border-t border-black/10 pt-6 space-y-4">
+                  <h3 className="text-xl font-medium tracking-tight flex items-center gap-2">
+                    <MapPin size={18} className="text-[#0055ff]" strokeWidth={1.5} /> {office.city}
+                  </h3>
+                  <p className="text-sm text-black/60 font-light leading-relaxed">
+                    {office.address}
                   </p>
-                ) : null}
-              </div>
-            ))}
+                  {office.phone ? (
+                    <p className="text-xs font-mono text-black/40">
+                      <Phone size={12} className="inline mr-1" /> {office.phone}
+                    </p>
+                  ) : null}
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </div>
   );
 }
