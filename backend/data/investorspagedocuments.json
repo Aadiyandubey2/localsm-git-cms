@@ -12,11 +12,11 @@
     "ytdPerformance": "0",
     "chartStartDate": "0",
     "chartEndDate": "0",
-    "showStockWidget": true,
-    "showStockGraph": true,
+    "showStockWidget": false,
+    "showStockGraph": false,
     "isActive": true,
     "_id": "7d372691d917e6a8813d5d06",
     "createdAt": "2026-07-08T17:52:06.433Z",
-    "updatedAt": "2026-07-08T18:21:38.872Z"
+    "updatedAt": "2026-07-09T06:23:21.830Z"
   }
 ]
