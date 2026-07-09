@@ -4,16 +4,19 @@ import { Link } from 'react-router-dom';
 import {
   fallbackBusinesses,
   fallbackFounder,
+  fallbackWebsiteSettings,
   getActiveBusinesses,
   getActiveDocument,
   type BusinessDocument,
   type FounderDocument,
+  type WebsiteSettingsDocument,
 } from '../api/cms';
 import { FounderMessageContent } from '../utils/founderMessage';
 
 export default function FounderLetter() {
   const [founder, setFounder] = useState<FounderDocument>(fallbackFounder);
   const [businesses, setBusinesses] = useState<BusinessDocument[]>(fallbackBusinesses);
+  const [settings, setSettings] = useState<WebsiteSettingsDocument>(fallbackWebsiteSettings);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -21,9 +24,10 @@ export default function FounderLetter() {
 
     const loadFounderContent = async () => {
       try {
-        const [founderDocument, businessDocuments] = await Promise.all([
+        const [founderDocument, businessDocuments, settingsDocument] = await Promise.all([
           getActiveDocument<FounderDocument>('/founders'),
           getActiveBusinesses(),
+          getActiveDocument<WebsiteSettingsDocument>('/settings'),
         ]);
 
         if (!isMounted) {
@@ -36,6 +40,10 @@ export default function FounderLetter() {
 
         if (businessDocuments.length > 0) {
           setBusinesses(businessDocuments);
+        }
+
+        if (settingsDocument) {
+          setSettings(settingsDocument);
         }
       } catch (error) {
         console.error('Failed to load founder letter content:', error);
@@ -166,7 +174,7 @@ export default function FounderLetter() {
             </p>
             <p className="font-semibold text-black text-xl">{founder.name}</p>
             <p className="text-sm text-black/50 font-mono">
-              {founder.title || 'Founder & CEO'}, LocalSM Limited
+              {founder.title || 'Founder & CEO'}, {settings.siteName || 'LocalSM Limited'}
             </p>
           </div>
         </div>
