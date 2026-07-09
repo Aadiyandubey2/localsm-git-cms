@@ -34,7 +34,7 @@ const websiteSettingsSchema = new mongoose.Schema(
 		},
 		cin: {
 			type: String,
-			default: 'L74999HR2026PLC099999',
+			default: '',
 			trim: true,
 		},
 		socialLinks: {

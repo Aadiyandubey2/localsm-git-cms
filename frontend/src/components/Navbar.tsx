@@ -139,18 +139,31 @@ export default function Navbar() {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-10">
-          {navLinks.map((link) => (
-            <Link
-              key={link.label}
-              to={link.href}
-              className="relative text-sm font-medium text-black/70 hover:text-black transition-colors duration-300 py-1 focus:outline-none"
-            >
-              {link.label}
-              {isActive(link.href) && (
-                <span className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-[#0055ff] transition-all duration-300" />
-              )}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const external = link.href.startsWith('http://') || link.href.startsWith('https://') || link.href.startsWith('//');
+            return external ? (
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative text-sm font-medium text-black/70 hover:text-black transition-colors duration-300 py-1 focus:outline-none"
+              >
+                {link.label}
+              </a>
+            ) : (
+              <Link
+                key={link.label}
+                to={link.href}
+                className="relative text-sm font-medium text-black/70 hover:text-black transition-colors duration-300 py-1 focus:outline-none"
+              >
+                {link.label}
+                {isActive(link.href) && (
+                  <span className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-[#0055ff] transition-all duration-300" />
+                )}
+              </Link>
+            );
+          })}
         </div>
 
         {/* Mobile Menu Button */}
@@ -170,23 +183,40 @@ export default function Navbar() {
         }`}
       >
         <div className="flex flex-col px-8 py-12 space-y-8 h-full bg-[#f4f4f4]">
-          {navLinks.map((link) => (
-            <Link
-              key={link.label}
-              to={link.href}
-              onClick={() => setIsOpen(false)}
-              className="text-2xl font-light text-black flex items-center justify-between group border-b border-black/5 pb-4 focus:outline-none"
-            >
-              <span className="group-hover:text-[#0055ff] transition-colors duration-300">
-                {link.label}
-              </span>
-              {isActive(link.href) ? (
-                <span className="h-1.5 w-1.5 rounded-full bg-[#0055ff]"></span>
-              ) : (
+          {navLinks.map((link) => {
+            const external = link.href.startsWith('http://') || link.href.startsWith('https://') || link.href.startsWith('//');
+            return external ? (
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setIsOpen(false)}
+                className="text-2xl font-light text-black flex items-center justify-between group border-b border-black/5 pb-4 focus:outline-none"
+              >
+                <span className="group-hover:text-[#0055ff] transition-colors duration-300">
+                  {link.label}
+                </span>
                 <span className="h-1.5 w-1.5 rounded-full bg-[#0055ff] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-              )}
-            </Link>
-          ))}
+              </a>
+            ) : (
+              <Link
+                key={link.label}
+                to={link.href}
+                onClick={() => setIsOpen(false)}
+                className="text-2xl font-light text-black flex items-center justify-between group border-b border-black/5 pb-4 focus:outline-none"
+              >
+                <span className="group-hover:text-[#0055ff] transition-colors duration-300">
+                  {link.label}
+                </span>
+                {isActive(link.href) ? (
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#0055ff]"></span>
+                ) : (
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#0055ff] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                )}
+              </Link>
+            );
+          })}
         </div>
       </div>
       {loadError ? <span className="sr-only">Navigation content loaded from fallback data.</span> : null}

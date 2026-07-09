@@ -50,6 +50,14 @@ const investorsPageDocumentSchema = new mongoose.Schema(
 			type: String,
 			default: 'Feb 2026',
 		},
+		showStockWidget: {
+			type: Boolean,
+			default: true,
+		},
+		showStockGraph: {
+			type: Boolean,
+			default: true,
+		},
 		isActive: {
 			type: Boolean,
 			default: true,

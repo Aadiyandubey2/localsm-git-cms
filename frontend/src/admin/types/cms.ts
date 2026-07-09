@@ -236,6 +236,8 @@ export type InvestorsPageDoc = MongoDocument & {
   ytdPerformance?: string;
   chartStartDate?: string;
   chartEndDate?: string;
+  showStockWidget?: boolean;
+  showStockGraph?: boolean;
   isActive?: boolean;
 };
 

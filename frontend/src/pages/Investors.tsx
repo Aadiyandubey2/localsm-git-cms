@@ -55,6 +55,8 @@ export default function Investors() {
   }, []);
 
   const basePrice = investorsPage?.stockBasePrice || 246.65;
+  const showStockWidget = investorsPage?.showStockWidget !== false;
+  const showStockGraph = investorsPage?.showStockGraph !== false;
 
   // Simulate slight stock price fluctuation for high-end feel
   useEffect(() => {
@@ -145,87 +147,91 @@ export default function Investors() {
       </section>
 
       {/* Stock Ticker & Metrics */}
-      <section className="section-spacing px-6 md:px-12 border-b border-black/10 bg-black/[0.01]">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Ticker Info */}
-            <div className="lg:col-span-5 space-y-6">
-              <span className="text-xs font-mono text-black/40 uppercase tracking-widest">LIVE NSE STOCK QUOTE</span>
-              <div className="space-y-2">
-                <div className="flex items-baseline gap-4">
-                  <h2 className="text-5xl md:text-6xl font-light tracking-tight font-mono">
-                    ₹{stockPrice.toFixed(2)}
-                  </h2>
-                  <div className="flex items-center text-green-600 font-mono text-sm font-medium">
-                    <TrendingUp size={16} className="mr-1" />
-                    +{priceChange.toFixed(2)} (+{priceChangePercent.toFixed(2)}%)
+      {showStockWidget && (
+        <section className="section-spacing px-6 md:px-12 border-b border-black/10 bg-black/[0.01]">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+              {/* Ticker Info */}
+              <div className={`${showStockGraph ? 'lg:col-span-5' : 'lg:col-span-12'} space-y-6`}>
+                <span className="text-xs font-mono text-black/40 uppercase tracking-widest">LIVE NSE STOCK QUOTE</span>
+                <div className="space-y-2">
+                  <div className="flex items-baseline gap-4">
+                    <h2 className="text-5xl md:text-6xl font-light tracking-tight font-mono">
+                      ₹{stockPrice.toFixed(2)}
+                    </h2>
+                    <div className="flex items-center text-green-600 font-mono text-sm font-medium">
+                      <TrendingUp size={16} className="mr-1" />
+                      +{priceChange.toFixed(2)} (+{priceChangePercent.toFixed(2)}%)
+                    </div>
+                  </div>
+                  <p className="text-xs text-black/40 font-mono">{investorsPage?.stockSymbol || 'LOCALS'} // ISIN: {investorsPage?.stockIsin || 'INE000001010'} // Delayed by 5 mins</p>
+                </div>
+
+                <div className="grid grid-cols-2 gap-6 pt-4 border-t border-black/5">
+                  <div>
+                    <p className="text-xs text-black/40 font-mono uppercase">Market Cap</p>
+                    <p className="text-lg font-medium">{investorsPage?.marketCap || '₹78,450 Cr'}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-black/40 font-mono uppercase">P/E Ratio</p>
+                    <p className="text-lg font-medium">{investorsPage?.peRatio || '68.4'}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-black/40 font-mono uppercase">52-Week High</p>
+                    <p className="text-lg font-medium">{investorsPage?.fiftyTwoWeekHigh || '₹268.00'}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-black/40 font-mono uppercase">52-Week Low</p>
+                    <p className="text-lg font-medium">{investorsPage?.fiftyTwoWeekLow || '₹134.50'}</p>
                   </div>
                 </div>
-                <p className="text-xs text-black/40 font-mono">{investorsPage?.stockSymbol || 'LOCALS'} // ISIN: {investorsPage?.stockIsin || 'INE000001010'} // Delayed by 5 mins</p>
               </div>
 
-              <div className="grid grid-cols-2 gap-6 pt-4 border-t border-black/5">
-                <div>
-                  <p className="text-xs text-black/40 font-mono uppercase">Market Cap</p>
-                  <p className="text-lg font-medium">{investorsPage?.marketCap || '₹78,450 Cr'}</p>
+              {/* Stock Price Trend SVG Visual */}
+              {showStockGraph && (
+                <div className="lg:col-span-7">
+                  <div className="border border-black/10 p-8 bg-[#f4f4f4] space-y-6">
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs font-mono text-black/40 uppercase tracking-widest">Historical Performance (1 Year)</span>
+                      <span className="text-xs font-mono text-green-600">{investorsPage?.ytdPerformance || '+84.5%'} YTD</span>
+                    </div>
+                    {/* SVG Trendline */}
+                    <div className="h-48 w-full bg-black/[0.02] border border-black/5 relative flex items-end">
+                      <svg className="w-full h-full p-4" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        {/* Grid Lines */}
+                        <line x1="0" y1="20" x2="100" y2="20" stroke="#000" strokeWidth="0.05" strokeDasharray="1,2" opacity="0.1" />
+                        <line x1="0" y1="50" x2="100" y2="50" stroke="#000" strokeWidth="0.05" strokeDasharray="1,2" opacity="0.1" />
+                        <line x1="0" y1="80" x2="100" y2="80" stroke="#000" strokeWidth="0.05" strokeDasharray="1,2" opacity="0.1" />
+                        {/* Price Line */}
+                        <path
+                          d="M 0 90 Q 15 85 25 70 T 50 45 T 75 35 T 100 15"
+                          fill="none"
+                          stroke="#0055ff"
+                          strokeWidth="1.5"
+                        />
+                        {/* Shadow Area */}
+                        <path
+                          d="M 0 90 Q 15 85 25 70 T 50 45 T 75 35 T 100 15 L 100 100 L 0 100 Z"
+                          fill="url(#gradient-blue)"
+                          opacity="0.04"
+                        />
+                        <defs>
+                          <linearGradient id="gradient-blue" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stopColor="#0055ff" />
+                            <stop offset="100%" stopColor="#0055ff" stopOpacity="0" />
+                          </linearGradient>
+                        </defs>
+                      </svg>
+                      <div className="absolute left-4 bottom-4 text-[10px] font-mono text-black/40">{investorsPage?.chartStartDate || 'Feb 2025'}</div>
+                      <div className="absolute right-4 bottom-4 text-[10px] font-mono text-black/40">{investorsPage?.chartEndDate || 'Feb 2026'}</div>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-xs text-black/40 font-mono uppercase">P/E Ratio</p>
-                  <p className="text-lg font-medium">{investorsPage?.peRatio || '68.4'}</p>
-                </div>
-                <div>
-                  <p className="text-xs text-black/40 font-mono uppercase">52-Week High</p>
-                  <p className="text-lg font-medium">{investorsPage?.fiftyTwoWeekHigh || '₹268.00'}</p>
-                </div>
-                <div>
-                  <p className="text-xs text-black/40 font-mono uppercase">52-Week Low</p>
-                  <p className="text-lg font-medium">{investorsPage?.fiftyTwoWeekLow || '₹134.50'}</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Stock Price Trend SVG Visual */}
-            <div className="lg:col-span-7">
-              <div className="border border-black/10 p-8 bg-[#f4f4f4] space-y-6">
-                <div className="flex justify-between items-center">
-                  <span className="text-xs font-mono text-black/40 uppercase tracking-widest">Historical Performance (1 Year)</span>
-                  <span className="text-xs font-mono text-green-600">{investorsPage?.ytdPerformance || '+84.5%'} YTD</span>
-                </div>
-                {/* SVG Trendline */}
-                <div className="h-48 w-full bg-black/[0.02] border border-black/5 relative flex items-end">
-                  <svg className="w-full h-full p-4" viewBox="0 0 100 100" preserveAspectRatio="none">
-                    {/* Grid Lines */}
-                    <line x1="0" y1="20" x2="100" y2="20" stroke="#000" strokeWidth="0.05" strokeDasharray="1,2" opacity="0.1" />
-                    <line x1="0" y1="50" x2="100" y2="50" stroke="#000" strokeWidth="0.05" strokeDasharray="1,2" opacity="0.1" />
-                    <line x1="0" y1="80" x2="100" y2="80" stroke="#000" strokeWidth="0.05" strokeDasharray="1,2" opacity="0.1" />
-                    {/* Price Line */}
-                    <path
-                      d="M 0 90 Q 15 85 25 70 T 50 45 T 75 35 T 100 15"
-                      fill="none"
-                      stroke="#0055ff"
-                      strokeWidth="1.5"
-                    />
-                    {/* Shadow Area */}
-                    <path
-                      d="M 0 90 Q 15 85 25 70 T 50 45 T 75 35 T 100 15 L 100 100 L 0 100 Z"
-                      fill="url(#gradient-blue)"
-                      opacity="0.04"
-                    />
-                    <defs>
-                      <linearGradient id="gradient-blue" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" stopColor="#0055ff" />
-                        <stop offset="100%" stopColor="#0055ff" stopOpacity="0" />
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                  <div className="absolute left-4 bottom-4 text-[10px] font-mono text-black/40">{investorsPage?.chartStartDate || 'Feb 2025'}</div>
-                  <div className="absolute right-4 bottom-4 text-[10px] font-mono text-black/40">{investorsPage?.chartEndDate || 'Feb 2026'}</div>
-                </div>
-              </div>
+              )}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Financial Results Table */}
       <section className="section-spacing px-6 md:px-12 border-b border-black/10">

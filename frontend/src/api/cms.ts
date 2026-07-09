@@ -233,6 +233,8 @@ export type InvestorsPageDocument = {
 	ytdPerformance?: string;
 	chartStartDate?: string;
 	chartEndDate?: string;
+	showStockWidget?: boolean;
+	showStockGraph?: boolean;
 	isActive?: boolean;
 };
 
@@ -265,7 +267,7 @@ export const fallbackNavigation: NavigationDocument = {
 	menuItems: [
 		{ label: 'Home', href: '/' },
 		{ label: 'Culture', href: '/culture' },
-		{ label: 'Careers', href: '/careers' },
+		{ label: 'Careers', href: 'https://localsm.tech' },
 		{ label: 'Investors', href: '/investors' },
 		{ label: 'Impact', href: '/impact' },
 		{ label: 'Contact', href: '/contact' },
@@ -337,7 +339,7 @@ export const fallbackFooter: FooterDocument = {
 		{ label: 'Janhal', href: '/' },
 		{ label: 'Local Branding Software', href: '/' },
 		{ label: 'Culture', href: '/culture' },
-		{ label: 'Careers', href: '/careers' },
+		{ label: 'Careers', href: 'https://localsm.tech' },
 		{ label: 'Investors', href: '/investors' },
 		{ label: 'Impact & Sustainability', href: '/impact' },
 		{ label: 'Privacy Policy', href: '#' },

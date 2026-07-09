@@ -158,7 +158,7 @@ const navigationData = [
     menuItems: [
       { label: 'Home', href: '/' },
       { label: 'Culture', href: '/culture' },
-      { label: 'Careers', href: '/careers' },
+      { label: 'Careers', href: 'https://localsm.tech' },
       { label: 'Investors', href: '/investors' },
       { label: 'Impact', href: '/impact' },
       { label: 'Contact', href: '/contact' },
@@ -179,7 +179,7 @@ const footerData = [
       { label: 'Janhal', href: '/' },
       { label: 'Local Branding Software', href: '/' },
       { label: 'Culture', href: '/culture' },
-      { label: 'Careers', href: '/careers' },
+      { label: 'Careers', href: 'https://localsm.tech' },
       { label: 'Investors', href: '/investors' },
       { label: 'Impact & Sustainability', href: '/impact' },
       { label: 'Founder’s Letter', href: '/founder-letter' },

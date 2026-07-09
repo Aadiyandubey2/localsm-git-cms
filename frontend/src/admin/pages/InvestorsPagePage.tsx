@@ -5,6 +5,7 @@ import SectionCard from '../components/common/SectionCard';
 import SaveButton from '../components/forms/SaveButton';
 import TextArea from '../components/forms/TextArea';
 import TextInput from '../components/forms/TextInput';
+import ToggleSwitch from '../components/forms/ToggleSwitch';
 import { useSectionSave } from '../hooks/useSectionSave';
 import { useUnsavedChanges } from '../hooks/useUnsavedChanges';
 import { investorsPageApi } from '../services/api';
@@ -23,6 +24,8 @@ const emptyInvestorsPage: Omit<InvestorsPageDoc, '_id'> = {
   ytdPerformance: '',
   chartStartDate: '',
   chartEndDate: '',
+  showStockWidget: true,
+  showStockGraph: true,
   isActive: true,
 };
 
@@ -55,6 +58,8 @@ export default function InvestorsPagePage() {
             ytdPerformance: active.ytdPerformance || '',
             chartStartDate: active.chartStartDate || '',
             chartEndDate: active.chartEndDate || '',
+            showStockWidget: active.showStockWidget !== false,
+            showStockGraph: active.showStockGraph !== false,
             isActive: active.isActive !== false,
           };
           setDocId(active._id);
@@ -132,6 +137,23 @@ export default function InvestorsPagePage() {
             <TextInput label="52-Week Low (₹)" value={form.fiftyTwoWeekLow || ''} onChange={(v) => update('fiftyTwoWeekLow', v)} />
             <TextInput label="Chart Start Date (e.g. Feb 2025)" value={form.chartStartDate || ''} onChange={(v) => update('chartStartDate', v)} />
             <TextInput label="Chart End Date (e.g. Feb 2026)" value={form.chartEndDate || ''} onChange={(v) => update('chartEndDate', v)} />
+          </div>
+        </SectionCard>
+
+        <SectionCard title="Stock Display Settings" description="Toggle visibility of the stock quote widget and chart on the live page.">
+          <div className="space-y-4">
+            <ToggleSwitch
+              label="Show Stock Widget"
+              description="Enable or disable the entire live stock quote section."
+              checked={form.showStockWidget !== false}
+              onChange={(v) => update('showStockWidget', v)}
+            />
+            <ToggleSwitch
+              label="Show Stock Trend Graph"
+              description="Display the historical performance chart next to stock details."
+              checked={form.showStockGraph !== false}
+              onChange={(v) => update('showStockGraph', v)}
+            />
           </div>
         </SectionCard>
       </div>

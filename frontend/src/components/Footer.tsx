@@ -115,21 +115,38 @@ export default function Footer() {
   );
   const links = footer.links ?? fallbackFooter.links ?? [];
 
-  const groupLinks = links.filter(
-    (link) => GROUP_COMPANY_PATHS.has(link.href) && !CORPORATE_PATHS.has(link.href) && !LEGAL_LABELS.has(link.label)
-  );
-  const corporateLinks = links.filter((link) => CORPORATE_PATHS.has(link.href));
+  const GROUP_LABELS = new Set(['LocalSM Delivery', 'Janhal', 'Local Branding Software']);
+  const LEGAL_LABELS = new Set(['Privacy Policy', 'Terms of Use', 'Sitemap']);
+
+  const groupLinks = links.filter((link) => GROUP_LABELS.has(link.label));
   const legalLinks = links.filter((link) => LEGAL_LABELS.has(link.label));
+  const corporateLinks = links.filter(
+    (link) => !GROUP_LABELS.has(link.label) && !LEGAL_LABELS.has(link.label)
+  );
 
   const copyrightText =
     footer.copyrightText?.replace(String(currentYear - 1), String(currentYear)) ||
     `© ${currentYear} ${settings.siteName || 'LocalSM Limited'}. All rights reserved.`;
 
   const officeAddress = settings.address
-    ? `${settings.siteName || 'LocalSM Limited'},\n${settings.address}`
-    : 'LocalSM Limited,\n12th Floor, DLF Cyber City,\nPhase 3, Gurugram,\nHaryana - 122002, India';
+    ? `${settings.siteName || ''}\n${settings.address}`.trim()
+    : '';
 
-  const officeLines = officeAddress.split('\n');
+  const officeLines = officeAddress ? officeAddress.split('\n') : [];
+  const hasOfficeInfo = !!(officeAddress || settings.cin || settings.email);
+
+  const renderFooterLink = (link: { label: string; href: string }, className: string) => {
+    const external = link.href.startsWith('http://') || link.href.startsWith('https://') || link.href.startsWith('//');
+    return external ? (
+      <a href={link.href} target="_blank" rel="noopener noreferrer" className={className}>
+        {link.label}
+      </a>
+    ) : (
+      <Link to={link.href} className={className}>
+        {link.label}
+      </Link>
+    );
+  };
 
   return (
     <footer className="bg-[#f4f4f4] border-t border-black/10 pt-20 pb-12">
@@ -172,9 +189,7 @@ export default function Footer() {
             <ul className="space-y-3">
               {groupLinks.map((link) => (
                 <li key={link.label}>
-                  <Link to={link.href} className="text-sm text-black/70 hover:text-[#0055ff] transition-colors duration-200 font-light">
-                    {link.label}
-                  </Link>
+                  {renderFooterLink(link, "text-sm text-black/70 hover:text-[#0055ff] transition-colors duration-200 font-light")}
                 </li>
               ))}
             </ul>
@@ -188,9 +203,7 @@ export default function Footer() {
             <ul className="space-y-3">
               {corporateLinks.map((link) => (
                 <li key={link.label}>
-                  <Link to={link.href} className="text-sm text-black/70 hover:text-[#0055ff] transition-colors duration-200 font-light">
-                    {link.label}
-                  </Link>
+                  {renderFooterLink(link, "text-sm text-black/70 hover:text-[#0055ff] transition-colors duration-200 font-light")}
                 </li>
               ))}
             </ul>
@@ -198,24 +211,39 @@ export default function Footer() {
 
           {/* Contact & Support */}
           <div>
-            <h4 className="text-xs font-semibold uppercase tracking-widest text-black/40 mb-5">
-              Corporate Office
-            </h4>
-            <p className="text-sm text-black/60 font-light leading-relaxed mb-4">
-              {officeLines.map((line, index) => (
-                <React.Fragment key={line}>
-                  {line}
-                  {index < officeLines.length - 1 ? <br /> : null}
-                </React.Fragment>
-              ))}
-            </p>
-            <p className="text-sm text-black/60 font-light">
-              <span className="text-black/40">CIN:</span> {settings.cin || 'L74999HR2026PLC099999'}<br />
-              <span className="text-black/40">Email:</span>{' '}
-              <a href={`mailto:${settings.email || 'corporate@localsm.com'}`} className="hover:text-[#0055ff] transition-colors">
-                {settings.email || 'corporate@localsm.com'}
-              </a>
-            </p>
+            {hasOfficeInfo && (
+              <>
+                <h4 className="text-xs font-semibold uppercase tracking-widest text-black/40 mb-5">
+                  Corporate Office
+                </h4>
+                {officeAddress && (
+                  <p className="text-sm text-black/60 font-light leading-relaxed mb-4">
+                    {officeLines.map((line, index) => (
+                      <React.Fragment key={line}>
+                        {line}
+                        {index < officeLines.length - 1 ? <br /> : null}
+                      </React.Fragment>
+                    ))}
+                  </p>
+                )}
+                <p className="text-sm text-black/60 font-light">
+                  {settings.cin && (
+                    <>
+                      <span className="text-black/40">CIN:</span> {settings.cin}
+                      <br />
+                    </>
+                  )}
+                  {settings.email && (
+                    <>
+                      <span className="text-black/40">Email:</span>{' '}
+                      <a href={`mailto:${settings.email}`} className="hover:text-[#0055ff] transition-colors">
+                        {settings.email}
+                      </a>
+                    </>
+                  )}
+                </p>
+              </>
+            )}
           </div>
         </div>
 
@@ -229,11 +257,18 @@ export default function Footer() {
               { label: 'Privacy Policy', href: '#' },
               { label: 'Terms of Use', href: '#' },
               { label: 'Sitemap', href: '#' },
-            ]).map((link) => (
-              <a key={link.label} href={link.href} className="text-xs text-black/50 hover:text-black transition-colors font-light">
-                {link.label}
-              </a>
-            ))}
+            ]).map((link) => {
+              const external = link.href.startsWith('http://') || link.href.startsWith('https://') || link.href.startsWith('//');
+              return external ? (
+                <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer" className="text-xs text-black/50 hover:text-black transition-colors font-light">
+                  {link.label}
+                </a>
+              ) : (
+                <a key={link.label} href={link.href} className="text-xs text-black/50 hover:text-black transition-colors font-light">
+                  {link.label}
+                </a>
+              );
+            })}
           </div>
         </div>
       </div>
