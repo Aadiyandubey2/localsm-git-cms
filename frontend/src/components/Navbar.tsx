@@ -134,7 +134,6 @@ export default function Navbar() {
               siteName
             )}
           </span>
-          <span className="h-2 w-2 rounded-full bg-[#0055ff] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
         </Link>
 
         {/* Desktop Navigation */}
