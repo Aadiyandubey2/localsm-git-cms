@@ -36,7 +36,11 @@ html, body {
 }
 
 .localsm-wordmark {
-  font-family: "Berkshire Swash", cursive;
+  font-family: "SignPainter-HouseScript", "SignPainter", "Sign Painter", "Berkshire Swash", cursive;
+}
+
+.font-signpainter {
+  font-family: "SignPainter-HouseScript", "SignPainter", "Sign Painter", "Berkshire Swash", cursive;
 }
 
 /* Elegant spacing classes matching Eternal's layout */
