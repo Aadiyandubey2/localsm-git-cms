@@ -60,46 +60,11 @@ export default function Culture() {
 
   const valuesToRender = culturePage?.valuesList?.length
     ? culturePage.valuesList
-    : [
-        {
-          num: '01',
-          title: 'Extreme Ownership',
-          description: 'We do not wait to be told what to do. If you see a problem, you own it until it is solved. We do not have room for spectators or commentators.',
-        },
-        {
-          num: '02',
-          title: 'Radical Candor',
-          description: 'We speak the truth directly and immediately. We do not sugarcoat feedback because we believe that politeness at the expense of growth is a disservice.',
-        },
-        {
-          num: '03',
-          title: 'First Principles Thinking',
-          description: 'We do not do things because "that is how they have always been done." We break problems down to their fundamental truths and build upward from there.',
-        },
-        {
-          num: '04',
-          title: 'Bias for Action',
-          description: 'Speed matters in hyper-local commerce. A good decision made today is infinitely better than a perfect decision made next week. We iterate in public.',
-        },
-        {
-          num: '05',
-          title: 'Obsession with Partners',
-          description: 'Our merchants and delivery partners are our lifeblood. Every product we build and every operational decision we make must make their lives better.',
-        },
-        {
-          num: '06',
-          title: 'Intellectual Honesty',
-          description: 'We celebrate being wrong because it means we are closer to being right. We dismantle our own successful models if we find a better way forward.',
-        },
-      ];
+    : [];
 
   const bodyToRender = culturePage?.philosophyBody?.length
     ? culturePage.philosophyBody
-    : [
-        'At LocalSM, we do not believe in bureaucratic processes, elaborate hierarchies, or micro-management. Instead, we hire extremely high-agency individuals, align them behind clear, audacious missions, and get out of their way.',
-        'This means you have complete autonomy over your work, your budget, and your decisions. It also means you carry full accountability for the outcomes. There are no excuses, no shifting of blame, and no hiding behind committees.',
-        'We work long hours, we debate fiercely, and we challenge each other’s ideas constantly. We do this not because we are difficult, but because we care deeply about the quality of what we build.'
-      ];
+    : [];
 
   return (
     <div className="bg-[#f4f4f4] min-h-screen text-black font-sans pt-32 pb-20 selection:bg-[#0055ff]/10 selection:text-black">
@@ -121,58 +86,62 @@ export default function Culture() {
       </section>
 
       {/* Philosophy Section */}
-      <section className="section-spacing px-6 md:px-12 border-b border-black/10">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
-          <div className="lg:col-span-5">
-            <div className="grayscale-hover-container relative aspect-[4/5] bg-black/5 overflow-hidden border border-black/10">
-              <img
-                src={culturePage?.philosophyImage || '/images/office-interior.jpg'}
-                alt={culturePage?.philosophyImageAlt || 'LocalSM Collaboration Space'}
-                className="grayscale-hover-img w-full h-full object-cover"
-              />
+      {bodyToRender.length > 0 && (
+        <section className="section-spacing px-6 md:px-12 border-b border-black/10">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+            <div className="lg:col-span-5">
+              <div className="grayscale-hover-container relative aspect-[4/5] bg-black/5 overflow-hidden border border-black/10">
+                <img
+                  src={culturePage?.philosophyImage || '/images/office-interior.jpg'}
+                  alt={culturePage?.philosophyImageAlt || 'LocalSM Collaboration Space'}
+                  className="grayscale-hover-img w-full h-full object-cover"
+                />
+              </div>
+            </div>
+            <div className="lg:col-span-7 space-y-8">
+              <h2 className="text-xs uppercase tracking-[0.25em] font-semibold text-black/40">
+                Our Core Philosophy
+              </h2>
+              <h3 className="text-3xl md:text-4xl font-light tracking-tight leading-snug">
+                {culturePage?.philosophyQuote || '"We don\'t manage people. We manage missions."'}
+              </h3>
+              <div className="space-y-6 text-base text-black/60 font-light leading-relaxed">
+                {bodyToRender.map((p, index) => (
+                  <p key={index}>{p}</p>
+                ))}
+              </div>
             </div>
           </div>
-          <div className="lg:col-span-7 space-y-8">
-            <h2 className="text-xs uppercase tracking-[0.25em] font-semibold text-black/40">
-              Our Core Philosophy
-            </h2>
-            <h3 className="text-3xl md:text-4xl font-light tracking-tight leading-snug">
-              {culturePage?.philosophyQuote || '"We don\'t manage people. We manage missions."'}
-            </h3>
-            <div className="space-y-6 text-base text-black/60 font-light leading-relaxed">
-              {bodyToRender.map((p, index) => (
-                <p key={index}>{p}</p>
+        </section>
+      )}
+
+      {/* Core Values Grid */}
+      {valuesToRender.length > 0 && (
+        <section className="section-spacing px-6 md:px-12 border-b border-black/10">
+          <div className="max-w-7xl mx-auto space-y-16">
+            <div className="space-y-4">
+              <h2 className="text-xs uppercase tracking-[0.25em] font-semibold text-black/40">
+                {culturePage?.valuesTitle || 'Our Values'}
+              </h2>
+              <p className="text-3xl md:text-4xl font-light tracking-tight max-w-2xl">
+                {culturePage?.valuesSubtitle || 'The operating principles we live and work by every single day.'}
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {valuesToRender.map((val) => (
+                <div key={val.num} className="border border-black/10 p-8 space-y-6 bg-[#f4f4f4] hover:border-black/30 transition-colors duration-300">
+                  <span className="text-xs font-mono text-[#0055ff] font-semibold">{val.num} /</span>
+                  <h3 className="text-xl font-medium tracking-tight">{val.title}</h3>
+                  <p className="text-sm text-black/60 font-light leading-relaxed">
+                    {val.description}
+                  </p>
+                </div>
               ))}
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Core Values Grid */}
-      <section className="section-spacing px-6 md:px-12 border-b border-black/10">
-        <div className="max-w-7xl mx-auto space-y-16">
-          <div className="space-y-4">
-            <h2 className="text-xs uppercase tracking-[0.25em] font-semibold text-black/40">
-              {culturePage?.valuesTitle || 'Our Values'}
-            </h2>
-            <p className="text-3xl md:text-4xl font-light tracking-tight max-w-2xl">
-              {culturePage?.valuesSubtitle || 'The operating principles we live and work by every single day.'}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {valuesToRender.map((val) => (
-              <div key={val.num} className="border border-black/10 p-8 space-y-6 bg-[#f4f4f4] hover:border-black/30 transition-colors duration-300">
-                <span className="text-xs font-mono text-[#0055ff] font-semibold">{val.num} /</span>
-                <h3 className="text-xl font-medium tracking-tight">{val.title}</h3>
-                <p className="text-sm text-black/60 font-light leading-relaxed">
-                  {val.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Call to Action */}
       <section className="section-spacing px-6 md:px-12">

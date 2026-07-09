@@ -147,12 +147,7 @@ export default function Home() {
 
   const metricsToRender = homepage?.impactMetrics?.length
     ? homepage.impactMetrics
-    : [
-        { category: 'Environmental', value: '100%', description: 'Electric vehicle-based deliveries across our entire fleet by 2030.' },
-        { category: 'Climate', value: '2033', description: 'Target date to achieve Net-Zero greenhouse gas emissions across our value chain.' },
-        { category: 'Socioeconomic', value: '1.2M+', description: 'Delivery partners and local merchants empowered with active livelihoods.' },
-        { category: 'Ecology', value: '100%', description: 'Plastic-neutral food and grocery delivery order fulfillment achieved.' }
-      ];
+    : [];
 
   return (
     <div className="bg-[#f4f4f4] min-h-screen text-black font-sans selection:bg-[#0055ff]/10 selection:text-black">
@@ -227,63 +222,65 @@ export default function Home() {
       </section>
 
       {/* SECTION 3: BUSINESSES SECTION */}
-      <section className="section-spacing px-6 md:px-12 border-b border-black/10">
-        <div className="max-w-7xl mx-auto space-y-16">
-          <div className="space-y-4">
-            <h2 className="text-xs uppercase tracking-[0.25em] font-semibold text-black/40">
-              Our Businesses
-            </h2>
-            <p className="text-3xl md:text-4xl font-light tracking-tight max-w-2xl text-black">
-              {homepage?.businessSectionSubtitle || 'Under the LocalSM umbrella, we operate three market-leading hyper-local platforms.'}
-            </p>
-          </div>
+      {businesses.length > 0 && (
+        <section className="section-spacing px-6 md:px-12 border-b border-black/10">
+          <div className="max-w-7xl mx-auto space-y-16">
+            <div className="space-y-4">
+              <h2 className="text-xs uppercase tracking-[0.25em] font-semibold text-black/40">
+                Our Businesses
+              </h2>
+              <p className="text-3xl md:text-4xl font-light tracking-tight max-w-2xl text-black">
+                {homepage?.businessSectionSubtitle || 'Under the LocalSM umbrella, we operate three market-leading hyper-local platforms.'}
+              </p>
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {businesses.map((business) => (
-              <div
-                key={business.title}
-                className="grayscale-hover-container border border-black/10 flex flex-col h-full bg-[#f4f4f4] transition-all duration-300 hover:border-black/30"
-              >
-                <div className="aspect-[16/10] overflow-hidden bg-black/5 border-b border-black/10">
-                  <img
-                    src={business.image || '/images/delivery-rider.jpg'}
-                    alt={business.title}
-                    className="grayscale-hover-img w-full h-full object-cover"
-                  />
-                </div>
-                <div className="p-8 flex flex-col justify-between flex-grow space-y-6">
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <h3 className="text-xl font-medium tracking-tight">{business.title}</h3>
-                      {business.points?.[0]?.title ? (
-                        <span className="text-xs font-mono px-2 py-0.5 border border-[#0055ff] text-[#0055ff]">
-                          {business.points[0].title.toUpperCase()}
-                        </span>
-                      ) : null}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {businesses.map((business) => (
+                <div
+                  key={business.title}
+                  className="grayscale-hover-container border border-black/10 flex flex-col h-full bg-[#f4f4f4] transition-all duration-300 hover:border-black/30"
+                >
+                  <div className="aspect-[16/10] overflow-hidden bg-black/5 border-b border-black/10">
+                    <img
+                      src={business.image || '/images/delivery-rider.jpg'}
+                      alt={business.title}
+                      className="grayscale-hover-img w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="p-8 flex flex-col justify-between flex-grow space-y-6">
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-xl font-medium tracking-tight">{business.title}</h3>
+                        {business.points?.[0]?.title ? (
+                          <span className="text-xs font-mono px-2 py-0.5 border border-[#0055ff] text-[#0055ff]">
+                            {business.points[0].title.toUpperCase()}
+                          </span>
+                        ) : null}
+                      </div>
+                      <p className="text-sm text-black/60 font-light leading-relaxed">
+                        {business.description}
+                      </p>
                     </div>
-                    <p className="text-sm text-black/60 font-light leading-relaxed">
-                      {business.description}
-                    </p>
-                  </div>
-                  <div className="pt-4 border-t border-black/5">
-                    <a
-                      href={business.ctaLink || '#'}
-                      onClick={(e) => {
-                        if (!business.ctaLink || business.ctaLink === '#') {
-                          e.preventDefault();
-                        }
-                      }}
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-black hover:text-[#0055ff] transition-colors"
-                    >
-                      {business.ctaText || 'Explore Platform'} <span className="text-[#0055ff]">→</span>
-                    </a>
+                    <div className="pt-4 border-t border-black/5">
+                      <a
+                        href={business.ctaLink || '#'}
+                        onClick={(e) => {
+                          if (!business.ctaLink || business.ctaLink === '#') {
+                            e.preventDefault();
+                          }
+                        }}
+                        className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-black hover:text-[#0055ff] transition-colors"
+                      >
+                        {business.ctaText || 'Explore Platform'} <span className="text-[#0055ff]">→</span>
+                      </a>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* SECTION 4 & 5: VISION & MISSION SECTION */}
       <section className="section-spacing px-6 md:px-12 border-b border-black/10 bg-black/[0.02]">
@@ -317,40 +314,42 @@ export default function Home() {
       </section>
 
       {/* SECTION 6: IMPACT SECTION */}
-      <section className="section-spacing px-6 md:px-12 border-b border-black/10">
-        <div className="max-w-7xl mx-auto space-y-16">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <div className="space-y-4">
-              <h2 className="text-xs uppercase tracking-[0.25em] font-semibold text-black/40">
-                Impact & Responsibility
-              </h2>
-              <p className="text-3xl md:text-4xl font-light tracking-tight max-w-2xl text-black">
-                Our growth is intrinsically linked to the health of our communities and planet.
-              </p>
-            </div>
-            <div>
-              <Link
-                to="/impact"
-                className="inline-flex items-center gap-2 text-sm font-medium border-b border-[#0055ff] pb-1 hover:text-[#0055ff] transition-colors focus:outline-none"
-              >
-                View our ESG Factsheet <ArrowRight size={14} />
-              </Link>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {metricsToRender.map((metric, i) => (
-              <div key={i} className="border border-black/10 p-8 space-y-4 bg-[#f4f4f4]">
-                <span className="text-xs font-mono text-black/40 uppercase tracking-widest">{metric.category}</span>
-                <p className="text-5xl md:text-6xl font-light tracking-tight text-black">{metric.value}</p>
-                <p className="text-sm text-black/60 font-light leading-relaxed">
-                  {metric.description}
+      {metricsToRender.length > 0 && (
+        <section className="section-spacing px-6 md:px-12 border-b border-black/10">
+          <div className="max-w-7xl mx-auto space-y-16">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+              <div className="space-y-4">
+                <h2 className="text-xs uppercase tracking-[0.25em] font-semibold text-black/40">
+                  Impact & Responsibility
+                </h2>
+                <p className="text-3xl md:text-4xl font-light tracking-tight max-w-2xl text-black">
+                  Our growth is intrinsically linked to the health of our communities and planet.
                 </p>
               </div>
-            ))}
+              <div>
+                <Link
+                  to="/impact"
+                  className="inline-flex items-center gap-2 text-sm font-medium border-b border-[#0055ff] pb-1 hover:text-[#0055ff] transition-colors focus:outline-none"
+                >
+                  View our ESG Factsheet <ArrowRight size={14} />
+                </Link>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {metricsToRender.map((metric, i) => (
+                <div key={i} className="border border-black/10 p-8 space-y-4 bg-[#f4f4f4]">
+                  <span className="text-xs font-mono text-black/40 uppercase tracking-widest">{metric.category}</span>
+                  <p className="text-5xl md:text-6xl font-light tracking-tight text-black">{metric.value}</p>
+                  <p className="text-sm text-black/60 font-light leading-relaxed">
+                    {metric.description}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* SECTION 7: CULTURE SECTION */}
       <section className="section-spacing px-6 md:px-12">
