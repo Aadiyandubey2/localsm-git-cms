@@ -51,7 +51,7 @@ jobs:
 
       - name: Commit and push
         run: |
-          git config user.name "Aadiyan Dubey"
+          git config user.name "Aadiyandubey2"
           git config user.email "dubey0079@gmail.com"
           git add -A
           # Only commit if there are changes
