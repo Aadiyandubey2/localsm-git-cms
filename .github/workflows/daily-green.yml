@@ -1,0 +1,64 @@
+name: Daily Green Commit
+
+on:
+  schedule:
+    # Runs every day at 00:30 UTC (06:00 IST)
+    - cron: '30 0 * * *'
+  workflow_dispatch: # Allow manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  daily-update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Update footer timestamp
+        run: |
+          TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%S.000Z")
+          DATE_DISPLAY=$(date -u +"%Y-%m-%d")
+
+          # Update the updatedAt field in footers.json
+          if command -v python3 &> /dev/null; then
+            python3 << EOF
+          import json, sys
+          from datetime import datetime, timezone
+
+          now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
+
+          fp = "backend/data/footers.json"
+          try:
+              with open(fp, "r") as f:
+                  data = json.load(f)
+              if isinstance(data, list) and len(data) > 0:
+                  data[0]["updatedAt"] = now
+              with open(fp, "w") as f:
+                  json.dump(data, f, indent=2)
+                  f.write("\n")
+              print(f"Updated footers.json timestamp to {now}")
+          except Exception as e:
+              print(f"Error: {e}", file=sys.stderr)
+              sys.exit(1)
+          EOF
+          else
+            echo "Python3 not available, using sed"
+            sed -i "s/\"updatedAt\": \"[^\"]*\"/\"updatedAt\": \"${TIMESTAMP}\"/" backend/data/footers.json
+          fi
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          # Only commit if there are changes
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            DATE_DISPLAY=$(date -u +"%b %d, %Y")
+            git commit -m "chore: daily sync — ${DATE_DISPLAY}"
+            git push
+          fi
