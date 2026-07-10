@@ -293,11 +293,10 @@ export const fallbackHero: HeroDocument = {
 };
 
 export const fallbackFounder: FounderDocument = {
-	name: 'Kabir Sharma',
-	title: 'Founder & CEO',
-	portraitImage: '/images/founder.jpg',
-	quote:
-		'Our journey has always been about empowering those who make our cities run. As we evolve, our responsibility to build a permanent, resilient, and sustainable ecosystem only deepens.',
+	name: '',
+	title: '',
+	portraitImage: '',
+	quote: '',
 };
 
 export const fallbackBusinesses: BusinessDocument[] = [

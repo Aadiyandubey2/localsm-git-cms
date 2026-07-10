@@ -31,8 +31,11 @@ export function FounderMessageContent({
     if (
       trimmed === 'Sincerely,' ||
       trimmed === founderName ||
-      trimmed === `${founderTitle}, LocalSM Limited` ||
-      trimmed === 'Founder & CEO, LocalSM Limited'
+      trimmed.startsWith(`${founderTitle},`) ||
+      trimmed.startsWith('Founder & CEO,') ||
+      trimmed.startsWith('Founder & CEO') ||
+      trimmed === `— ${founderName}` ||
+      trimmed.startsWith(`— ${founderName}`)
     ) {
       return;
     }

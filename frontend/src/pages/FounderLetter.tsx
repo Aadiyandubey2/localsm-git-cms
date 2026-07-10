@@ -27,7 +27,7 @@ export default function FounderLetter() {
         const [founderDocument, businessDocuments, settingsDocument] = await Promise.all([
           getActiveDocument<FounderDocument>('/founders'),
           getActiveBusinesses(),
-          getActiveDocument<WebsiteSettingsDocument>('/settings'),
+          getActiveDocument<WebsiteSettingsDocument>('/website-settings'),
         ]);
 
         if (!isMounted) {
@@ -110,9 +110,9 @@ export default function FounderLetter() {
             </span>
           </div>
           <h1 className="text-4xl md:text-6xl font-light tracking-tight leading-tight">
-            {founder.letterTitle && founder.letterTitle.includes('Kabir Sharma') && founder.name !== 'Kabir Sharma'
+            {founder.name
               ? `A note from our Founder, ${founder.name}.`
-              : (founder.letterTitle || `A note from our Founder, ${founder.name}.`)}
+              : (founder.letterTitle || "A note from our Founder.")}
           </h1>
           <div className="flex justify-between items-center text-xs font-mono text-black/40 pt-4">
             <span>DATE: {founder.letterDate || '6 FEBRUARY 2026'}</span>
