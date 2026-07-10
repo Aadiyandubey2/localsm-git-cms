@@ -18,6 +18,10 @@
   ],
   "rewrites": [
     {
+      "source": "/sitemap.xml",
+      "destination": "backend/api/index.js"
+    },
+    {
       "source": "/api/:path*",
       "destination": "backend/api/index.js"
     },
@@ -42,7 +46,7 @@
       "destination": "frontend/vite.svg"
     },
     {
-      "source": "/((?!api/|uploads/|assets/|images/|favicon.svg|vite.svg).*)",
+      "source": "/((?!api/|uploads/|assets/|images/|favicon.svg|vite.svg|sitemap.xml).*)",
       "destination": "frontend/index.html"
     }
   ]
