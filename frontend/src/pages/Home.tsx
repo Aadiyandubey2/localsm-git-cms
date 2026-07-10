@@ -2,9 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import {
-  fallbackBusinesses,
-  fallbackFounder,
-  fallbackHero,
   getActiveBusinesses,
   getActiveDocument,
   type BusinessDocument,
@@ -13,13 +10,10 @@ import {
   type HomepageDocument,
 } from '../api/cms';
 
-const founderTeaser =
-  'In my latest letter to shareholders and partners, I outline why we are bringing our delivery, quick-commerce, and merchant software arms under a single unified corporate identity: LocalSM. This isn\'t a rebranding of our customer-facing apps; it is an alignment of our long-term mission to build institutions that endure.';
-
 export default function Home() {
-  const [hero, setHero] = useState<HeroDocument>(fallbackHero);
-  const [founder, setFounder] = useState<FounderDocument>(fallbackFounder);
-  const [businesses, setBusinesses] = useState<BusinessDocument[]>(fallbackBusinesses);
+  const [hero, setHero] = useState<HeroDocument | null>(null);
+  const [founder, setFounder] = useState<FounderDocument | null>(null);
+  const [businesses, setBusinesses] = useState<BusinessDocument[]>([]);
   const [homepage, setHomepage] = useState<HomepageDocument | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -40,11 +34,11 @@ export default function Home() {
         }
 
         if (heroDocument) {
-          setHero({ ...fallbackHero, ...heroDocument });
+          setHero(heroDocument);
         }
 
         if (founderDocument) {
-          setFounder({ ...fallbackFounder, ...founderDocument });
+          setFounder(founderDocument);
         }
 
         if (businessDocuments.length > 0) {
@@ -152,39 +146,42 @@ export default function Home() {
   return (
     <div className="bg-[#f4f4f4] min-h-screen text-black font-sans selection:bg-[#0055ff]/10 selection:text-black">
       {/* SECTION 1: HERO SECTION */}
+      {hero && (
       <section className="relative min-h-[90vh] flex flex-col justify-center pt-32 pb-20 px-6 md:px-12 border-b border-black/10">
         <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-8 space-y-8">
             <div className="inline-block border-b border-[#0055ff] pb-1.5">
               <span className="text-xs uppercase tracking-[0.25em] font-medium text-black/60">
-                {hero.subtitle || 'Corporate Announcement'}
+                {hero?.subtitle}
               </span>
             </div>
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-light tracking-tight leading-[1.05] text-black">
-              {hero.title}
+              {hero?.title}
             </h1>
             <p className="text-lg md:text-xl text-black/60 font-light max-w-2xl leading-relaxed">
-              {hero.description}
+              {hero?.description}
             </p>
           </div>
           <div className="lg:col-span-4 h-full flex items-center justify-center">
             {/* Grayscale hover image container */}
             <div className="grayscale-hover-container relative w-full aspect-[4/5] bg-black/5 overflow-hidden border border-black/10">
               <img
-                src={hero.image || '/images/hero-building.jpg'}
-                alt={hero.title}
+                src={hero?.image || '/images/hero-building.jpg'}
+                alt={hero?.title}
                 className="grayscale-hover-img w-full h-full object-cover"
               />
               <div className="absolute bottom-4 left-4 right-4 bg-[#f4f4f4]/90 backdrop-blur-sm p-4 border border-black/5">
-                <p className="text-xs font-mono text-black/40">{homepage?.heroImageCode || 'HQ-01 // GURUGRAM'}</p>
-                <p className="text-sm font-medium mt-0.5 text-black">{homepage?.heroImageCaption || 'LocalSM Corporate Headquarters'}</p>
+                <p className="text-xs font-mono text-black/40">{homepage?.heroImageCode}</p>
+                <p className="text-sm font-medium mt-0.5 text-black">{homepage?.heroImageCaption}</p>
               </div>
             </div>
           </div>
         </div>
       </section>
+      )}
 
       {/* SECTION 2: FOUNDER NOTE SECTION */}
+      {founder && founder.name && (
       <section className="section-spacing px-6 md:px-12 border-b border-black/10">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
           <div className="lg:col-span-4 space-y-6">
@@ -193,20 +190,20 @@ export default function Home() {
             </h2>
             <div className="grayscale-hover-container relative aspect-[3/4] max-w-[320px] bg-black/5 overflow-hidden border border-black/10">
               <img
-                src={founder.portraitImage || '/images/founder.jpg'}
-                alt={`${founder.name}, ${founder.title || 'Founder & CEO'}`}
+                src={founder?.portraitImage || '/images/founder.jpg'}
+                alt={`${founder?.name}, ${founder?.title}`}
                 className="grayscale-hover-img w-full h-full object-cover"
               />
             </div>
           </div>
           <div className="lg:col-span-8 flex flex-col justify-between">
             <div className="space-y-6 mt-8 lg:mt-12">
-              <span className="text-sm font-mono text-black/50">{homepage?.founderLetterDate || 'February 6, 2026'}</span>
+              <span className="text-sm font-mono text-black/50">{homepage?.founderLetterDate}</span>
               <h3 className="text-3xl md:text-4xl font-light tracking-tight leading-snug">
-                “{founder.quote}”
+                "{founder?.quote}"
               </h3>
               <p className="text-base text-black/60 font-light leading-relaxed max-w-3xl">
-                {homepage?.founderTeaser || founderTeaser}
+                {homepage?.founderTeaser}
               </p>
             </div>
             <div className="mt-10">
@@ -214,12 +211,13 @@ export default function Home() {
                 to="/founder-letter"
                 className="inline-flex items-center gap-2 text-sm font-medium border-b border-[#0055ff] pb-1 hover:text-[#0055ff] transition-colors focus:outline-none"
               >
-                Read the full Founder’s Letter <ArrowRight size={14} />
+                Read the full Founder's Letter <ArrowRight size={14} />
               </Link>
             </div>
           </div>
         </div>
       </section>
+      )}
 
       {/* SECTION 3: BUSINESSES SECTION */}
       {businesses.length > 0 && (
@@ -230,7 +228,7 @@ export default function Home() {
                 Our Businesses
               </h2>
               <p className="text-3xl md:text-4xl font-light tracking-tight max-w-2xl text-black">
-                {homepage?.businessSectionSubtitle || 'Under the LocalSM umbrella, we operate three market-leading hyper-local platforms.'}
+                {homepage?.businessSectionSubtitle}
               </p>
             </div>
 
@@ -291,10 +289,10 @@ export default function Home() {
               Our Vision
             </h2>
             <h3 className="text-3xl md:text-5xl font-light tracking-tight leading-tight text-black">
-              {homepage?.visionTitle || 'Enduring institutions built on local empowerment.'}
+              {homepage?.visionTitle}
             </h3>
             <p className="text-base text-black/60 font-light leading-relaxed">
-              {homepage?.visionDescription || 'LocalSM envisions a future where local commerce, hyper-local connectivity, and sustainable growth form the foundation of enduring community success. We build systems that stand the test of time, adapting to changing consumer behaviors while keeping the local merchant at the core of the economy.'}
+              {homepage?.visionDescription}
             </p>
           </div>
 
@@ -304,10 +302,10 @@ export default function Home() {
               Our Mission
             </h2>
             <h3 className="text-3xl md:text-5xl font-light tracking-tight leading-tight text-black">
-              {homepage?.missionTitle || 'To endure, evolve, and empower.'}
+              {homepage?.missionTitle}
             </h3>
             <p className="text-base text-black/60 font-light leading-relaxed">
-              {homepage?.missionDescription || 'We build hyper-local platforms that redefine local commerce, uplift communities, and embody the promise of permanence through constant adaptation. We challenge our own ideas daily, dismantle what works to build what is better, and share our success with the millions of partners who depend on us.'}
+              {homepage?.missionDescription}
             </p>
           </div>
         </div>
@@ -356,13 +354,13 @@ export default function Home() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-7 space-y-6">
             <h2 className="text-xs uppercase tracking-[0.25em] font-semibold text-black/40">
-              {homepage?.cultureTeaserSubtitle || 'Working at LocalSM'}
+              {homepage?.cultureTeaserSubtitle}
             </h2>
             <h3 className="text-4xl md:text-6xl lg:text-7xl font-light tracking-tight leading-[1.1] text-black">
-              {homepage?.cultureTeaserTitle || 'This place is designed to make you feel uncomfortable.'}
+              {homepage?.cultureTeaserTitle}
             </h3>
             <p className="text-base text-black/60 font-light leading-relaxed max-w-2xl">
-              {homepage?.cultureTeaserDescription || 'We don’t settle. We don’t rest on legacy success. We operate with extreme transparency, high ownership, and a relentless pace. If you thrive on comfort, this is not the place for you. If you thrive on building enduring things that matter, we should talk.'}
+              {homepage?.cultureTeaserDescription}
             </p>
             <div className="pt-4">
               <Link
@@ -376,7 +374,7 @@ export default function Home() {
           <div className="lg:col-span-5">
             <div className="grayscale-hover-container relative aspect-[4/3] bg-black/5 overflow-hidden border border-black/10">
               <img
-                src={homepage?.cultureTeaserImage || '/images/office-interior.jpg'}
+                src={homepage?.cultureTeaserImage}
                 alt="LocalSM Work Environment"
                 className="grayscale-hover-img w-full h-full object-cover"
               />

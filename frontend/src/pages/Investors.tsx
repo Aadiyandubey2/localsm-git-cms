@@ -10,9 +10,9 @@ import {
 } from '../api/cms';
 
 export default function Investors() {
-  const [stockPrice, setStockPrice] = useState(248.50);
-  const [priceChange, setPriceChange] = useState(1.85);
-  const [priceChangePercent, setPriceChangePercent] = useState(0.75);
+  const [stockPrice, setStockPrice] = useState(0);
+  const [priceChange, setPriceChange] = useState(0);
+  const [priceChangePercent, setPriceChangePercent] = useState(0);
 
   const [investorsPage, setInvestorsPage] = useState<InvestorsPageDocument | null>(null);
   const [boardMembers, setBoardMembers] = useState<BoardMemberDocument[]>([]);
@@ -122,12 +122,16 @@ export default function Investors() {
               Investor Relations
             </span>
           </div>
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-light tracking-tight leading-[1.05] max-w-5xl">
-            {investorsPage?.heroTitle || 'Long-term value through discipline.'}
-          </h1>
-          <p className="text-xl md:text-2xl text-black/60 font-light max-w-3xl leading-relaxed">
-            {investorsPage?.heroDescription || `LocalSM Limited (NSE: ${investorsPage?.stockSymbol || 'LOCALS'} / BSE: 544444) is committed to building a sustainable, profitable, and highly resilient hyper-local commerce ecosystem. We prioritize long-term cash flow generation and governance over short-term optimization.`}
-          </p>
+          {investorsPage?.heroTitle && (
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-light tracking-tight leading-[1.05] max-w-5xl">
+              {investorsPage.heroTitle}
+            </h1>
+          )}
+          {investorsPage?.heroDescription && (
+            <p className="text-xl md:text-2xl text-black/60 font-light max-w-3xl leading-relaxed">
+              {investorsPage.heroDescription}
+            </p>
+          )}
         </div>
       </section>
 
@@ -149,25 +153,25 @@ export default function Investors() {
                       +{priceChange.toFixed(2)} (+{priceChangePercent.toFixed(2)}%)
                     </div>
                   </div>
-                  <p className="text-xs text-black/40 font-mono">{investorsPage?.stockSymbol || 'LOCALS'} // ISIN: {investorsPage?.stockIsin || 'INE000001010'} // Delayed by 5 mins</p>
+                  <p className="text-xs text-black/40 font-mono">{investorsPage?.stockSymbol || ''} {investorsPage?.stockIsin ? `// ISIN: ${investorsPage.stockIsin}` : ''} // Delayed by 5 mins</p>
                 </div>
 
                 <div className="grid grid-cols-2 gap-6 pt-4 border-t border-black/5">
                   <div>
                     <p className="text-xs text-black/40 font-mono uppercase">Market Cap</p>
-                    <p className="text-lg font-medium">{investorsPage?.marketCap || '₹78,450 Cr'}</p>
+                    <p className="text-lg font-medium">{investorsPage?.marketCap || '—'}</p>
                   </div>
                   <div>
                     <p className="text-xs text-black/40 font-mono uppercase">P/E Ratio</p>
-                    <p className="text-lg font-medium">{investorsPage?.peRatio || '68.4'}</p>
+                    <p className="text-lg font-medium">{investorsPage?.peRatio || '—'}</p>
                   </div>
                   <div>
                     <p className="text-xs text-black/40 font-mono uppercase">52-Week High</p>
-                    <p className="text-lg font-medium">{investorsPage?.fiftyTwoWeekHigh || '₹268.00'}</p>
+                    <p className="text-lg font-medium">{investorsPage?.fiftyTwoWeekHigh || '—'}</p>
                   </div>
                   <div>
                     <p className="text-xs text-black/40 font-mono uppercase">52-Week Low</p>
-                    <p className="text-lg font-medium">{investorsPage?.fiftyTwoWeekLow || '₹134.50'}</p>
+                    <p className="text-lg font-medium">{investorsPage?.fiftyTwoWeekLow || '—'}</p>
                   </div>
                 </div>
               </div>

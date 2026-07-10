@@ -2,9 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import {
-  fallbackBusinesses,
-  fallbackFounder,
-  fallbackWebsiteSettings,
   getActiveBusinesses,
   getActiveDocument,
   type BusinessDocument,
@@ -14,9 +11,9 @@ import {
 import { FounderMessageContent } from '../utils/founderMessage';
 
 export default function FounderLetter() {
-  const [founder, setFounder] = useState<FounderDocument>(fallbackFounder);
-  const [businesses, setBusinesses] = useState<BusinessDocument[]>(fallbackBusinesses);
-  const [settings, setSettings] = useState<WebsiteSettingsDocument>(fallbackWebsiteSettings);
+  const [founder, setFounder] = useState<FounderDocument | null>(null);
+  const [businesses, setBusinesses] = useState<BusinessDocument[]>([]);
+  const [settings, setSettings] = useState<WebsiteSettingsDocument | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -35,7 +32,7 @@ export default function FounderLetter() {
         }
 
         if (founderDocument) {
-          setFounder({ ...fallbackFounder, ...founderDocument });
+          setFounder(founderDocument);
         }
 
         if (businessDocuments.length > 0) {
@@ -65,9 +62,7 @@ export default function FounderLetter() {
     return (
       <div className="bg-[#f4f4f4] min-h-screen text-black font-sans pt-32 pb-20 selection:bg-[#0055ff]/10 selection:text-black">
         <div className="max-w-4xl mx-auto px-6 md:px-12 space-y-12 animate-pulse">
-          {/* Back link */}
           <div className="h-4 w-32 rounded bg-black/10"></div>
-          {/* Header */}
           <div className="space-y-6 border-b border-black/10 pb-8">
             <div className="h-4 w-36 rounded bg-black/10"></div>
             <div className="h-12 w-3/4 rounded bg-black/10"></div>
@@ -76,7 +71,6 @@ export default function FounderLetter() {
               <div className="h-3 w-28 rounded bg-black/10"></div>
             </div>
           </div>
-          {/* Body Lines */}
           <div className="space-y-6">
             <div className="h-4 w-full rounded bg-black/10"></div>
             <div className="h-4 w-11/12 rounded bg-black/10"></div>
@@ -84,6 +78,22 @@ export default function FounderLetter() {
             <div className="h-4 w-5/6 rounded bg-black/10"></div>
             <div className="h-4 w-full rounded bg-black/10"></div>
           </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!founder) {
+    return (
+      <div className="bg-[#f4f4f4] min-h-screen text-black font-sans pt-32 pb-20 selection:bg-[#0055ff]/10 selection:text-black">
+        <div className="max-w-4xl mx-auto px-6 md:px-12 text-center space-y-4">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-black/50 hover:text-black transition-colors"
+          >
+            <ArrowLeft size={14} /> Back to Homepage
+          </Link>
+          <p className="text-black/40 text-lg font-light">No founder letter available yet.</p>
         </div>
       </div>
     );
@@ -106,7 +116,7 @@ export default function FounderLetter() {
         <div className="space-y-6 border-b border-black/10 pb-8">
           <div className="inline-block border-b border-[#0055ff] pb-1.5">
             <span className="text-xs uppercase tracking-[0.25em] font-medium text-black/60">
-              Founder’s Statement
+              Founder's Statement
             </span>
           </div>
           <h1 className="text-4xl md:text-6xl font-light tracking-tight leading-tight">
@@ -115,8 +125,8 @@ export default function FounderLetter() {
               : (founder.letterTitle || "A note from our Founder.")}
           </h1>
           <div className="flex justify-between items-center text-xs font-mono text-black/40 pt-4">
-            <span>DATE: {founder.letterDate || '6 FEBRUARY 2026'}</span>
-            <span>READ TIME: {founder.readTime || '6 MINS'}</span>
+            {founder.letterDate && <span>DATE: {founder.letterDate}</span>}
+            {founder.readTime && <span>READ TIME: {founder.readTime}</span>}
           </div>
         </div>
 
@@ -127,7 +137,7 @@ export default function FounderLetter() {
               message={founder.message}
               businesses={businesses}
               founderName={founder.name}
-              founderTitle={founder.title || 'Founder & CEO'}
+              founderTitle={founder.title || ''}
             />
           ) : founder.introduction ? (
             <>
@@ -139,7 +149,7 @@ export default function FounderLetter() {
 
               {founder.calloutQuote && (
                 <blockquote className="border-l-2 border-[#0055ff] pl-6 my-10 py-2 text-2xl md:text-3xl font-light tracking-tight text-black italic">
-                  “{founder.calloutQuote}”
+                  &ldquo;{founder.calloutQuote}&rdquo;
                 </blockquote>
               )}
 
@@ -168,15 +178,20 @@ export default function FounderLetter() {
             </>
           ) : null}
 
-          <div className="pt-12 space-y-2">
-            <p className="font-mono text-xs uppercase tracking-widest text-black/40">
-              {founder.signOffLabel || 'Sincerely,'}
-            </p>
-            <p className="font-semibold text-black text-xl">{founder.name}</p>
-            <p className="text-sm text-black/50 font-mono">
-              {founder.title || 'Founder & CEO'}, {settings.siteName || 'LocalSM Limited'}
-            </p>
-          </div>
+          {/* Sign-off */}
+          {founder.name && (
+            <div className="pt-12 space-y-2">
+              <p className="font-mono text-xs uppercase tracking-widest text-black/40">
+                {founder.signOffLabel || 'Sincerely,'}
+              </p>
+              <p className="font-semibold text-black text-xl">{founder.name}</p>
+              {(founder.title || settings?.siteName) && (
+                <p className="text-sm text-black/50 font-mono">
+                  {[founder.title, settings?.siteName].filter(Boolean).join(', ')}
+                </p>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>

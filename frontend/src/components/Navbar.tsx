@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
-import { getActiveDocument, fallbackBranding, fallbackNavigation, type BrandingDocument, type NavigationDocument } from '../api/cms';
+import { getActiveDocument, type BrandingDocument, type NavigationDocument } from '../api/cms';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [navigation, setNavigation] = useState<NavigationDocument>(fallbackNavigation);
-  const [branding, setBranding] = useState<BrandingDocument>(fallbackBranding);
+  const [navigation, setNavigation] = useState<NavigationDocument | null>(null);
+  const [branding, setBranding] = useState<BrandingDocument | null>(null);
   const [loadError, setLoadError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const location = useLocation();
@@ -40,18 +40,11 @@ export default function Navbar() {
       }
 
       if (navigationDocument) {
-        setNavigation({
-          ...fallbackNavigation,
-          ...navigationDocument,
-          menuItems: navigationDocument.menuItems?.length ? navigationDocument.menuItems : fallbackNavigation.menuItems,
-        });
+        setNavigation(navigationDocument);
       }
 
       if (brandingDocument) {
-        setBranding({
-          ...fallbackBranding,
-          ...brandingDocument,
-        });
+        setBranding(brandingDocument);
       }
     } catch (error) {
       if (isMounted) {
@@ -95,9 +88,9 @@ export default function Navbar() {
     );
   }
 
-  const navLinks = navigation.menuItems.length > 0 ? navigation.menuItems : fallbackNavigation.menuItems;
-  const logoSrc = branding.logo || navigation.logo || fallbackBranding.logo || '/images/localsm-logo.svg';
-  const siteName = branding.siteName || fallbackBranding.siteName;
+  const navLinks = navigation?.menuItems ?? [];
+  const logoSrc = branding?.logo || navigation?.logo || '';
+  const siteName = branding?.siteName || '';
 
   const isActive = (path: string) => {
     if (path === '/') {
@@ -119,14 +112,14 @@ export default function Navbar() {
         <Link to="/" className="group flex items-center gap-2 focus:outline-none">
           <img src={logoSrc} alt={siteName} className="h-9 w-9 object-contain" />
           <span className="localsm-wordmark text-xl tracking-tight text-black flex items-center">
-            {branding.wordmarkText ? (
+            {branding?.wordmarkText ? (
               <>
-                {branding.wordmarkText.substring(0, branding.wordmarkHighlightIndex ?? 5)}
-                <span style={{ color: branding.wordmarkHighlightColor || '#f4b000' }}>
-                  {branding.wordmarkText.substring(branding.wordmarkHighlightIndex ?? 5)}
+                {branding?.wordmarkText.substring(0, branding?.wordmarkHighlightIndex ?? 5)}
+                <span style={{ color: branding?.wordmarkHighlightColor || '#f4b000' }}>
+                  {branding?.wordmarkText.substring(branding?.wordmarkHighlightIndex ?? 5)}
                 </span>
               </>
-            ) : siteName.startsWith('Local') ? (
+            ) : siteName && siteName.startsWith('Local') ? (
               <>
                 Local<span className="text-[#f4b000]">SM</span>
               </>
@@ -218,7 +211,7 @@ export default function Navbar() {
           })}
         </div>
       </div>
-      {loadError ? <span className="sr-only">Navigation content loaded from fallback data.</span> : null}
+
     </nav>
   );
 }

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Phone, MapPin, Check, X } from 'lucide-react';
 import {
-  fallbackWebsiteSettings,
   getActiveDocument,
   getCollection,
   submitContact,
@@ -10,48 +9,12 @@ import {
   type OfficeDocument,
 } from '../api/cms';
 
-const fallbackOffices = [
-  {
-    city: 'Gurugram (Headquarters)',
-    address: 'LocalSM Limited, 12th Floor, DLF Cyber City, Phase 3, Gurugram, Haryana - 122002',
-    phone: '+91 124 499 9999',
-  },
-  {
-    city: 'Bengaluru Office',
-    address: 'LocalSM Limited, 3rd Floor, Prestige Tech Park, Outer Ring Road, Kadubeesanahalli, Bengaluru, Karnataka - 560103',
-    phone: '+91 80 499 9999',
-  },
-  {
-    city: 'Mumbai Office',
-    address: 'LocalSM Limited, Level 4, Naman Centre, G Block, Bandra Kurla Complex, Bandra East, Mumbai, Maharashtra - 400051',
-    phone: '+91 22 499 9999',
-  },
-];
-
-const fallbackDepartmentalContacts = [
-  {
-    label: 'Media & Public Relations',
-    email: 'press@localsm.com',
-    description: 'For press releases, brand assets, and official statements.',
-  },
-  {
-    label: 'Investor Relations',
-    email: 'investors@localsm.com',
-    description: 'For shareholding queries, financial results, and analyst meets.',
-  },
-  {
-    label: 'Merchant Partnerships',
-    email: 'merchants@localsm.com',
-    description: 'For store onboarding, software training, and billing support.',
-  },
-];
-
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', subject: 'Corporate', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [submitError, setSubmitError] = useState('');
-  const [settings, setSettings] = useState<WebsiteSettingsDocument>(fallbackWebsiteSettings);
+  const [settings, setSettings] = useState<WebsiteSettingsDocument | null>(null);
 
   const [contactPage, setContactPage] = useState<ContactPageDocument | null>(null);
   const [offices, setOffices] = useState<OfficeDocument[]>([]);
@@ -133,7 +96,7 @@ export default function Contact() {
     ? contactPage.departmentalContacts
     : [];
 
-  const showContactsColumn = departmentalContacts.length > 0 || !!settings.email;
+  const showContactsColumn = departmentalContacts.length > 0 || !!settings?.email;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -166,21 +129,27 @@ export default function Contact() {
   return (
     <div className="bg-[#f4f4f4] min-h-screen text-black font-sans pt-32 pb-20 selection:bg-[#0055ff]/10 selection:text-black">
       {/* Hero Section */}
-      <section className="px-6 md:px-12 pb-20 border-b border-black/10">
-        <div className="max-w-7xl mx-auto space-y-8">
-          <div className="inline-block border-b border-[#0055ff] pb-1.5">
-            <span className="text-xs uppercase tracking-[0.25em] font-medium text-black/60">
-              Contact Us
-            </span>
+      {(contactPage?.heroTitle || contactPage?.heroDescription) && (
+        <section className="px-6 md:px-12 pb-20 border-b border-black/10">
+          <div className="max-w-7xl mx-auto space-y-8">
+            <div className="inline-block border-b border-[#0055ff] pb-1.5">
+              <span className="text-xs uppercase tracking-[0.25em] font-medium text-black/60">
+                Contact Us
+              </span>
+            </div>
+            {contactPage?.heroTitle && (
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-light tracking-tight leading-[1.05] max-w-5xl">
+                {contactPage.heroTitle}
+              </h1>
+            )}
+            {contactPage?.heroDescription && (
+              <p className="text-xl md:text-2xl text-black/60 font-light max-w-3xl leading-relaxed">
+                {contactPage.heroDescription}
+              </p>
+            )}
           </div>
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-light tracking-tight leading-[1.05] max-w-5xl">
-            {contactPage?.heroTitle || 'Get in touch.'}
-          </h1>
-          <p className="text-xl md:text-2xl text-black/60 font-light max-w-3xl leading-relaxed">
-            {contactPage?.heroDescription || 'Have a question about our operations, partnerships, investor relations, or media inquiries? Reach out to the appropriate team below, and we will get back to you as soon as possible.'}
-          </p>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Contact Form & General Inquiries */}
       <section className="section-spacing px-6 md:px-12 border-b border-black/10">
@@ -188,14 +157,16 @@ export default function Contact() {
           {/* General Inquiries */}
           {showContactsColumn && (
             <div className="lg:col-span-5 space-y-10">
-              <div className="space-y-4">
-                <h2 className="text-xs uppercase tracking-[0.25em] font-semibold text-black/40">
-                  Departmental Contacts
-                </h2>
-                <p className="text-2xl font-light tracking-tight text-black">
-                  Direct channels for specific inquiries.
-                </p>
-              </div>
+              {departmentalContacts.length > 0 && (
+                <div className="space-y-4">
+                  <h2 className="text-xs uppercase tracking-[0.25em] font-semibold text-black/40">
+                    Departmental Contacts
+                  </h2>
+                  <p className="text-2xl font-light tracking-tight text-black">
+                    Direct channels for specific inquiries.
+                  </p>
+                </div>
+              )}
 
               <div className="space-y-6">
                 {departmentalContacts.map((contact) => (
@@ -210,7 +181,7 @@ export default function Contact() {
                   </div>
                 ))}
 
-                {settings.email ? (
+                {settings?.email ? (
                   <div className="border-t border-black/10 pt-4 space-y-2">
                     <span className="text-xs font-mono text-[#0055ff] uppercase">Corporate Office</span>
                     <p className="text-sm font-medium">
@@ -232,9 +203,11 @@ export default function Contact() {
                 <h3 className="text-2xl font-light tracking-tight">
                   {contactPage?.formTitle || 'Send a Message'}
                 </h3>
-                <p className="text-xs text-black/50 font-mono uppercase">
-                  {contactPage?.formInstructions || 'All fields are required'}
-                </p>
+                {contactPage?.formInstructions && (
+                  <p className="text-xs text-black/50 font-mono uppercase">
+                    {contactPage.formInstructions}
+                  </p>
+                )}
               </div>
 
               {showSuccess ? (
@@ -330,9 +303,11 @@ export default function Contact() {
               <h2 className="text-xs uppercase tracking-[0.25em] font-semibold text-black/40">
                 {contactPage?.officeSectionTitle || 'Our Offices'}
               </h2>
-              <p className="text-3xl md:text-4xl font-light tracking-tight max-w-2xl">
-                {contactPage?.officeSectionSubtitle || 'Where we build the future of hyper-local commerce.'}
-              </p>
+              {contactPage?.officeSectionSubtitle && (
+                <p className="text-3xl md:text-4xl font-light tracking-tight max-w-2xl">
+                  {contactPage.officeSectionSubtitle}
+                </p>
+              )}
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12">

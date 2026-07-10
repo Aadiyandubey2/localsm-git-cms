@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  fallbackBranding,
-  fallbackFooter,
-  fallbackWebsiteSettings,
   getActiveDocument,
   splitFooterDescription,
   type BrandingDocument,
@@ -16,9 +13,9 @@ const CORPORATE_PATHS = new Set(['/culture', '/careers', '/investors', '/impact'
 const LEGAL_LABELS = new Set(['Privacy Policy', 'Terms of Use', 'Sitemap']);
 
 export default function Footer() {
-  const [footer, setFooter] = useState<FooterDocument>(fallbackFooter);
-  const [branding, setBranding] = useState<BrandingDocument>(fallbackBranding);
-  const [settings, setSettings] = useState<WebsiteSettingsDocument>(fallbackWebsiteSettings);
+  const [footer, setFooter] = useState<FooterDocument | null>(null);
+  const [branding, setBranding] = useState<BrandingDocument | null>(null);
+  const [settings, setSettings] = useState<WebsiteSettingsDocument | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const currentYear = new Date().getFullYear();
 
@@ -38,25 +35,15 @@ export default function Footer() {
         }
 
         if (footerDocument) {
-          setFooter({
-            ...fallbackFooter,
-            ...footerDocument,
-            links: footerDocument.links?.length ? footerDocument.links : fallbackFooter.links,
-          });
+          setFooter(footerDocument);
         }
 
         if (brandingDocument) {
-          setBranding({
-            ...fallbackBranding,
-            ...brandingDocument,
-          });
+          setBranding(brandingDocument);
         }
 
         if (settingsDocument) {
-          setSettings({
-            ...fallbackWebsiteSettings,
-            ...settingsDocument,
-          });
+          setSettings(settingsDocument);
         }
       } catch (error) {
         console.error('Failed to load footer content:', error);
@@ -108,12 +95,12 @@ export default function Footer() {
     );
   }
 
-  const logoSrc = footer.logo || branding.logo || fallbackBranding.logo || '/images/localsm-logo.svg';
-  const siteName = branding.siteName || fallbackBranding.siteName;
+  const logoSrc = footer?.logo || branding?.logo || '';
+  const siteName = branding?.siteName || '';
   const { tagline, body: descriptionBody } = splitFooterDescription(
-    footer.description || `${settings.tagline || ''} ${settings.description || ''}`.trim() || fallbackFooter.description || ''
+    footer?.description || `${settings?.tagline || ''} ${settings?.description || ''}`.trim() || ''
   );
-  const links = footer.links ?? fallbackFooter.links ?? [];
+  const links = footer?.links ?? [];
 
   const GROUP_LABELS = new Set(['LocalSM Delivery', 'Janhal', 'Local Branding Software']);
   const LEGAL_LABELS = new Set(['Privacy Policy', 'Terms of Use', 'Sitemap']);
@@ -125,15 +112,15 @@ export default function Footer() {
   );
 
   const copyrightText =
-    footer.copyrightText?.replace(String(currentYear - 1), String(currentYear)) ||
-    `© ${currentYear} ${settings.siteName || 'LocalSM Limited'}. All rights reserved.`;
+    footer?.copyrightText ||
+    (settings?.siteName ? `© ${currentYear} ${settings.siteName}. All rights reserved.` : `© ${currentYear}`);
 
-  const officeAddress = settings.address
+  const officeAddress = settings?.address
     ? `${settings.siteName || ''}\n${settings.address}`.trim()
     : '';
 
   const officeLines = officeAddress ? officeAddress.split('\n') : [];
-  const hasOfficeInfo = !!(officeAddress || settings.cin || settings.email);
+  const hasOfficeInfo = !!(officeAddress || settings?.cin || settings?.email);
 
   const renderFooterLink = (link: { label: string; href: string }, className: string) => {
     const external = link.href.startsWith('http://') || link.href.startsWith('https://') || link.href.startsWith('//');
@@ -157,11 +144,11 @@ export default function Footer() {
             <Link to="/" className="flex items-center gap-2 text-xl tracking-tight text-black">
               <img src={logoSrc} alt={siteName} className="h-9 w-9 object-contain" />
               <span className="localsm-wordmark">
-                {branding.wordmarkText ? (
+                {branding?.wordmarkText ? (
                   <>
-                    {branding.wordmarkText.substring(0, branding.wordmarkHighlightIndex ?? 5)}
-                    <span style={{ color: branding.wordmarkHighlightColor || '#f4b000' }}>
-                      {branding.wordmarkText.substring(branding.wordmarkHighlightIndex ?? 5)}
+                    {branding.wordmarkText.substring(0, branding?.wordmarkHighlightIndex ?? 5)}
+                    <span style={{ color: branding?.wordmarkHighlightColor || '#f4b000' }}>
+                      {branding.wordmarkText.substring(branding?.wordmarkHighlightIndex ?? 5)}
                     </span>
                   </>
                 ) : siteName.startsWith('Local') ? (
@@ -174,40 +161,44 @@ export default function Footer() {
               </span>
             </Link>
             <p className="mt-4 text-xs tracking-wider text-black/50 uppercase font-medium">
-              {tagline || settings.tagline || 'To endure, evolve, and empower.'}
+              {tagline || settings?.tagline || ''}
             </p>
             <p className="mt-6 text-sm text-black/60 leading-relaxed font-light">
-              {descriptionBody || settings.description || 'Building the hyper-local commerce infrastructure of tomorrow.'}
+              {descriptionBody || settings?.description || ''}
             </p>
           </div>
 
           {/* Group Companies */}
-          <div>
-            <h4 className="text-xs font-semibold uppercase tracking-widest text-black/40 mb-5">
-              Group Companies
-            </h4>
-            <ul className="space-y-3">
-              {groupLinks.map((link) => (
-                <li key={link.label}>
-                  {renderFooterLink(link, "text-sm text-black/70 hover:text-[#0055ff] transition-colors duration-200 font-light")}
-                </li>
-              ))}
-            </ul>
-          </div>
+          {groupLinks.length > 0 && (
+            <div>
+              <h4 className="text-xs font-semibold uppercase tracking-widest text-black/40 mb-5">
+                Group Companies
+              </h4>
+              <ul className="space-y-3">
+                {groupLinks.map((link) => (
+                  <li key={link.label}>
+                    {renderFooterLink(link, "text-sm text-black/70 hover:text-[#0055ff] transition-colors duration-200 font-light")}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           {/* Corporate */}
-          <div>
-            <h4 className="text-xs font-semibold uppercase tracking-widest text-black/40 mb-5">
-              Corporate
-            </h4>
-            <ul className="space-y-3">
-              {corporateLinks.map((link) => (
-                <li key={link.label}>
-                  {renderFooterLink(link, "text-sm text-black/70 hover:text-[#0055ff] transition-colors duration-200 font-light")}
-                </li>
-              ))}
-            </ul>
-          </div>
+          {corporateLinks.length > 0 && (
+            <div>
+              <h4 className="text-xs font-semibold uppercase tracking-widest text-black/40 mb-5">
+                Corporate
+              </h4>
+              <ul className="space-y-3">
+                {corporateLinks.map((link) => (
+                  <li key={link.label}>
+                    {renderFooterLink(link, "text-sm text-black/70 hover:text-[#0055ff] transition-colors duration-200 font-light")}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           {/* Contact & Support */}
           <div>
@@ -227,13 +218,13 @@ export default function Footer() {
                   </p>
                 )}
                 <p className="text-sm text-black/60 font-light">
-                  {settings.cin && (
+                  {settings?.cin && (
                     <>
                       <span className="text-black/40">CIN:</span> {settings.cin}
                       <br />
                     </>
                   )}
-                  {settings.email && (
+                  {settings?.email && (
                     <>
                       <span className="text-black/40">Email:</span>{' '}
                       <a href={`mailto:${settings.email}`} className="hover:text-[#0055ff] transition-colors">
@@ -253,11 +244,7 @@ export default function Footer() {
             {copyrightText}
           </p>
           <div className="flex space-x-6">
-            {(legalLinks.length > 0 ? legalLinks : [
-              { label: 'Privacy Policy', href: '#' },
-              { label: 'Terms of Use', href: '#' },
-              { label: 'Sitemap', href: '#' },
-            ]).map((link) => {
+            {legalLinks.length > 0 && legalLinks.map((link) => {
               const external = link.href.startsWith('http://') || link.href.startsWith('https://') || link.href.startsWith('//');
               return external ? (
                 <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer" className="text-xs text-black/50 hover:text-black transition-colors font-light">

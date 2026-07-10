@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 
 const env = require('./config/env');
 const apiRoutes = require('./routes');
+const sitemapRoutes = require('./routes/sitemap.routes');
 const { notFound, errorHandler } = require('./middleware/error.middleware');
 
 const app = express();
@@ -34,6 +35,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+app.use('/sitemap.xml', sitemapRoutes);
 app.use('/api', apiRoutes);
 app.use('/', apiRoutes);
 

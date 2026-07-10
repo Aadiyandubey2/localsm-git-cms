@@ -9,7 +9,7 @@ import Investors from './pages/Investors';
 import Impact from './pages/Impact';
 import Contact from './pages/Contact';
 import FounderLetter from './pages/FounderLetter';
-import { fallbackBranding, getActiveDocument, type BrandingDocument } from './api/cms';
+import { getActiveDocument, type BrandingDocument } from './api/cms';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -27,17 +27,15 @@ function BrandingEffects() {
 
     const applyBranding = async () => {
       try {
-        const brandingDocument = await getActiveDocument<BrandingDocument>('/branding');
-        const branding = brandingDocument ? { ...fallbackBranding, ...brandingDocument } : fallbackBranding;
+        const branding = await getActiveDocument<BrandingDocument>('/branding');
 
-        if (!isMounted) {
+        if (!isMounted || !branding) {
           return;
         }
 
-        const pageTitle = branding.siteName
-          ? `${branding.siteName} — To endure, evolve, and empower`
-          : 'LocalSM — To endure, evolve, and empower';
-        document.title = pageTitle;
+        if (branding.siteName) {
+          document.title = `${branding.siteName} — ${branding.siteName}`;
+        }
 
         if (branding.favicon) {
           let faviconLink = document.querySelector<HTMLLinkElement>("link[rel='icon']");

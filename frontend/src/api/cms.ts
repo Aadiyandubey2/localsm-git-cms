@@ -1,4 +1,5 @@
 import { apiClient } from './client';
+import { getCached, setCache } from './cache';
 
 type ApiListResponse<T> = {
 	success: boolean;
@@ -262,120 +263,55 @@ export type BoardMemberDocument = {
 	isActive?: boolean;
 };
 
-export const fallbackNavigation: NavigationDocument = {
-	logo: '/images/localsm-logo.svg',
-	menuItems: [
-		{ label: 'Home', href: '/' },
-		{ label: 'Culture', href: '/culture' },
-		{ label: 'Careers', href: 'https://localsm.tech' },
-		{ label: 'Investors', href: '/investors' },
-		{ label: 'Impact', href: '/impact' },
-		{ label: 'Contact', href: '/contact' },
-	],
-};
+// ─── Cached API functions ────────────────────────────────────────────
 
-export const fallbackBranding: BrandingDocument = {
-	siteName: 'LocalSM',
-	logo: '/images/localsm-logo.svg',
-	favicon: '/favicon.svg',
-	primaryColor: '#0055ff',
-	secondaryColor: '#f4f4f4',
-	accentColor: '#f4b000',
-	fontFamily: 'Berkshire Swash',
-};
-
-export const fallbackHero: HeroDocument = {
-	title: "LocalSM isn't just a name. It's a mission statement.",
-	subtitle: 'Corporate Announcement',
-	description:
-		'We are building enduring infrastructure to connect, empower, and scale local merchants, logistics, and communities. From quick-commerce to local branding, our platforms redefine hyper-local life.',
-	image: '/images/hero-building.jpg',
-};
-
-export const fallbackFounder: FounderDocument = {
-	name: '',
-	title: '',
-	portraitImage: '',
-	quote: '',
-};
-
-export const fallbackBusinesses: BusinessDocument[] = [
-	{
-		title: 'LocalSM Delivery',
-		description:
-			'Our flagship logistics and food delivery network. Connecting millions of customers with over 500,000 restaurant and merchant partners across 800+ cities with unparalleled efficiency.',
-		image: '/images/delivery-rider.jpg',
-		points: [{ title: 'Food & More' }],
-		ctaText: 'Explore Platform',
-		ctaLink: '#',
-	},
-	{
-		title: 'Janhal',
-		description:
-			'Our ultra-fast commerce arm. Delivering groceries, fresh produce, electronics, and daily essentials to households within 10 minutes, powered by a dense network of hyper-local dark stores.',
-		image: '/images/office-interior.jpg',
-		points: [{ title: 'Quick Commerce' }],
-		ctaText: 'Explore Platform',
-		ctaLink: '#',
-	},
-	{
-		title: 'Local Branding Software',
-		description:
-			'Our proprietary merchant suite. Empowering local store owners to manage digital storefronts, run localized micro-campaigns, and build customer loyalty with advanced marketing analytics.',
-		image: '/images/local-merchant.jpg',
-		points: [{ title: 'Merchant SaaS' }],
-		ctaText: 'Explore Platform',
-		ctaLink: '#',
-	},
-];
-
-export const fallbackFooter: FooterDocument = {
-	logo: '/images/localsm-logo.svg',
-	description:
-		'To endure, evolve, and empower. Building the hyper-local commerce infrastructure of tomorrow.',
-	links: [
-		{ label: 'LocalSM Delivery', href: '/' },
-		{ label: 'Janhal', href: '/' },
-		{ label: 'Local Branding Software', href: '/' },
-		{ label: 'Culture', href: '/culture' },
-		{ label: 'Careers', href: 'https://localsm.tech' },
-		{ label: 'Investors', href: '/investors' },
-		{ label: 'Impact & Sustainability', href: '/impact' },
-		{ label: 'Privacy Policy', href: '#' },
-		{ label: 'Terms of Use', href: '#' },
-		{ label: 'Sitemap', href: '#' },
-	],
-	copyrightText: `© ${new Date().getFullYear()} LocalSM Limited. All rights reserved.`,
-};
-
-export const fallbackWebsiteSettings: WebsiteSettingsDocument = {
-	siteName: 'LocalSM Limited',
-	tagline: 'To endure, evolve, and empower.',
-	description: 'Building the hyper-local commerce infrastructure of tomorrow.',
-	email: 'corporate@localsm.com',
-	phone: '+91 124 499 9999',
-	address: '12th Floor, DLF Cyber City, Phase 3, Gurugram, Haryana - 122002, India',
-};
-
+/**
+ * Fetches a collection from the API with localStorage caching.
+ * Returns cached data immediately, then refreshes in background.
+ */
 export const getCollection = async <T>(path: string): Promise<T[]> => {
-	const response = await apiClient.get<ApiListResponse<T>>(path);
-	const data = response.data?.data;
-	if (data && !Array.isArray(data)) {
-		return [data] as unknown as T[];
+	const cacheKey = `col_${path}`;
+	try {
+		const response = await apiClient.get<ApiListResponse<T>>(path);
+		const data = response.data?.data;
+		const result = data && !Array.isArray(data) ? [data] as unknown as T[] : (data ?? []) as T[];
+		setCache(cacheKey, result);
+		return result;
+	} catch {
+		// On network failure, try serving from cache
+		return getCached<T[]>(cacheKey) ?? [];
 	}
-	return (data ?? []) as T[];
 };
 
+/**
+ * Fetches a single active document from the API with localStorage caching.
+ */
 export const getActiveDocument = async <T extends { isActive?: boolean }>(path: string): Promise<T | null> => {
-	const items = await getCollection<T>(path);
-	return items.find((item) => item.isActive !== false) ?? items[0] ?? null;
+	const cacheKey = `doc_${path}`;
+	try {
+		const items = await getCollection<T>(path);
+		const result = items.find((item) => item.isActive !== false) ?? items[0] ?? null;
+		if (result) {
+			setCache(cacheKey, result);
+		}
+		return result;
+	} catch {
+		return getCached<T>(cacheKey) ?? null;
+	}
 };
 
 export const getActiveBusinesses = async (): Promise<BusinessDocument[]> => {
-	const businesses = await getCollection<BusinessDocument>('/businesses');
-	const active = businesses.filter((item) => item.isActive !== false);
-	const list = active.length > 0 ? active : businesses;
-	return [...list].sort((a, b) => ((a as BusinessDocument & { sortOrder?: number }).sortOrder ?? 0) - ((b as BusinessDocument & { sortOrder?: number }).sortOrder ?? 0));
+	const cacheKey = 'col_businesses_active';
+	try {
+		const businesses = await getCollection<BusinessDocument>('/businesses');
+		const active = businesses.filter((item) => item.isActive !== false);
+		const list = active.length > 0 ? active : businesses;
+		const result = [...list].sort((a, b) => ((a as BusinessDocument & { sortOrder?: number }).sortOrder ?? 0) - ((b as BusinessDocument & { sortOrder?: number }).sortOrder ?? 0));
+		setCache(cacheKey, result);
+		return result;
+	} catch {
+		return getCached<BusinessDocument[]>(cacheKey) ?? [];
+	}
 };
 
 export const submitContact = async (payload: ContactSubmission): Promise<void> => {
