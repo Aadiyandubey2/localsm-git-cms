@@ -52,5 +52,24 @@
     "createdAt": "2026-07-08T11:09:05.179Z",
     "updatedAt": "2026-07-08T17:37:17.428Z",
     "slug": "local-branding-software"
+  },
+  {
+    "title": "New Business",
+    "description": "",
+    "image": "",
+    "points": [
+      {
+        "title": "",
+        "description": ""
+      }
+    ],
+    "ctaText": "Explore Platform",
+    "ctaLink": "#",
+    "isActive": true,
+    "sortOrder": 2,
+    "_id": "c36bc8f5dba0d2662e521dba",
+    "createdAt": "2026-07-15T18:30:53.429Z",
+    "updatedAt": "2026-07-15T18:30:53.429Z",
+    "slug": "new-business"
   }
 ]
