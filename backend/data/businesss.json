@@ -71,5 +71,24 @@
     "createdAt": "2026-07-15T18:30:53.429Z",
     "updatedAt": "2026-07-15T18:30:53.429Z",
     "slug": "new-business"
+  },
+  {
+    "title": "New Business",
+    "description": "",
+    "image": "",
+    "points": [
+      {
+        "title": "",
+        "description": ""
+      }
+    ],
+    "ctaText": "Explore Platform",
+    "ctaLink": "#",
+    "isActive": true,
+    "sortOrder": 2,
+    "_id": "6d9311a68d6072c1fae0890c",
+    "createdAt": "2026-07-15T18:31:09.521Z",
+    "updatedAt": "2026-07-15T18:31:09.521Z",
+    "slug": "new-business"
   }
 ]
