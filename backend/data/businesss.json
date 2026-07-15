@@ -56,7 +56,7 @@
   {
     "title": "Campus By Pnazo",
     "description": "Campus by Pnazo is a campus-exclusive quick commerce platform built to solve the everyday shopping needs of students. Unlike traditional e-commerce platforms, where deliveries can take days, Campus by Pnazo operates through an on-campus dark store, enabling delivery in as little as 10 minutes. We offer a wide range of daily essentials, including snacks, beverages, groceries, stationery, personal care products, and more at highly competitive prices, with many products available below MRP through exclusive campus offers. Currently serving campuses in Dimapur, Nagaland, our mission is to redefine student convenience by providing faster delivery, better value, and a scalable model that will expand to universities and colleges across India.",
-    "image": "",
+    "image": "https://linelpdewzchmqufupzp.supabase.co/storage/v1/object/public/images/a9d4b81e-ada6-4108-a0af-a194e1d82a7a.png",
     "points": [
       {
         "title": "Campus Quick Delivery",
@@ -69,7 +69,7 @@
     "sortOrder": 2,
     "_id": "c36bc8f5dba0d2662e521dba",
     "createdAt": "2026-07-15T18:30:53.429Z",
-    "updatedAt": "2026-07-15T18:35:38.337Z",
+    "updatedAt": "2026-07-15T18:43:22.011Z",
     "slug": "new-business"
   }
 ]
